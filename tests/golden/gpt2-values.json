@@ -1,0 +1,93 @@
+{
+  "source": "Pinned from the corrected implementation at 0.1.0a2 on 2026-09-21; these are NOT recovered study rerun numbers -- docs/validation-results.json records the original code and corrected fixtures as unavailable.",
+  "model_id": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "bos_token_id": 50256,
+  "eos_token_id": 50256,
+  "seed": 20260921,
+  "n": 512,
+  "items": [
+    {
+      "context": "The capital of France is",
+      "target": " Paris",
+      "context_tokens": [
+        464,
+        3139,
+        286,
+        4881,
+        318
+      ],
+      "target_tokens": [
+        6342
+      ],
+      "token_surprisals": [
+        3.4344159121677236
+      ],
+      "exact_surprisal": 3.4344159121677236,
+      "mc_surprisal": 3.4051112809832915,
+      "mc_se": 0.23870839278983128
+    },
+    {
+      "context": "The capital of France is",
+      "target": " Paris and the capital",
+      "context_tokens": [
+        464,
+        3139,
+        286,
+        4881,
+        318
+      ],
+      "target_tokens": [
+        6342,
+        290,
+        262,
+        3139
+      ],
+      "token_surprisals": [
+        3.4344056491468424,
+        2.1059230818918095,
+        1.7844046377954248,
+        1.1810059132204282
+      ],
+      "exact_surprisal": 8.505761864073312
+    },
+    {
+      "context": "In the beginning God created",
+      "target": " the heaven",
+      "context_tokens": [
+        818,
+        262,
+        3726,
+        1793,
+        2727
+      ],
+      "target_tokens": [
+        262,
+        9538
+      ],
+      "token_surprisals": [
+        1.0387373196827279,
+        3.6097102815999778
+      ],
+      "exact_surprisal": 4.648447601282706
+    },
+    {
+      "context": "She opened the",
+      "target": " door",
+      "context_tokens": [
+        3347,
+        4721,
+        262
+      ],
+      "target_tokens": [
+        3420
+      ],
+      "token_surprisals": [
+        1.0007585229467433
+      ],
+      "exact_surprisal": 1.0007549752874736,
+      "mc_surprisal": 1.067840630001356,
+      "mc_se": 0.061122745662804616
+    }
+  ]
+}

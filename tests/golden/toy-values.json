@@ -1,0 +1,8 @@
+{
+  "source": "Analytic binary IID distribution p(a)=3/4, p(b)=1/4; not study rerun values",
+  "probability_b": 0.25,
+  "surprisal_b": 1.3862943611198906,
+  "probability_ab": 0.1875,
+  "next_token_entropy": 0.5623351446188083,
+  "population_discrete_energy_to_b": 1.125
+}

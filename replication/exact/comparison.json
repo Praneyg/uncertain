@@ -1,0 +1,27 @@
+{
+  "rows": 1487,
+  "join_keys": [
+    "sent_id",
+    "context_length",
+    "word"
+  ],
+  "reference_sha256": "243b2926f0df04e1ffcdb5f63b9c749517f33609a7edcf0549356ade5097c549",
+  "exact_scores_sha256": "689ab23a17f8ed36a36d5edd83976cf97c74acb5d793ce62ecd681a5d71f8f5a",
+  "metrics": {
+    "surprisal_gpt2_small": {
+      "mean_absolute_error": 1.820980692899449e-05,
+      "max_absolute_error": 9.932247602151278e-05,
+      "pearson": 0.9999999999861447,
+      "absolute_tolerance": 0.001,
+      "rows_outside_tolerance": 0
+    },
+    "prob_gpt2_small": {
+      "mean_absolute_error": 8.727970004635856e-07,
+      "max_absolute_error": 1.0724093531144785e-05,
+      "pearson": 0.9999999999669291,
+      "absolute_tolerance": 0.0001,
+      "rows_outside_tolerance": 0
+    }
+  },
+  "passed": true
+}

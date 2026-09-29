@@ -1,0 +1,100 @@
+{
+  "backend": {
+    "backend": "hf-reference:v1",
+    "batching": "one-sequence",
+    "bos": 50256,
+    "device": "cpu",
+    "eos": 50256,
+    "model": {
+      "model_id": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+    },
+    "precision": "float32",
+    "tokenizer": null,
+    "torch": "2.14.0",
+    "transformers": "5.16.1"
+  },
+  "bootstrap": 199,
+  "data_sha256": "db3ccd106220e1e3d7d64871b5f7c05a9d159ef4cb639f985b792d559686f7f6",
+  "horizons": [
+    1,
+    5,
+    10,
+    15
+  ],
+  "imported_package_sources": {
+    "__init__.py": "014b1596f0692a799a033d004e5e1d2cc998ff543eeef6c9f130e1769c3203c5",
+    "alignment\\__init__.py": "95165e5ee1c454f6cce1f29dd517d1e334f161b2c4cb83ff0a6dcfe50cb82c6b",
+    "backends\\__init__.py": "d7bfe9e0cb11d93bbff7f39147b9132096976f276cc9ab6f5399751e44d57071",
+    "backends\\hf.py": "56bdca969af7dcdf0efb398980f0505e5752f4af387520fca7b6ad24a558c5a9",
+    "cli.py": "335d8258ca3c5d46bc320734c57662f6a6a584e538a2612b0367eb3abbc44388",
+    "core\\__init__.py": "3b61e9c03f0eda94fae2ec5e023901358582c69001ddbc5bd9f07f50f29f98cf",
+    "core\\results.py": "73591b819108bf8e3e3314f60e1729b7415ad9b457ebef4ada14249dc1d4bfa7",
+    "core\\specs.py": "a2a71e0bfe8c5a7b002d66709be70441f53e069cf133cb10354a85ecf10f1c48",
+    "core\\values.py": "4dd3a2ed2f34505d2ce340549c024e7872be54975d384231af74e670fe0e0276",
+    "data\\__init__.py": "43962c8927fd11fc692d2e54cb73fccfe44cd585f6ae15cd9495d65a5cd30352",
+    "distances\\__init__.py": "1fc0723e71eb8a9bd6b17f10f5534a8443fc80f5ada09fe54aac01d8273c5be1",
+    "emnlp2024.py": "a7aa45ed8547c6b9bea5f9ac51e450e7800560adb3ae6187fc69e7d25c5c5f75",
+    "encoders\\__init__.py": "0d43276a8eeb9a00032b6be031d188a3a751982c40c6083a17a1d9cf13998928",
+    "experiments\\__init__.py": "9881f15ff89121940dba88b805c8696391f144433c4e1dd789eabc4d8b0efb6c",
+    "measures\\__init__.py": "3798cba6d1df3ec4b4604030304d4892e89cc569ee2911589ae871268bfeeb04",
+    "measures\\contrasts.py": "aa30c00c312dba4afbb02ff14a5a5271253b74a32e5352d2cb3480b89f082923",
+    "registry.py": "77c904ed11006b1fc24af8e7e775d2689eb85476a6fc38ab0d09dd2b350353c2",
+    "samplers\\__init__.py": "588ad5e890a65770eb77ce3a6e5d9fb3414b3bea942cf44e50248e521ea6a280",
+    "statistics\\__init__.py": "0698fc562ad8696c508934d48d4936836e400ac4501d7a645c5498739381dd54",
+    "store\\__init__.py": "b58b954b676e73127f9b108caa51a2ef37a420a5e89c5f56894a33b1206260c6",
+    "utils\\__init__.py": "fa88c277a7d7ffdcb19382e1e20ea4ee11b3d5fbccc7728e8ab52f19b2cc7d6c",
+    "warpings\\__init__.py": "13b1c8760d316d9f37ab7549e2cdc8a4dcb54b671a62c8cba24487383f402844"
+  },
+  "model": {
+    "model_id": "openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+  },
+  "notebook_scores_sha256": "e20b2b770c9be60b43cb76c2a9f6c199d7d4eb51e9e062209d1ae81d6b3f46fd",
+  "rows": [
+    [
+      "122",
+      "8",
+      "of"
+    ],
+    [
+      "176",
+      "6",
+      "people"
+    ],
+    [
+      "119",
+      "1",
+      "sniffed"
+    ]
+  ],
+  "runner_sha256": "8fdb409ab8b9de16bd7786bc801f91d8d9b7e714412d11039230c45d865cfb42",
+  "sample_sizes": [
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512
+  ],
+  "sampler": {
+    "batch_size": 16,
+    "first_eos": "suppressed",
+    "later_eos": "stop",
+    "numpy": "2.5.3",
+    "prefix_consistent": true,
+    "sampler": "emnlp2024-gpt2-kv",
+    "version": "1"
+  },
+  "seeds": [
+    0,
+    1
+  ],
+  "shard": 0,
+  "shards": 1,
+  "source_sha256": "a7aa45ed8547c6b9bea5f9ac51e450e7800560adb3ae6187fc69e7d25c5c5f75",
+  "threads": 4,
+  "uncertain_version": "0.1.0a1"
+}

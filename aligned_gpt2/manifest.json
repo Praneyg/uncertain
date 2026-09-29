@@ -1,0 +1,180 @@
+{
+  "source": "C:\\Users\\praney\\OneDrive\\Desktop\\generalized-surprisal\\data\\psyling\\aligned.csv",
+  "source_sha256": "db3ccd106220e1e3d7d64871b5f7c05a9d159ef4cb639f985b792d559686f7f6",
+  "source_rows": 1726,
+  "processed_rows": 1726,
+  "filter": "none",
+  "limit": 0,
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "uncertain_version": "0.1.0a1",
+  "torch_version": "2.14.0+cpu",
+  "device": "cpu",
+  "threads": 4,
+  "method": "exact",
+  "sampling_calls": 0,
+  "definition": "P(target token sequence | context); surprisal=-ln(P)",
+  "text_mapping": "item.rstrip() + one space + word.lstrip(); no space for empty context",
+  "parsing": "csv.DictReader preserves literal None and other text values",
+  "boundary_rows": "retained; multi-token targets use joint token-sequence probability",
+  "started_at_utc": "2026-09-08T16:55:58.611642+00:00",
+  "elapsed_seconds": 136.1389472999981,
+  "statuses": {
+    "ok": 1726
+  },
+  "target_token_counts": {
+    "1": 1481,
+    "2": 242,
+    "3": 3
+  },
+  "mean_surprisal_nats": 4.664787113767771,
+  "comparison_to_s_GPT2": {
+    "scope": "single-token non-boundary targets with finite reference",
+    "rows": 1481,
+    "mean_absolute_error_nats": 1.031160295529707e-05,
+    "max_absolute_error_nats": 6.014501894924251e-05
+  },
+  "measure_specs": {
+    "1": {
+      "sampling": {
+        "model": {
+          "model_id": "openai-community/gpt2",
+          "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+        },
+        "n": 1,
+        "seed": 42,
+        "generation": {
+          "do_sample": true,
+          "num_beams": 1,
+          "temperature": 1.0,
+          "top_k": 0,
+          "top_p": 1.0
+        },
+        "token_budget": 128
+      },
+      "horizon": 1,
+      "short_samples": "compare_ragged",
+      "unit": {
+        "name": "token",
+        "boundary": "token:v1",
+        "pad_symbol": "<TERMINAL>"
+      },
+      "representation": {
+        "name": "tokens",
+        "config": {},
+        "version": "1"
+      },
+      "distance": "prefix_indicator",
+      "distance_config": {},
+      "statistic": {
+        "name": "mean",
+        "config": {},
+        "version": "1"
+      },
+      "warping": "neglog",
+      "estimator": {
+        "method": "exact",
+        "zero_policy": "infinite",
+        "confidence": 0.95,
+        "bootstrap": 199,
+        "correct_bias": false
+      },
+      "mode": "observed",
+      "probability": "model"
+    },
+    "2": {
+      "sampling": {
+        "model": {
+          "model_id": "openai-community/gpt2",
+          "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+        },
+        "n": 1,
+        "seed": 42,
+        "generation": {
+          "do_sample": true,
+          "num_beams": 1,
+          "temperature": 1.0,
+          "top_k": 0,
+          "top_p": 1.0
+        },
+        "token_budget": 128
+      },
+      "horizon": 2,
+      "short_samples": "compare_ragged",
+      "unit": {
+        "name": "token",
+        "boundary": "token:v1",
+        "pad_symbol": "<TERMINAL>"
+      },
+      "representation": {
+        "name": "tokens",
+        "config": {},
+        "version": "1"
+      },
+      "distance": "prefix_indicator",
+      "distance_config": {},
+      "statistic": {
+        "name": "mean",
+        "config": {},
+        "version": "1"
+      },
+      "warping": "neglog",
+      "estimator": {
+        "method": "exact",
+        "zero_policy": "infinite",
+        "confidence": 0.95,
+        "bootstrap": 199,
+        "correct_bias": false
+      },
+      "mode": "observed",
+      "probability": "model"
+    },
+    "3": {
+      "sampling": {
+        "model": {
+          "model_id": "openai-community/gpt2",
+          "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+        },
+        "n": 1,
+        "seed": 42,
+        "generation": {
+          "do_sample": true,
+          "num_beams": 1,
+          "temperature": 1.0,
+          "top_k": 0,
+          "top_p": 1.0
+        },
+        "token_budget": 128
+      },
+      "horizon": 3,
+      "short_samples": "compare_ragged",
+      "unit": {
+        "name": "token",
+        "boundary": "token:v1",
+        "pad_symbol": "<TERMINAL>"
+      },
+      "representation": {
+        "name": "tokens",
+        "config": {},
+        "version": "1"
+      },
+      "distance": "prefix_indicator",
+      "distance_config": {},
+      "statistic": {
+        "name": "mean",
+        "config": {},
+        "version": "1"
+      },
+      "warping": "neglog",
+      "estimator": {
+        "method": "exact",
+        "zero_policy": "infinite",
+        "confidence": 0.95,
+        "bootstrap": 199,
+        "correct_bias": false
+      },
+      "mode": "observed",
+      "probability": "model"
+    }
+  }
+}

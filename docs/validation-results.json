@@ -1,0 +1,51 @@
+{
+  "release": "0.1.0a1",
+  "python": "3.12.4",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "numpy": "1.26.4",
+    "torch": "2.7.1+cu118",
+    "transformers": "5.14.1",
+    "pandas": "2.2.2",
+    "pyarrow": "21.0.0",
+    "PyYAML": "6.0.1",
+    "pytest": "9.1.1",
+    "hypothesis": "6.167.1",
+    "zss": "1.2.0",
+    "ruff": "0.16.4",
+    "mypy": "2.3.1",
+    "setuptools": "75.2.0"
+  },
+  "tests": {
+    "tests": "70",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "62.541"
+  },
+  "lint": "ruff check src tests examples: passed",
+  "types": "mypy src with check_untyped_defs: passed (21 source files)",
+  "wheel": {
+    "name": "uncertain_altsets-0.1.0a1-py3-none-any.whl",
+    "sha256": "8af31490e1eea53a7610e0baada1c4597abebb86cc7884b7a94ce15aed1dbfa1",
+    "record_integrity": "passed",
+    "isolated_target_install": "passed",
+    "installed_demo": "passed",
+    "warm_demo_cache_hits": 4
+  },
+  "historical_study_reproduction": "not verified; original code and corrected fixtures unavailable",
+  "current": {
+    "release": "0.1.0a2",
+    "date": "2026-09-21",
+    "scope": "after WP1-WP4; supersedes the 0.1.0a1 block above for test counts and types",
+    "tests": {
+      "tests": "120",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    "lint": "ruff check . : passed (includes the TID banned-api reshape rule)",
+    "types": "mypy (dev extra, 2.3.1, check_untyped_defs): clean -- no issues in 41 source files across src, tests and examples. First run reported 16 errors; 11 were introduced by the WP1-WP4 work (MeasureSpec.unit/representation widened to `... | str` and then read unguarded) and were fixed by narrowing those annotations, and 5 were pre-existing numpy var-annotated requests now annotated. The pre-0.1.0a2 'mypy passes' claim was made with mypy absent from every extra and was not reproducible as stated.",
+    "golden_values": "tests/golden/gpt2-values.json pinned from the corrected implementation on openai-community/gpt2 @ 607a30d783dfa663caf39e06633721c8d4cfcd7e; not study rerun values"
+  }
+}

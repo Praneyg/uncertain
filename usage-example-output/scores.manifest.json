@@ -1,0 +1,616 @@
+{
+  "artifacts": [
+    "01f73bbfb9cbdb9c69c30bb9f9e7030ea0260a8d246ba161852ece7b3ca4337b",
+    "2b3565a6dea8049fbf83b2d383ba4a3f0b7df5993bff8f415c62109ce46c0f1b",
+    "453fc74a93fe11d673db6632b05a1620e59f2ba5b10bf8cdd2e1f537c5681ce7",
+    "4d90b9b6491aff6cc7ced9365cd504edb992dee8693348db3899558e69bc75dd",
+    "87660a7b546c7ad02de9e5745f4d8f8999e158a74694d180e9afddc743e85754",
+    "8f17ad978d706724e5e04ef32eaac38a320651df600c9acea1bf4adb6cd9f23c",
+    "9010b09efa9056924455314d211833f12162565fbcccdb048a8df6912293ba61",
+    "d2f0f0c66f45d8c857e8eff91a2ad4891d56f03e7ab30fbd029ab3287f6bb2f6",
+    "df7adb674818f7a71595e012741f19365e5912c134e94cf47ec77cac6251a086",
+    "e0e0a0af48a0f368b9810fc7f0be83acf2a93be1fc198d2c75d05b42e91488ba",
+    "ec6830fe2b308ab9b08743866e9ecd2fb554764967b67d7cbe4cc4fda3b5e0a0"
+  ],
+  "engine": "0.1.0a1",
+  "environment": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "pyarrow": "25.0.1",
+    "python": "3.12.4",
+    "torch": "2.14.0",
+    "transformers": "5.16.1"
+  },
+  "plan": {
+    "anticipated_nested_work": false,
+    "cache_hits": 4,
+    "cells": 6,
+    "horizons": [
+      3,
+      3,
+      3,
+      2
+    ],
+    "items": 3,
+    "rows": 18,
+    "sample_requests": 4
+  },
+  "run_id": "4e8b404eb1de6fac3e9bb0bbad1be070f404b697a7fc0d08476da344b1d9bdc5",
+  "schema_version": 1,
+  "specifications": {
+    "20f89f18314479c3a05a5ef1609a1c1e467bf628dda4b831371852cae02a7435": {
+      "backend": {
+        "backend": "toy:v1",
+        "eos": null,
+        "model": {
+          "model_id": "toy",
+          "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+        },
+        "rows": [
+          [
+            [],
+            [
+              0.75,
+              0.25
+            ]
+          ]
+        ],
+        "vocabulary": [
+          "a",
+          "b"
+        ]
+      },
+      "components": [
+        {
+          "encoder": "tokens",
+          "version": "1"
+        },
+        {
+          "distance": "discrete",
+          "version": "1"
+        },
+        {
+          "block_size": 64,
+          "statistic": "energy",
+          "variant": "v",
+          "version": "1"
+        },
+        {
+          "version": "1",
+          "warping": "identity"
+        }
+      ],
+      "sampler": {
+        "numpy": "2.5.3",
+        "prefix_consistent": true,
+        "sampler": "ancestral-reference",
+        "version": "1"
+      },
+      "spec": {
+        "distance": "discrete",
+        "distance_config": {},
+        "estimator": {
+          "bootstrap": 199,
+          "confidence": 0.95,
+          "correct_bias": false,
+          "method": "mc",
+          "zero_policy": "infinite"
+        },
+        "horizon": 3,
+        "mode": "observed",
+        "probability": "model",
+        "representation": {
+          "config": {},
+          "name": "tokens",
+          "version": "1"
+        },
+        "sampling": {
+          "generation": {
+            "do_sample": true,
+            "num_beams": 1,
+            "temperature": 1.0,
+            "top_k": 0,
+            "top_p": 1.0
+          },
+          "model": {
+            "model_id": "toy",
+            "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+          },
+          "n": 512,
+          "seed": 17,
+          "token_budget": 128
+        },
+        "short_samples": "compare_ragged",
+        "statistic": {
+          "config": {},
+          "name": "energy",
+          "version": "1"
+        },
+        "unit": {
+          "boundary": "token:v1",
+          "name": "token",
+          "pad_symbol": "<TERMINAL>"
+        },
+        "warping": "identity"
+      }
+    },
+    "5545764e8d193dc366bd34b894cf00e38bf3c98f60131635faffc69cd6551e07": {
+      "backend": {
+        "backend": "toy:v1",
+        "eos": null,
+        "model": {
+          "model_id": "toy",
+          "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+        },
+        "rows": [
+          [
+            [],
+            [
+              0.75,
+              0.25
+            ]
+          ]
+        ],
+        "vocabulary": [
+          "a",
+          "b"
+        ]
+      },
+      "components": [
+        {
+          "encoder": "tokens",
+          "version": "1"
+        },
+        {
+          "distance": "discrete",
+          "version": "1"
+        },
+        {
+          "block_size": 64,
+          "statistic": "energy",
+          "variant": "v",
+          "version": "1"
+        },
+        {
+          "version": "1",
+          "warping": "identity"
+        }
+      ],
+      "sampler": {
+        "numpy": "2.5.3",
+        "prefix_consistent": true,
+        "sampler": "ancestral-reference",
+        "version": "1"
+      },
+      "spec": {
+        "distance": "discrete",
+        "distance_config": {},
+        "estimator": {
+          "bootstrap": 199,
+          "confidence": 0.95,
+          "correct_bias": false,
+          "method": "mc",
+          "zero_policy": "infinite"
+        },
+        "horizon": 1,
+        "mode": "observed",
+        "probability": "model",
+        "representation": {
+          "config": {},
+          "name": "tokens",
+          "version": "1"
+        },
+        "sampling": {
+          "generation": {
+            "do_sample": true,
+            "num_beams": 1,
+            "temperature": 1.0,
+            "top_k": 0,
+            "top_p": 1.0
+          },
+          "model": {
+            "model_id": "toy",
+            "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+          },
+          "n": 512,
+          "seed": 17,
+          "token_budget": 128
+        },
+        "short_samples": "compare_ragged",
+        "statistic": {
+          "config": {},
+          "name": "energy",
+          "version": "1"
+        },
+        "unit": {
+          "boundary": "token:v1",
+          "name": "token",
+          "pad_symbol": "<TERMINAL>"
+        },
+        "warping": "identity"
+      }
+    },
+    "63ce0a1082ccb8b68af34b2e1c2934b8de757fed0882519955a39f42328dc9f1": {
+      "backend": {
+        "backend": "toy:v1",
+        "eos": null,
+        "model": {
+          "model_id": "toy",
+          "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+        },
+        "rows": [
+          [
+            [],
+            [
+              0.75,
+              0.25
+            ]
+          ]
+        ],
+        "vocabulary": [
+          "a",
+          "b"
+        ]
+      },
+      "components": [
+        {
+          "encoder": "tokens",
+          "version": "1"
+        },
+        {
+          "distance": "discrete",
+          "version": "1"
+        },
+        {
+          "block_size": 64,
+          "statistic": "mean",
+          "version": "1"
+        },
+        {
+          "version": "1",
+          "warping": "identity"
+        }
+      ],
+      "sampler": {
+        "numpy": "2.5.3",
+        "prefix_consistent": true,
+        "sampler": "ancestral-reference",
+        "version": "1"
+      },
+      "spec": {
+        "distance": "discrete",
+        "distance_config": {},
+        "estimator": {
+          "bootstrap": 199,
+          "confidence": 0.95,
+          "correct_bias": false,
+          "method": "mc",
+          "zero_policy": "infinite"
+        },
+        "horizon": 1,
+        "mode": "observed",
+        "probability": "model",
+        "representation": {
+          "config": {},
+          "name": "tokens",
+          "version": "1"
+        },
+        "sampling": {
+          "generation": {
+            "do_sample": true,
+            "num_beams": 1,
+            "temperature": 1.0,
+            "top_k": 0,
+            "top_p": 1.0
+          },
+          "model": {
+            "model_id": "toy",
+            "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+          },
+          "n": 512,
+          "seed": 17,
+          "token_budget": 128
+        },
+        "short_samples": "compare_ragged",
+        "statistic": {
+          "config": {},
+          "name": "mean",
+          "version": "1"
+        },
+        "unit": {
+          "boundary": "token:v1",
+          "name": "token",
+          "pad_symbol": "<TERMINAL>"
+        },
+        "warping": "identity"
+      }
+    },
+    "7df471b7650023246b5f03058bf05841dbec92e1ac66dbb1f76523050cc43649": {
+      "backend": {
+        "backend": "toy:v1",
+        "eos": null,
+        "model": {
+          "model_id": "toy",
+          "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+        },
+        "rows": [
+          [
+            [],
+            [
+              0.75,
+              0.25
+            ]
+          ]
+        ],
+        "vocabulary": [
+          "a",
+          "b"
+        ]
+      },
+      "components": [
+        {
+          "encoder": "tokens",
+          "version": "1"
+        },
+        {
+          "distance": "discrete",
+          "version": "1"
+        },
+        {
+          "block_size": 64,
+          "statistic": "energy",
+          "variant": "v",
+          "version": "1"
+        },
+        {
+          "version": "1",
+          "warping": "identity"
+        }
+      ],
+      "sampler": {
+        "numpy": "2.5.3",
+        "prefix_consistent": true,
+        "sampler": "ancestral-reference",
+        "version": "1"
+      },
+      "spec": {
+        "distance": "discrete",
+        "distance_config": {},
+        "estimator": {
+          "bootstrap": 199,
+          "confidence": 0.95,
+          "correct_bias": false,
+          "method": "mc",
+          "zero_policy": "infinite"
+        },
+        "horizon": 2,
+        "mode": "observed",
+        "probability": "model",
+        "representation": {
+          "config": {},
+          "name": "tokens",
+          "version": "1"
+        },
+        "sampling": {
+          "generation": {
+            "do_sample": true,
+            "num_beams": 1,
+            "temperature": 1.0,
+            "top_k": 0,
+            "top_p": 1.0
+          },
+          "model": {
+            "model_id": "toy",
+            "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+          },
+          "n": 512,
+          "seed": 17,
+          "token_budget": 128
+        },
+        "short_samples": "compare_ragged",
+        "statistic": {
+          "config": {},
+          "name": "energy",
+          "version": "1"
+        },
+        "unit": {
+          "boundary": "token:v1",
+          "name": "token",
+          "pad_symbol": "<TERMINAL>"
+        },
+        "warping": "identity"
+      }
+    },
+    "c9ecde06977781bcc6a466c1192d0107243dcbf50f6f6aae822f64eb5dd241b5": {
+      "backend": {
+        "backend": "toy:v1",
+        "eos": null,
+        "model": {
+          "model_id": "toy",
+          "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+        },
+        "rows": [
+          [
+            [],
+            [
+              0.75,
+              0.25
+            ]
+          ]
+        ],
+        "vocabulary": [
+          "a",
+          "b"
+        ]
+      },
+      "components": [
+        {
+          "encoder": "tokens",
+          "version": "1"
+        },
+        {
+          "distance": "discrete",
+          "version": "1"
+        },
+        {
+          "block_size": 64,
+          "statistic": "mean",
+          "version": "1"
+        },
+        {
+          "version": "1",
+          "warping": "identity"
+        }
+      ],
+      "sampler": {
+        "numpy": "2.5.3",
+        "prefix_consistent": true,
+        "sampler": "ancestral-reference",
+        "version": "1"
+      },
+      "spec": {
+        "distance": "discrete",
+        "distance_config": {},
+        "estimator": {
+          "bootstrap": 199,
+          "confidence": 0.95,
+          "correct_bias": false,
+          "method": "mc",
+          "zero_policy": "infinite"
+        },
+        "horizon": 3,
+        "mode": "observed",
+        "probability": "model",
+        "representation": {
+          "config": {},
+          "name": "tokens",
+          "version": "1"
+        },
+        "sampling": {
+          "generation": {
+            "do_sample": true,
+            "num_beams": 1,
+            "temperature": 1.0,
+            "top_k": 0,
+            "top_p": 1.0
+          },
+          "model": {
+            "model_id": "toy",
+            "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+          },
+          "n": 512,
+          "seed": 17,
+          "token_budget": 128
+        },
+        "short_samples": "compare_ragged",
+        "statistic": {
+          "config": {},
+          "name": "mean",
+          "version": "1"
+        },
+        "unit": {
+          "boundary": "token:v1",
+          "name": "token",
+          "pad_symbol": "<TERMINAL>"
+        },
+        "warping": "identity"
+      }
+    },
+    "fc8132962d3aab559c2300202ae5f5041cdc71640d6f093a7f2ea109ef54c2ea": {
+      "backend": {
+        "backend": "toy:v1",
+        "eos": null,
+        "model": {
+          "model_id": "toy",
+          "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+        },
+        "rows": [
+          [
+            [],
+            [
+              0.75,
+              0.25
+            ]
+          ]
+        ],
+        "vocabulary": [
+          "a",
+          "b"
+        ]
+      },
+      "components": [
+        {
+          "encoder": "tokens",
+          "version": "1"
+        },
+        {
+          "distance": "discrete",
+          "version": "1"
+        },
+        {
+          "block_size": 64,
+          "statistic": "mean",
+          "version": "1"
+        },
+        {
+          "version": "1",
+          "warping": "identity"
+        }
+      ],
+      "sampler": {
+        "numpy": "2.5.3",
+        "prefix_consistent": true,
+        "sampler": "ancestral-reference",
+        "version": "1"
+      },
+      "spec": {
+        "distance": "discrete",
+        "distance_config": {},
+        "estimator": {
+          "bootstrap": 199,
+          "confidence": 0.95,
+          "correct_bias": false,
+          "method": "mc",
+          "zero_policy": "infinite"
+        },
+        "horizon": 2,
+        "mode": "observed",
+        "probability": "model",
+        "representation": {
+          "config": {},
+          "name": "tokens",
+          "version": "1"
+        },
+        "sampling": {
+          "generation": {
+            "do_sample": true,
+            "num_beams": 1,
+            "temperature": 1.0,
+            "top_k": 0,
+            "top_p": 1.0
+          },
+          "model": {
+            "model_id": "toy",
+            "revision": "d189412502a5f9c5dea1b9508f473ed8ddac9216bb028f826a936b883f3c3921"
+          },
+          "n": 512,
+          "seed": 17,
+          "token_budget": 128
+        },
+        "short_samples": "compare_ragged",
+        "statistic": {
+          "config": {},
+          "name": "mean",
+          "version": "1"
+        },
+        "unit": {
+          "boundary": "token:v1",
+          "name": "token",
+          "pad_symbol": "<TERMINAL>"
+        },
+        "warping": "identity"
+      }
+    }
+  }
+}

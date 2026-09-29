@@ -1,0 +1,76 @@
+{
+  "backend": {
+    "backend": "hf-reference:v1",
+    "batching": "one-sequence",
+    "bos": 50256,
+    "device": "cpu",
+    "eos": 50256,
+    "model": {
+      "model_id": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+    },
+    "precision": "float32",
+    "tokenizer": null,
+    "torch": "2.14.0",
+    "transformers": "5.16.1"
+  },
+  "bootstrap": 199,
+  "data_sha256": "db3ccd106220e1e3d7d64871b5f7c05a9d159ef4cb639f985b792d559686f7f6",
+  "horizons": [
+    1,
+    5,
+    10,
+    15
+  ],
+  "model": {
+    "model_id": "openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+  },
+  "notebook_scores_sha256": "e20b2b770c9be60b43cb76c2a9f6c199d7d4eb51e9e062209d1ae81d6b3f46fd",
+  "rows": [
+    [
+      "122",
+      "8",
+      "of"
+    ],
+    [
+      "176",
+      "6",
+      "people"
+    ],
+    [
+      "119",
+      "1",
+      "sniffed"
+    ]
+  ],
+  "runner_sha256": "16f7d39f40589a8812c66f38c6f41b7d400c0bc2d759e8ff6189847ae679143c",
+  "sample_sizes": [
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512
+  ],
+  "sampler": {
+    "batch_size": 16,
+    "first_eos": "suppressed",
+    "later_eos": "stop",
+    "numpy": "2.5.3",
+    "prefix_consistent": true,
+    "sampler": "emnlp2024-gpt2-kv",
+    "version": "1"
+  },
+  "seeds": [
+    0,
+    1
+  ],
+  "shard": 0,
+  "shards": 1,
+  "source_sha256": "16234c657240c24415466b341fdf6b21ca1fa0e065a057dbfb3998160931ac0b",
+  "threads": 4,
+  "uncertain_version": "0.1.0a1"
+}

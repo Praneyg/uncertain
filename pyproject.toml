@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uncertain-altsets"
+version = "0.1.0a2"
+description = "Reproducible sampling-based predictive uncertainty measures"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+hf = ["torch>=2.2", "transformers>=4.40,<6"]
+tables = ["pandas>=2", "pyarrow>=14", "PyYAML>=6"]
+dev = ["pytest>=8", "hypothesis>=6", "ruff>=0.9", "mypy>=1.8", "build>=1"]
+syntax = ["spacy>=3", "zss>=1.2"]
+
+[project.scripts]
+uncertain = "uncertain.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+uncertain = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["hf: local randomly initialized Hugging Face model; no downloads",
+           "gpt2: pretrained GPT-2 from the local Hugging Face cache",
+           "slow: tens of seconds; real-model Monte Carlo"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B", "TID"]
+
+# §10: axis reordering is named rearrangement only; reshape is banned. Ruff resolves
+# qualified names, so it can ban the module form; bare `x.reshape(...)` in src/ and
+# examples/ is caught by test_no_reshape_outside_the_buffer_roundtrip.
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"numpy.reshape".msg = "reshape is banned (§10); use named rearrangement"
+"numpy.ndarray.reshape".msg = "reshape is banned (§10); use named rearrangement"
+
+[tool.mypy]
+files = ["src", "tests", "examples"]
+mypy_path = "src"
+namespace_packages = true
+explicit_package_bases = true   # examples/*/plugin.py are same-named standalone modules
+ignore_missing_imports = true
+follow_imports = "skip"
+check_untyped_defs = true

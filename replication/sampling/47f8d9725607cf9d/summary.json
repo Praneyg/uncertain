@@ -1,0 +1,16 @@
+{
+  "completed": true,
+  "observations": 3,
+  "token_seed_jobs": 8,
+  "result_rows": 1024,
+  "cache_hits": 8,
+  "sampler_calls": 0,
+  "elapsed_seconds": 15.136320999999953,
+  "teacher_max_abs_error_nats": 2.508726980821052e-05,
+  "first_eos_count": 0,
+  "later_eos_count": 23,
+  "scope": "GPT-2 token-level estimates; full means all 1487 analysis observations",
+  "uncertainty": "95% intervals; pairwise bounded CI and whole-alternative bootstrap SE",
+  "sampling_law": "q=p conditioned on first token not EOS; stop at subsequent EOS",
+  "historical_bitwise_replication": false
+}

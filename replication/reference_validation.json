@@ -1,0 +1,40 @@
+{
+  "scope": "Original point-estimator helpers; same model and same draws",
+  "includes": [
+    "duplicate draws",
+    "later EOS",
+    "masked padding",
+    "multi-batch encoding"
+  ],
+  "excludes": [
+    "historical RNG replay",
+    "legacy bootstrap variance",
+    "legacy post-EOS padding log probabilities"
+  ],
+  "reference_source_sha256": "9883498da102e254d0dbfa2d2303c56a3e69192683ff45902d334d71b7e145fa",
+  "torch_version": "2.7.1+cu118",
+  "numpy_version": "1.26.4",
+  "transformers_version": "5.14.1",
+  "model_seed": 778,
+  "comparisons": {
+    "decontextualised": {
+      "library": 0.3669986344071471,
+      "original": 0.36699870228767395,
+      "absolute_difference": 6.788052686612644e-08,
+      "passed": true
+    },
+    "expected_decontextualised": {
+      "library": 0.22918556182352212,
+      "original": 0.2291855618235222,
+      "absolute_difference": 8.326672684688674e-17,
+      "passed": true
+    },
+    "expected_seq_decontextualised": {
+      "library": 0.19539062628215972,
+      "original": 0.19539062628215995,
+      "absolute_difference": 2.220446049250313e-16,
+      "passed": true
+    }
+  },
+  "passed": true
+}
