@@ -99,7 +99,7 @@ def test_effective_horizon_under_eos():
                           sampler=Sampler(backend)).compute(Stimulus((), (0,))).diagnostics
     assert list(diagnostics["effective_horizons"]) == [s.effective_horizon for s in a.sequences]
     assert diagnostics["eos_fraction"] > 0 and diagnostics["budget_fraction"] == 0
-    assert diagnostics["truncation_bound"] == pytest.approx(a.provenance["unterminated"]/128)
+    assert diagnostics["truncation_bound"] == pytest.approx(1 - diagnostics["eos_fraction"])
 
 
 def test_energy_vanishes_between_independent_draws_but_distance_does_not():

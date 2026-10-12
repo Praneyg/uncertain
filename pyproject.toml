@@ -15,6 +15,7 @@ hf = ["torch>=2.2", "transformers>=4.40,<6"]
 tables = ["pandas>=2", "pyarrow>=14", "PyYAML>=6"]
 dev = ["pytest>=8", "hypothesis>=6", "ruff>=0.9", "mypy>=1.8", "build>=1"]
 syntax = ["spacy>=3", "zss>=1.2"]
+plot = ["matplotlib>=3.7"]
 
 [project.scripts]
 uncertain = "uncertain.cli:main"

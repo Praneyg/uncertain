@@ -58,14 +58,17 @@ class Sequence:
         if horizon > len(self.units):
             return self
         end = self.unit_spans[horizon - 1][1] if horizon else 0
-        if end == len(self.tokens):
+        if end == len(self.tokens) and horizon == len(self.units):
             return self  # nothing past unit H: an EOS stop at exactly H keeps its reason
         text_end = self.char_spans[horizon - 1][1] if horizon and self.char_spans else 0
+        # end == len(tokens) with units left over: the last token spans into unit H+1.
+        # Keep the tokens, drop the extra units, as the sampler does for sample(H).
         return replace(self, tokens=self.tokens[:end], model_logprobs=self.model_logprobs[:end],
                        sampling_logprobs=self.sampling_logprobs[:end],
                        observed=self.observed[:end], units=self.units[:horizon],
                        unit_spans=self.unit_spans[:horizon], char_spans=self.char_spans[:horizon],
-                       text=self.text[:text_end], stop_reason="horizon")
+                       text=self.text[:text_end],
+                       stop_reason=self.stop_reason if end == len(self.tokens) else "horizon")
 
 
 @dataclass(frozen=True)
@@ -134,6 +137,45 @@ class AlternativeSet:
         return cls(tuple(rows), tuple(context), continuation.unit, k + continuation.horizon,
                    {"anchor": digest(observed), "continuation": continuation.content_hash},
                    continuation.deterministic)
+
+    def _grouped(self, top, decode=None):
+        """Top distinct continuations as (text, count, share, mean -log p) rows.
+
+        Token units carry no text; pass ``decode`` (e.g. ``backend.decode``) to label
+        them, otherwise their unit ids are shown.
+        """
+        groups = {}
+        for s in self.sequences:
+            nll = None if None in s.model_logprobs else -sum(s.model_logprobs)
+            label = s.text or (decode(s.tokens) if decode else " ".join(s.units))
+            label += "<eos>" if s.stop_reason == "eos" else ""
+            groups.setdefault(label, []).append(nll)
+        rows = sorted(groups.items(), key=lambda kv: -len(kv[1]))[:top]
+        return [(text, len(nlls), len(nlls)/len(self),
+                 None if None in nlls else sum(nlls)/len(nlls)) for text, nlls in rows]
+
+    def summary(self, top=20, decode=None):
+        """Text table of the most frequent continuations."""
+        context = self.provenance.get("context_text", "")
+        lines = [f"{len(self)} alternatives, horizon {self.horizon}, context {context!r}",
+                 f"{'count':>6}  {'share':>6} {'':20} {'-log p':>7}  text"]
+        for text, count, share, nll in self._grouped(top, decode):
+            nll_text = "-" if nll is None else f"{nll:.2f}"
+            lines.append(f"{count:>6}  {share:>6.1%} {'#'*round(20*share):20} {nll_text:>7}  {text!r}")
+        return "\n".join(lines)
+
+    def plot(self, top=20, ax=None, decode=None):
+        """Horizontal bar chart of continuation shares; needs the ``plot`` extra."""
+        try:
+            import matplotlib.pyplot as plt
+        except ImportError:
+            raise ImportError("pip install uncertain-altsets[plot]") from None
+        rows = self._grouped(top, decode)[::-1]
+        ax = ax or plt.subplots(figsize=(7, .35*len(rows) + 1))[1]
+        ax.barh([repr(text) for text, *_ in rows], [share for _, _, share, _ in rows])
+        ax.set_xlabel("share of alternatives")
+        ax.set_title(f"{len(self)} alternatives, horizon {self.horizon}")
+        return ax
 
     def arrays(self):
         """Canonical (sample, step) views, with explicitly masked unavailable logprobs."""

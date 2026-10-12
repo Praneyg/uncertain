@@ -55,5 +55,5 @@
     policy. MC word/sentence probability counts matching normalized unit strings,
     rather than one canonical tokenization. Exact probability and entropy for
     these units remain unsupported until event likelihoods are established.
-16. Directed minima and empirical entailment clustering expose missing uncertainty
-    explicitly. They are not advertised as satisfying the full scientific v1 gate.
+16. Empirical entailment clustering exposes missing uncertainty explicitly; directed
+    minima carry an approximate whole-alternative bootstrap SE. They are not advertised as satisfying the full scientific v1 gate.

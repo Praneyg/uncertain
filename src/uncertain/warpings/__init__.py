@@ -28,7 +28,11 @@ class NegLog:
         if x < 0:
             raise ConfigError("neglog received a negative statistic")
         low = neglog(estimate.ci_high) if estimate.ci_high is not None else None
-        high = neglog(estimate.ci_low) if estimate.ci_low is not None else None
+        # A normal-approximation interval can dip below 0; the statistic cannot.
+        high = neglog(max(estimate.ci_low, 0.)) if estimate.ci_low is not None else None
         se = estimate.se/x if x and estimate.se is not None else None
+        if not x and estimate.se is not None:
+            # -log 0 = inf. Every resample at 0 => no spread; any resample above 0 => unbounded.
+            se = 0. if estimate.se == 0 else math.inf
         bias = estimate.se**2/(2*x*x) if x and estimate.se is not None else None
         return neglog(x), se, low, high, bias

@@ -96,8 +96,17 @@ unavailable uncertainty. These examples live outside `src/uncertain`.
 ## Configuring a measure
 
 `Measure.from_config(backend, ...)` is the named constructor; `Measure(spec, sampler=...)`
-takes a resolved `MeasureSpec`. The proposal's `Measure(sampler=..., unit=...)` keyword
-form is a deliberate deviation: the two constructors have distinct jobs. Both paths
+takes a resolved `MeasureSpec`. The proposal's keyword form also works:
+`Measure(sampler=HFSampler("gpt2", n=32, horizon=5, top_k=0, seed=0), unit=..., ...)`
+delegates to `from_config`, taking n/horizon/seed/generation defaults from the sampler.
+`n` and `short_samples` stay required. On the constructor and on `replace`, a string
+or spec for `representation`/`distance`/`statistic`/`warping` selects a registered
+component; any other object is injected (`m.replace(distance=MyDistance())`).
+Components written to the proposal's §7 protocol (e.g. a distance with only
+`input_type`, `range`, `__call__`; a statistic with `range`, `__call__(A, B)`) are
+wrapped automatically: they get a default descriptor, a statistic gets a
+whole-alternative bootstrap SE, and a distance that declares no `negative_type` is
+treated as not negative-type, so `energy` refuses it. Both paths
 normalize string axis values identically, in `MeasureSpec.__post_init__`, so
 `from_config(unit="word")` and `measure.replace(unit="word")` accept the same values.
 `representation` also accepts the `"name:arg"` form, e.g. `"layer:8"` for
@@ -112,8 +121,9 @@ use one unit; use separate sweeps to change units or sampling settings. Invalid
 Cartesian cells raise `ConfigError`; explicit compatible cell dictionaries can be
 passed using `cells=[...]`.
 
-`run()` returns `SweepResult`, whose `rows` need no dataframe dependency.
-`to_dataframe()` uses nullable pandas floats. `write(path)` supports CSV, JSON,
+With pandas installed, `run()` returns a tidy DataFrame that also carries `rows`,
+`manifest`, `to_dataframe()` and `write()`; without pandas it returns `SweepResult`,
+whose `rows` need no dataframe dependency. `to_dataframe()` uses nullable pandas floats. `write(path)` supports CSV, JSON,
 and Parquet and writes a companion manifest. CSV/JSON use `Infinity` and
 `-Infinity` strings for infinite scores; unavailable values are empty/null.
 Parquet retains numeric infinities and nulls. Every row includes target span,
@@ -125,6 +135,25 @@ status, and artifact references. Optional datum values do not affect sampling.
 provenance; `requests/` holds small lookup pointers. Both content and pointer
 compatibility are checked. JSON avoids pickle and remains inspectable; a compact
 binary encoding can be added later without changing the logical schema.
+
+`compute` returns a `Result`, not the samples. `measure.alternatives(result)`
+loads the sets it rests on from the store: `(A,)` or `(A, continuation)`, and `()`
+for exact results, which draw no samples. `AlternativeSet.summary(top=20)` returns
+a text table of the most frequent continuations (count, share, mean model −log p).
+`AlternativeSet.plot(top=20, ax=None)` draws the same thing as a matplotlib bar
+chart (`plot` extra). Token units carry no text, so pass `decode=backend.decode`
+to label them:
+
+```python
+result = measure.compute(item)
+a, *_ = measure.alternatives(result)
+print(a.summary(decode=measure.sampler.backend.decode))
+a.plot(decode=measure.sampler.backend.decode)
+```
+
+`measure.sentence_summary(stimuli, top=3)` prints one line per stimulus (position,
+target, value, top alternatives), e.g. over `positions(tokens)`. Exact results list
+the most probable next tokens instead of samples. Stored samples are reused.
 
 `contrast(left_result, right_result)` uses aligned bootstrap replicates retained
 in memory. It preserves covariance for common sample streams. Different retained

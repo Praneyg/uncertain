@@ -208,12 +208,16 @@ class DirectedMin(Mean):
                            "block_size": block_size}
 
     def estimate(self, a, b, distance, estimator, seeds):
-        minima = np.full(len(b.reps), np.inf)
-        for _i,j,block in pairwise_blocks(a.reps, b.reps, distance, self.block_size):
-            minima[j:j+block.shape[1]] = np.minimum(minima[j:j+block.shape[1]], block.min(axis=0))
-        value = float(minima.mean())
-        # A smooth-mean SE is not a valid uncertainty claim for this random minimum.
-        return StatisticEstimate(value, None, None, None, "uncertainty_unavailable_min")
+        matrix = pairwise(a, b, distance)
+        value = float(matrix.min(axis=0).mean())
+        # Whole-alternative bootstrap: a resample of A drops the rows it didn't draw, so
+        # each b's minimum is taken over the drawn A rows only. Not a smooth mean, so the
+        # SE is approximate (bootstrap_approximate), but it is never omitted.
+        wa = weights(a.source, estimator.bootstrap, seeds[0])
+        wb = weights(b.source, estimator.bootstrap, seeds[1])
+        boots = np.array([np.where(ra[:, None] > 0, matrix, np.inf).min(axis=0) @ rb / len(rb)
+                          for ra, rb in zip(wa, wb, strict=True)])
+        return bootstrap_result(value, boots, a, b, estimator)
 
 
 class Lifted:

@@ -102,9 +102,9 @@ def test_u_energy_small_random_operand_rejected(make_measure, sampling):
         m.compute(Stimulus((), (1,)))
 
 
-def test_min_reports_unsupported_uncertainty(make_measure):
+def test_min_reports_bootstrap_uncertainty(make_measure):
     r = make_measure(distance="discrete", statistic="min").compute(Stimulus((), (1,)))
-    assert r.value == 0 and r.se is None and "unavailable" in r.status
+    assert r.value == 0 and r.se == 0 and r.status == "bootstrap_approximate"
 
 
 def test_drop_policy_recomputed_for_shorter_horizon():

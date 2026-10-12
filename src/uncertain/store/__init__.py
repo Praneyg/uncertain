@@ -142,15 +142,26 @@ class AlternativeStore:
         candidates = self._candidates(stream, spec.n)
         compatible = sorted(h for h in candidates if h == horizon or
                             (sampler.prefix_consistent and h >= horizon))
+
+        def stored(h):
+            value = self.load(candidates[h])
+            if (value.provenance.get("stream") != stream or value.context != tuple(context)
+                    or value.unit != unit or len(value) != spec.n or value.horizon != h):
+                raise StoreError("request index points to incompatible alternatives")
+            return value
+
         if compatible:
             self.hits += 1
-            stored = self.load(candidates[compatible[0]])
-            if (stored.provenance.get("stream") != stream or stored.context != tuple(context)
-                    or stored.unit != unit or len(stored) != spec.n or stored.horizon != compatible[0]):
-                raise StoreError("request index points to incompatible alternatives")
-            return stored if stored.horizon == horizon else stored.truncate(horizon)
+            value = stored(compatible[0])
+            return value if value.horizon == horizon else value.truncate(horizon)
         self.misses += 1
-        value = sampler.sample(context, horizon, spec, unit)
+        shorter = [h for h in candidates if h < horizon]
+        value = None
+        if shorter and sampler.prefix_consistent and hasattr(sampler, "deepen"):
+            # Same stream, shorter horizon: resume its rows instead of redrawing them.
+            value = sampler.deepen(stored(max(shorter)), horizon)
+        if value is None:
+            value = sampler.sample(context, horizon, spec, unit)
         key = self.save(value)
         self._requests[(stream, spec.n, horizon)] = key
         if self.path is not None:

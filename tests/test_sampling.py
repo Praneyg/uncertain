@@ -187,3 +187,32 @@ def test_registered_unit_produces_units_without_core_edits():
     assert any(len(s.units) == 2 for s in drawn.sequences)
     assert drawn.truncate(1).sequences == sampler.sample(
         (0,), 1, SamplingSpec(backend.model_spec, 8, 5), unit).sequences
+
+
+def test_deepen_matches_fresh_sample_and_store_resumes():
+    from uncertain.store import AlternativeStore
+    cases = ((ToyBackend(), UnitSpec()),
+             (ToyBackend(("x", " y", " z"), {(): (.5, .3, .2)}), UnitSpec("word", "whitespace:v1")),
+             (ToyBackend(("x. ", "y. ", "z. "), {(): (.5, .3, .2)}), UnitSpec("sentence", "punctuation:v1")),
+             (ToyBackend(("x", " y", "<eos>"), {(): (.6, .3, .1)}, eos_token_id=2),
+              UnitSpec("word", "whitespace:v1")))
+    for backend, unit in cases:
+        sampler = Sampler(backend)
+        spec = SamplingSpec(backend.model_spec, 32, 5)
+        short = sampler.sample((0,), 2, spec, unit)
+        assert sampler.deepen(short, 5).content_hash == sampler.sample((0,), 5, spec, unit).content_hash
+        store = AlternativeStore()
+        store.get_or_sample(sampler, (0,), 2, spec, unit)
+        before = sampler.calls
+        deep = store.get_or_sample(sampler, (0,), 5, spec, unit)
+        assert sampler.calls == before+1 and deep.horizon == 5
+        assert deep.truncate(2).sequences == short.sequences
+
+
+def test_one_model_call_per_distinct_context(backend, sampling):
+    seen, probabilities = [], backend.probabilities
+    backend.probabilities = lambda context: (seen.append(tuple(context)), probabilities(context))[1]
+    sampler = Sampler(backend)
+    a = sampler.sample((0,), 3, replace(sampling, n=50))
+    assert len(seen) == len(set(seen)) and seen[0] == (0,)
+    assert a.content_hash == Sampler(ToyBackend()).sample((0,), 3, replace(sampling, n=50)).content_hash

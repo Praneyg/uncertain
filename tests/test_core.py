@@ -109,16 +109,50 @@ def test_bad_estimator():
 
 
 def test_truncation_bound_comes_from_unterminated_mass():
+    # p(EOS)=.5 per step, so the draws still open at H (no EOS yet) have mass .5**H.
+    # Only they can change past H: the bound is that mass times D, and shrinks with H.
+    # The old formula counted the EOS-finished draws instead: 0 at H=1, rising with H.
     backend = ToyBackend(("a", "<eos>"), {(): (.5, .5)}, eos_token_id=1)
-    m = Measure.from_config(backend, horizon=3, n=24, statistic="mean",
-                            distance="prefix_indicator", estimator="mc")
-    d = m.compute(Stimulus(target=(1,))).diagnostics
-    short = sum(h < 3 for h in d["effective_horizons"])
-    assert short and d["truncation_status"] == "bounded_by_unterminated_mass"
-    assert d["truncation_bound"] == pytest.approx(short/len(d["effective_horizons"]))
+    bounds = []
+    for h in (1, 2, 4):
+        m = Measure.from_config(backend, horizon=h, n=400, statistic="mean",
+                                distance="discrete", estimator="mc",
+                                short_samples="compare_ragged")
+        d = m.compute(Stimulus(target=(1,))).diagnostics
+        assert d["truncation_status"] == "bounded_by_unterminated_mass"
+        assert d["truncation_bound"] == pytest.approx(1 - d["eos_fraction"])
+        assert d["truncation_bound"] == pytest.approx(.5**h, abs=.08)
+        bounds.append(d["truncation_bound"])
+    assert bounds[0] > bounds[1] > bounds[2]
     # Anchored targets carry no unterminated count; the honest label survives.
     assert d["target"]["truncation_bound"] is None
     assert d["target"]["truncation_status"] == "no_general_bound"
+
+
+def test_truncation_bound_follows_store_truncation():
+    # A set sampled at H=4 and truncated to H=1 must report H=1's mass, not H=4's.
+    backend = ToyBackend(("a", "<eos>"), {(): (.5, .5)}, eos_token_id=1)
+    m = Measure.from_config(backend, horizon=4, n=400, statistic="mean", distance="discrete",
+                            estimator="mc", short_samples="compare_ragged")
+    short = m.replace(horizon=1)
+    m.compute(Stimulus(target=(1,)))  # stores H=4 in the shared in-process store
+    d = short.compute(Stimulus(target=(1,))).diagnostics
+    assert d["truncation_bound"] == pytest.approx(.5, abs=.08)
+
+
+def test_neglog_interval_survives_a_negative_lower_bound():
+    from uncertain.core.results import StatisticEstimate
+    from uncertain.warpings import NegLog
+    value, se, low, high, _ = NegLog().apply(StatisticEstimate(.25, .16, -.07, .57))
+    assert value == pytest.approx(-np.log(.25)) and high == np.inf
+    assert low == pytest.approx(-np.log(.57))
+
+
+def test_from_config_requires_n_and_short_samples():
+    with pytest.raises(TypeError, match="n"):
+        Measure.from_config(ToyBackend(), short_samples="compare_ragged")  # type: ignore[call-arg]
+    with pytest.raises(TypeError, match="short_samples"):
+        Measure.from_config(ToyBackend(), n=8)  # type: ignore[call-arg]
 
 
 def test_manifest_carries_git_sha_and_seeds(backend, sampling):

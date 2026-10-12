@@ -21,7 +21,7 @@ measure = Measure.from_config(
     unit="token", horizon=1,
     representation="tokens",
     distance="discrete", statistic="energy", warping="identity",
-    estimator="auto", n=512, seed=42,
+    estimator="auto", n=512, seed=42, short_samples="compare_ragged",
 )
 
 # Hidden-layer representations use the same API with a full EncoderSpec:

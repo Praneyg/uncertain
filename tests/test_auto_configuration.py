@@ -48,7 +48,7 @@ class Square:
 
 def test_defaults_are_raw_sampling_and_exact_token_energy():
     b = ToyBackend()
-    m = Measure.from_config(b)
+    m = Measure.from_config(b, n=512, short_samples="compare_ragged")
     assert m.spec.sampling.generation == {
         'temperature': 1., 'top_k': 0, 'top_p': 1., 'do_sample': True, 'num_beams': 1}
     r = m.compute(Stimulus(target=(1,)))
@@ -60,7 +60,7 @@ def test_defaults_are_raw_sampling_and_exact_token_energy():
 
 def test_auto_routes_longer_horizon_to_mc_but_exact_override_still_works():
     m = Measure.from_config(ToyBackend(), distance='prefix_indicator', statistic='mean',
-                            horizon=2, n=40)
+                            horizon=2, n=40, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     assert r.method == 'mc' and m.sampler.calls > 0
     explicit = m.replace(estimator=EstimatorSpec(method='exact'))
@@ -71,13 +71,13 @@ def test_auto_routes_longer_horizon_to_mc_but_exact_override_still_works():
 
 @pytest.mark.parametrize('unit,vocab', [('word', ('a ', 'b ')), ('sentence', ('A. ', 'B. '))])
 def test_auto_routes_text_units_to_mc(unit, vocab):
-    m = Measure.from_config(ToyBackend(vocab), unit=unit, n=32)
+    m = Measure.from_config(ToyBackend(vocab), unit=unit, n=32, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     assert r.method == 'mc' and r.n_a_used == 32
 
 
 def test_explicit_mc_at_horizon_one_preserves_sampling():
-    m = Measure.from_config(ToyBackend(), estimator='mc', n=32)
+    m = Measure.from_config(ToyBackend(), estimator='mc', n=32, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     assert r.method == 'mc' and m.sampler.calls == 1
 
@@ -85,7 +85,7 @@ def test_explicit_mc_at_horizon_one_preserves_sampling():
 def test_weighted_mean_and_meister_style_similarity_warp():
     b = ToyBackend()
     m = Measure.from_config(b, representation='test_auto_vectors',
-                            distance='test_auto_similarity', statistic='mean', warping='neglog')
+                            distance='test_auto_similarity', statistic='mean', warping='neglog', n=512, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     expected_similarity = .75 * math.exp(-math.sqrt(2)) + .25
     assert r.raw_value == pytest.approx(expected_similarity)
@@ -98,7 +98,7 @@ def test_exact_energy_against_independent_dense_matrix_including_eos(distance):
     from uncertain.distances import Cosine, Euclidean
     p = np.array([.6, .3, .1])
     b = ToyBackend(('a', 'b', '<eos>'), {(): tuple(p)}, eos_token_id=2)
-    m = Measure.from_config(b, representation=EncoderSpec('test_auto_vectors'), distance=distance)
+    m = Measure.from_config(b, representation=EncoderSpec('test_auto_vectors'), distance=distance, n=512, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     v = np.array([[1.,0.], [0.,1.], [-1.,0.]])
     d = Cosine() if distance == 'cosine' else Euclidean()
@@ -139,24 +139,24 @@ def test_fourth_unit_needs_no_core_edit():
     assert UnitSpec("test_auto_clause", "clause:v1").name == "test_auto_clause"
     m = Measure.from_config(ToyBackend(), unit="test_auto_clause",
                             representation="test_auto_clause_tokens", statistic="mean",
-                            distance="prefix_indicator")
+                            distance="prefix_indicator", n=512, short_samples="compare_ragged")
     assert m.spec.unit == UnitSpec("test_auto_clause", "clause:v1")
     with pytest.raises(ConfigError, match="supported boundary detector"):
         UnitSpec("test_auto_clause", "whitespace:v1")
     with pytest.raises(ConfigError, match="Unknown unit"):
-        Measure.from_config(ToyBackend(), unit="test_auto_absent")
+        Measure.from_config(ToyBackend(), unit="test_auto_absent", n=512, short_samples="compare_ragged")
 
 
 def test_sampler_resolves_by_registered_name():
     b = ToyBackend()
     assert isinstance(resolve("sampler", "test_auto_named", backend=b), NamedSampler)
-    assert isinstance(Measure.from_config(b, sampler="test_auto_named").sampler, NamedSampler)
+    assert isinstance(Measure.from_config(b, sampler="test_auto_named", n=512, short_samples="compare_ragged").sampler, NamedSampler)
     with pytest.raises(ConfigError, match="requires a backend"):
-        Measure.from_config(sampler="test_auto_named")
+        Measure.from_config(sampler="test_auto_named", n=512, short_samples="compare_ragged")
 
 
 def test_printed_examples_from_section_five_run():
-    m = Measure.from_config(ToyBackend(), statistic="mean", distance="prefix_indicator")
+    m = Measure.from_config(ToyBackend(), statistic="mean", distance="prefix_indicator", n=512, short_samples="compare_ragged")
     assert m.replace(unit="token").spec.unit == UnitSpec()
     assert m.replace(representation="tokens").spec.representation == EncoderSpec("tokens")
     # §5's Sweep(level=["layer:0", "layer:8"]) grid, parsed without a hidden-state backend.
@@ -164,9 +164,9 @@ def test_printed_examples_from_section_five_run():
         EncoderSpec("layer", {"layer": 0}), EncoderSpec("layer", {"layer": 8})]
     assert Measure.from_config(ToyBackend(), level="test_auto_vectors",
                                distance="test_auto_similarity",
-                               statistic="mean").spec.representation.name == "test_auto_vectors"
+                               statistic="mean", n=512, short_samples="compare_ragged").spec.representation.name == "test_auto_vectors"
     assert Measure.from_config(ToyBackend(), mode="entropy", statistic="mean",
-                               distance="prefix_indicator").spec.mode == "entropy"
+                               distance="prefix_indicator", n=512, short_samples="compare_ragged").spec.mode == "entropy"
     # §5 spells the encoder axis "level"; the grid values normalize like any other.
     assert [x.spec.representation.name for x in Sweep(m, level=["tokens"]).measures] == ["tokens"]
 
@@ -180,11 +180,11 @@ def test_warping_domain_must_contain_statistic_range():
         def apply(self, estimate):  # pragma: no cover - rejected before use
             raise AssertionError
     with pytest.raises(ConfigError, match="does not contain statistic"):
-        Measure.from_config(ToyBackend(), warping="test_auto_positive_only")
+        Measure.from_config(ToyBackend(), warping="test_auto_positive_only", n=512, short_samples="compare_ragged")
 
 
 def test_custom_warp_can_follow_energy():
-    m = Measure.from_config(ToyBackend(), warping='test_auto_square')
+    m = Measure.from_config(ToyBackend(), warping='test_auto_square', n=512, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     assert r.raw_value == pytest.approx(1.125)
     assert r.value == pytest.approx(1.125**2)
@@ -192,9 +192,9 @@ def test_custom_warp_can_follow_energy():
 
 def test_filtered_q_is_explicit_and_exact():
     with pytest.raises(ConfigError, match='samples follow q'):
-        Measure.from_config(ToyBackend(), generation={'temperature': .5})
+        Measure.from_config(ToyBackend(), generation={'temperature': .5}, n=512, short_samples="compare_ragged")
     m = Measure.from_config(ToyBackend(), distance='prefix_indicator', statistic='mean',
-                            generation={'temperature': .5}, probability='sampling')
+                            generation={'temperature': .5}, probability='sampling', n=512, short_samples="compare_ragged")
     assert m.compute(Stimulus(target=(1,))).value == pytest.approx(.1)
 
 
@@ -203,7 +203,7 @@ def test_custom_sampler_selection_and_no_work_in_exact_sweep():
         def sample(self, *args, **kwargs):
             raise AssertionError('Exact configuration must not call the selected sampler')
     sampler = SelectedSampler(ToyBackend())
-    m = Measure.from_config(sampler=sampler)
+    m = Measure.from_config(sampler=sampler, n=512, short_samples="compare_ragged")
     assert m.sampler is sampler
     plan = Sweep(m, statistic=['mean', 'energy']).plan([Stimulus(target=(1,))])
     assert plan.describe()['sample_requests'] == 0
@@ -211,7 +211,7 @@ def test_custom_sampler_selection_and_no_work_in_exact_sweep():
 
 
 def test_unsupported_custom_statistic_is_not_falsely_labeled_exact():
-    m = Measure.from_config(ToyBackend(), statistic='min', n=16)
+    m = Measure.from_config(ToyBackend(), statistic='min', n=16, short_samples="compare_ragged")
     r = m.compute(Stimulus(target=(1,)))
     assert r.method == 'mc'
     assert r.diagnostics['estimator_selection'] == 'mc_exact_configuration_unsupported'

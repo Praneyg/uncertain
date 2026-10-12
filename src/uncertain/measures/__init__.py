@@ -5,7 +5,7 @@ from uncertain.core import (ConfigError, AlternativeSet, MeasureSpec, Result, St
                             EstimatorSpec)
 from uncertain.data import Stimulus
 from uncertain.store import AlternativeStore, RunMemo
-from uncertain.registry import resolve
+from uncertain.registry import resolve, adapt, _SpecWarping
 from uncertain.samplers import sampling_probabilities
 from uncertain.statistics import sample_mean
 from uncertain._version import __version__
@@ -14,16 +14,24 @@ from uncertain import distances
 from uncertain import encoders as encoders, warpings as warpings  # register built-ins
 
 
+def _is_axis_value(value):
+    """A name or spec selects a registered component; anything else is an injected object."""
+    from uncertain.core import StatisticSpec, EncoderSpec
+    return isinstance(value, (str, StatisticSpec, EncoderSpec))
+
+
 class Measure:
     @classmethod
     def from_config(cls, backend=None, *, unit="token", horizon=1, representation="tokens",
                     distance="discrete", distance_config=None, statistic="energy",
-                    warping="identity", estimator="auto", sampler=None, n=512, seed=0,
-                    generation=None, token_budget=128, short_samples="compare_ragged",
+                    warping="identity", estimator="auto", sampler=None, n, seed=0,
+                    generation=None, token_budget=128, short_samples,
                     probability="model", mode="observed", level=None, store=None):
         """Configure a measure along independent scientific axes.
 
-        Custom component names use the existing registries; representation and
+        ``n`` and ``short_samples`` are required (§4.4, §4.2): how many alternatives a
+        measure rests on and how short samples are treated are the experimenter's
+        choices, never defaults. Custom component names use the existing registries; representation and
         statistic also accept their full specs. Supply a sampler instance to
         select a different sampling algorithm. No sampling occurs at construction.
         """
@@ -53,12 +61,31 @@ class Measure:
             warping=warping, estimator=estimator, mode=mode, probability=probability)
         return cls(spec, sampler=sampler, store=store)
 
-    def __init__(self, spec: MeasureSpec, *, sampler, store=None, encoder=None, distance=None,
-                 statistic=None, warping=None, memo=None):
+    def __init__(self, spec: MeasureSpec | None = None, *, sampler, store=None, encoder=None,
+                 distance=None, statistic=None, warping=None, memo=None, **axes):
+        """``Measure(spec, sampler=...)`` takes a resolved spec. The §5 keyword form,
+        ``Measure(sampler=HFSampler(..., n=32, horizon=5), unit=..., distance=...)``,
+        builds the spec via ``from_config``; n and short_samples stay required, from
+        the sampler or here. Strings/specs on distance/statistic/warping/representation
+        are axis values; any other object is an injected component.
+        """
+        injected = dict(encoder=encoder, distance=distance, statistic=statistic, warping=warping)
+        for key in ("distance", "statistic", "warping"):
+            if _is_axis_value(injected[key]):
+                axes[key] = injected[key]
+                injected[key] = None
+        if spec is None:
+            spec = Measure.from_config(sampler=sampler,
+                                       **{**getattr(sampler, "defaults", {}), **axes}).spec
+        elif axes:
+            spec = spec.replace(**axes)
+        injected = {kind: None if c is None else adapt(kind, c, type(c).__name__)
+                    for kind, c in injected.items()}
+        encoder, distance, statistic, warping = injected.values()
         self.spec, self.sampler = spec, sampler
         self.store = store if store is not None else AlternativeStore()
         self.memo = memo if memo is not None else RunMemo()
-        self._injected = dict(encoder=encoder, distance=distance, statistic=statistic, warping=warping)
+        self._injected = injected
         self.encoder = encoder or resolve("encoder", spec.representation.name,
                                          spec.representation.config, version=spec.representation.version,
                                          backend=sampler.backend)
@@ -70,6 +97,8 @@ class Measure:
         self.statistic = statistic or resolve("statistic", stat_spec.name, stat_spec.config,
                                              version=stat_spec.version)
         self.warping = warping or resolve("warping", spec.warping)
+        if isinstance(self.warping, _SpecWarping):
+            self.warping.n = spec.sampling.n  # §7 gap(raw, n) needs the set size
         for component in (self.encoder, self.distance, self.statistic, self.warping):
             if not hasattr(component, "descriptor"):
                 raise ConfigError("injected components require stable descriptors")
@@ -150,7 +179,9 @@ class Measure:
         for spec_key, injection in (("representation", "encoder"), ("distance", "distance"),
                                     ("statistic", "statistic"), ("warping", "warping")):
             if spec_key in changes:
-                injected[injection] = None
+                # §5: m.replace(distance=MyDistance()) injects; a name re-resolves.
+                value = changes[spec_key]
+                injected[injection] = None if _is_axis_value(value) else changes.pop(spec_key)
         return Measure(self.spec.replace(**changes), sampler=self.sampler, store=self.store,
                        memo=self.memo, **injected)
 
@@ -170,6 +201,11 @@ class Measure:
         if s.mode == "entropy":
             p = self._probabilities(stimulus.context)
             raw = float(-np.sum(p[p > 0]*np.log(p[p > 0])))
+        elif s.probability == "model" and callable(getattr(self.sampler.backend, "score", None)):
+            # One teacher-forced forward scores every target token; requirements()
+            # already rejects EOS inside the target.
+            log_probability = float(np.sum(self.sampler.backend.score(stimulus.context, stimulus.target)))
+            raw = math.exp(log_probability)
         else:
             raw = 1.
             log_probability = 0.
@@ -219,6 +255,29 @@ class Measure:
 
     def _get(self, context, horizon):
         return self.store.get_or_sample(self.sampler, context, horizon, self.spec.sampling, self.spec.unit)
+
+    def alternatives(self, result):
+        """The AlternativeSets a Result rests on: (A,) or (A, continuation); () if exact."""
+        return tuple(self.store.load(k) for k in result.artifact_ids)
+
+    def sentence_summary(self, stimuli, top=3):
+        """One line per stimulus (e.g. ``positions(tokens)``): target, value and the top
+        alternatives at that position. Exact results draw no samples, so they list the
+        most probable next tokens instead. Stored samples are reused, not redrawn.
+        """
+        decode = self.sampler.backend.decode
+        lines = [f"{'pos':>4}  {'target':16} {'value':>7}  top alternatives"]
+        for s in stimuli:
+            r = self.compute(s)
+            sets = self.alternatives(r)
+            if sets:
+                alts = [(text, share) for text, _, share, _ in sets[0]._grouped(top, decode)]
+            else:
+                p = self._probabilities(s.context)
+                alts = [(decode((int(t),)), float(p[t])) for t in np.argsort(-p, kind="stable")[:top]]
+            listed = ", ".join(f"{text!r} {share:.0%}" for text, share in alts)
+            lines.append(f"{s.position:>4}  {decode(s.target)!r:16} {r.value:>7.2f}  {listed}")
+        return "\n".join(lines)
 
     def _encode(self, source):
         key = digest((source.content_hash, self.encoder.descriptor, self.spec.short_samples))
@@ -300,13 +359,15 @@ class Measure:
 
     def _diagnostics(self, source):
         n = len(source)
-        # §4.7: only a draw that stopped short of H can move the statistic, and by at
-        # most D. Sets without the count (anchors, samplers that write their own
-        # provenance) keep the honest no-bound label rather than a guessed number.
+        # §4.7: a draw that ended at EOS is complete; only one cut off at H or by the
+        # token budget has mass beyond the horizon, and moves the statistic by at most
+        # D. Counted from the sequences, not provenance, which a truncated view
+        # inherits from the longer set. Sets without the provenance count (anchors,
+        # samplers that write their own) keep the honest no-bound label.
         bound, status = None, "no_general_bound"
-        short = source.provenance.get("unterminated")
-        if short is not None and math.isfinite(self.distance.range[1]):
-            bound, status = self.distance.range[1]*short/n, "bounded_by_unterminated_mass"
+        if "unterminated" in source.provenance and math.isfinite(self.distance.range[1]):
+            open_ = sum(s.stop_reason != "eos" for s in source.sequences)
+            bound, status = self.distance.range[1]*open_/n, "bounded_by_unterminated_mass"
         return {"effective_horizons": [len(s.units) for s in source.sequences],
                 "eos_fraction": sum(s.stop_reason == "eos" for s in source.sequences)/n,
                 "budget_fraction": sum(s.stop_reason == "budget" for s in source.sequences)/n,

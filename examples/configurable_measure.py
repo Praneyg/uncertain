@@ -31,6 +31,7 @@ def main():
         n=512,
         seed=42,
         generation={"temperature": 1., "top_k": 0, "top_p": 1.},
+        short_samples="compare_ragged",
     )
     result = measure.compute(target)
     print(f"Token / H=1 energy: {result.value:.6f}, method={result.method}")
@@ -44,7 +45,7 @@ def main():
     # A user-defined similarity followed by negative log: sum over the entire
     # next-token vocabulary, with probability weights, rather than drawing samples.
     adjusted = Measure.from_config(backend, distance="example_soft_similarity",
-                                   statistic="mean", warping="neglog")
+                                   statistic="mean", warping="neglog", n=512, short_samples="compare_ragged")
     result = adjusted.compute(target)
     print(f"Similarity-adjusted surprisal: {result.value:.6f}, method={result.method}")
     assert result.method == "exact" and adjusted.sampler.calls == 0

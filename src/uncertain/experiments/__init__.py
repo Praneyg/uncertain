@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import cache
 from itertools import product
 from pathlib import Path
 import csv
@@ -193,4 +194,33 @@ class SweepPlan:
                         for m in self.measures},
                     "artifacts": sorted({key for row in rows for key in row["artifact_ids"]}),
                     "plan": self.describe()}
-        return SweepResult(rows, manifest)
+        return _tidy(SweepResult(rows, manifest))
+
+
+def _tidy(result):
+    """§5: ``df = grid.run(...)  # tidy``. With pandas installed the result is a DataFrame
+    that still carries rows, manifest and write(); without it, the dependency-free SweepResult."""
+    try:
+        import pandas as pd
+    except ImportError:
+        return result
+    frame = _sweep_frame(pd)(result.to_dataframe())
+    frame.rows, frame.manifest = result.rows, result.manifest
+    return frame
+
+
+@cache
+def _sweep_frame(pd):
+    class SweepFrame(pd.DataFrame):  # type: ignore[name-defined]
+        _metadata = ["rows", "manifest"]
+
+        @property
+        def _constructor(self):
+            return pd.DataFrame  # slices and derived frames are plain DataFrames
+
+        def to_dataframe(self):
+            return self.copy()
+
+        def write(self, path):
+            return SweepResult(self.rows, self.manifest).write(path)
+    return SweepFrame

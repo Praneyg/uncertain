@@ -45,7 +45,7 @@ measure = Measure.from_config(
     ToyBackend(),
     unit="token", horizon=1, representation="tokens",
     distance="discrete", statistic="energy", warping="identity",
-    estimator="auto", n=512, seed=42,
+    estimator="auto", n=512, seed=42, short_samples="compare_ragged",
 )
 result = measure.compute(Stimulus(target=(1,)))
 print(result.value, result.method)  # 1.125, exact; no sampling
@@ -86,9 +86,12 @@ run.write("scores.csv")  # also writes scores.manifest.json
 # frame = run.to_dataframe()  # requires the tables extra
 ```
 
-In low-level specs, `n` and `short_samples` are required. `Measure.from_config`
-defaults to 512 draws when needed and `compare_ragged`; `pad` and `drop` are also
-available. No epsilon is inserted into a zero probability: sampled surprisal can
+To see what the model actually sampled for a Monte Carlo result, use
+`a, *_ = measure.alternatives(result)` and then `print(a.summary(decode=backend.decode))`,
+or `a.plot(...)` with the `plot` extra. See [docs/api.md](docs/api.md).
+
+`n` and `short_samples` are required everywhere, `Measure.from_config` included:
+`compare_ragged`, `pad` and `drop` are the available policies. No epsilon is inserted into a zero probability: sampled surprisal can
 be infinite and its status/interval explain why.
 
 ## Implemented capabilities
@@ -131,10 +134,11 @@ strings, thereby summing over sampled tokenizations. Exact word/sentence probabi
 and entropy presets remain unsupported. The sentence splitter is punctuation based,
 not abbreviation aware.
 Ambiguous prefix retokenization and decoders that revise previous characters are
-rejected for text-unit alignment.
+rejected for text-unit alignment; a byte-level split of one multi-byte character
+(GPT-2) is not a revision and aligns once the character completes.
 
-Directed minima and the entailment example return `se=None` and an explicit
-unavailable status. They do not invent precision estimates. Energy has an
+Directed minima carry a whole-alternative bootstrap SE (`bootstrap_approximate`);
+the entailment example returns `se=None` and an explicit unavailable status. Energy has an
 approximate bootstrap SE; bounded distances additionally receive conservative
 population confidence bounds that remain valid at the equal-distribution
 degeneracy. For unbounded energy, the population CI is unavailable. No generic

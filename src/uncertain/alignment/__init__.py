@@ -53,6 +53,11 @@ def align(tokens, backend, unit, *, final=False):
     previous = ""
     for i in range(1, len(tokens)+1):
         current = backend.decode(tokens[:i])
+        if i < len(tokens):
+            # Byte-level tokenizers (GPT-2) split multi-byte characters; the partial
+            # sequence decodes to U+FFFD until a later token completes it. Only the
+            # complete characters are stable, so don't count the replacement yet.
+            current = current.rstrip("�")
         if not current.startswith(previous):
             raise AlignmentError("decoder revises prior characters; this tokenizer needs a custom aligner")
         offsets.append(len(current))
@@ -60,7 +65,9 @@ def align(tokens, backend, unit, *, final=False):
     chars = boundaries(text, unit, final=final)
     spans = []
     for a, b in chars:
-        owners = [i for i in range(len(tokens)) if offsets[i] < b and offsets[i+1] > a]
+        # A token holding only partial bytes has zero width; it owns the character it starts.
+        owners = [i for i in range(len(tokens))
+                  if offsets[i] < b and max(offsets[i+1], offsets[i]+1) > a]
         if not owners:
             raise AlignmentError("completed unit has no owning token")
         spans.append((owners[0], owners[-1]+1))
