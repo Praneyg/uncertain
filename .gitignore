@@ -9,3 +9,4 @@ dist/
 .venv/
 .cache/
 .test-artifacts/
+.claude/

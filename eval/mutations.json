@@ -1,0 +1,130 @@
+[
+  {
+    "name": "reshape_in_logits_path",
+    "about": "StudySampler: reorder (batch, vocab) log-probs by reshape instead of a named swap",
+    "file": "src/uncertain/emnlp2024.py",
+    "tests_run": 4,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_d_sampling::test_batched_logits_rows_stay_with_their_sample[2-11-6]",
+      "eval.tests.test_d_sampling::test_batched_logits_rows_stay_with_their_sample[3-7-5]",
+      "eval.tests.test_d_sampling::test_batched_logits_rows_stay_with_their_sample[4-9-3]",
+      "eval.tests.test_d_sampling::test_study_sampler_batched_logprobs_match_unbatched_teacher_forced"
+    ]
+  },
+  {
+    "name": "reshape_in_arrays",
+    "about": "AlternativeSet.arrays: (sample, step) view rebuilt by reshape of the transpose",
+    "file": "src/uncertain/core/values.py",
+    "tests_run": 4,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_a_core::test_alternative_set_fields_and_provenance",
+      "eval.tests.test_d_sampling::test_arrays_are_sample_by_step[3-5]",
+      "eval.tests.test_d_sampling::test_arrays_are_sample_by_step[4-4]",
+      "eval.tests.test_d_sampling::test_arrays_are_sample_by_step[5-2]"
+    ]
+  },
+  {
+    "name": "default_top_k_50",
+    "about": "SamplingSpec default top_k=50 (the generalized-surprisal bug)",
+    "file": "src/uncertain/core/specs.py",
+    "tests_run": 3,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_d_sampling::test_tail_beyond_top_50_is_sampled[None-True]",
+      "eval.tests.test_d_sampling::test_top_k_explicit_and_off_by_default"
+    ]
+  },
+  {
+    "name": "energy_without_within_terms",
+    "about": "Energy = 2 d(A,B) (drop d(A,A) and d(B,B))",
+    "file": "src/uncertain/statistics/__init__.py",
+    "tests_run": 9,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_a_core::test_energy_against_point_mass_matches_closed_form[0]",
+      "eval.tests.test_a_core::test_energy_against_point_mass_matches_closed_form[2]",
+      "eval.tests.test_a_core::test_energy_against_point_mass_matches_closed_form[4]",
+      "eval.tests.test_a_core::test_energy_identity_nonneg_symmetry_formula",
+      "eval.tests.test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[1024]",
+      "eval.tests.test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[128]",
+      "eval.tests.test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[512]"
+    ]
+  },
+  {
+    "name": "extend_regenerates_everything",
+    "about": "Sampler.extend re-samples all n1+n2 draws (values identical by per-draw seeding)",
+    "file": "src/uncertain/samplers/__init__.py",
+    "tests_run": 3,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_d_sampling::test_extend_generates_only_new_samples[1-31]",
+      "eval.tests.test_d_sampling::test_extend_generates_only_new_samples[16-5]",
+      "eval.tests.test_d_sampling::test_extend_generates_only_new_samples[8-8]"
+    ]
+  },
+  {
+    "name": "truncate_by_tokens_not_units",
+    "about": "Sequence.truncate cuts at token H instead of the end of unit H",
+    "file": "src/uncertain/core/values.py",
+    "tests_run": 2,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_c_units::test_truncate_equals_direct_sample_without_spanning_tokens"
+    ]
+  },
+  {
+    "name": "short_samples_not_hashed",
+    "about": "MeasureSpec.spec_hash ignores the short-sample policy",
+    "file": "src/uncertain/core/specs.py",
+    "tests_run": 3,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_c_units::test_short_sample_policy_required_and_hashed",
+      "eval.tests.test_f_repro::test_every_spec_field_changes_hash"
+    ]
+  },
+  {
+    "name": "se_divides_by_n",
+    "about": "sample_mean SE = sd/n instead of sd/sqrt(n)",
+    "file": "src/uncertain/statistics/__init__.py",
+    "tests_run": 8,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_a_core::test_h1_information_value_equals_one_minus_p",
+      "eval.tests.test_a_core::test_published_presets_match_analytic[anticipatory_iv-information_value-kw5-0.7]",
+      "eval.tests.test_a_core::test_published_presets_match_analytic[information_value-information_value-kw4-0.8]",
+      "eval.tests.test_a_core::test_published_presets_match_analytic[next_unit_entropy-entropy-kw2-1.2798542258336674]",
+      "eval.tests.test_a_core::test_published_presets_match_analytic[sequence_entropy_H2-entropy-kw3-2.5597084516673347]",
+      "eval.tests.test_e_estimates::test_closed_form_vs_mc_converges_and_se_scales"
+    ]
+  },
+  {
+    "name": "continuation_from_wrong_context",
+    "about": "right operand continuation sampled from c_t instead of c_t + observed",
+    "file": "src/uncertain/measures/__init__.py",
+    "tests_run": 27,
+    "caught": true,
+    "killed_by": [
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-2]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-3]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-2]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-3]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-2]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-3]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-2]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-3]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-2]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-3]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-2]",
+      "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-3]",
+      "eval.tests.test_a_core::test_operands_have_spec_structure[0-2]",
+      "eval.tests.test_a_core::test_operands_have_spec_structure[0-3]",
+      "eval.tests.test_a_core::test_operands_have_spec_structure[1-2]",
+      "eval.tests.test_a_core::test_operands_have_spec_structure[1-3]",
+      "eval.tests.test_a_core::test_operands_have_spec_structure[2-2]",
+      "eval.tests.test_a_core::test_operands_have_spec_structure[2-3]"
+    ]
+  }
+]

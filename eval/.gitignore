@@ -1,0 +1,5 @@
+.tmp/
+.mutants/
+.junit.xml
+.grade.log
+__pycache__/

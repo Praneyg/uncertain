@@ -1,0 +1,2724 @@
+{
+  "command": "python eval/grade.py",
+  "suite_seconds": 418.9,
+  "test_totals": {
+    "passed": 252,
+    "failed": 19,
+    "skipped": 0
+  },
+  "status_summary": {
+    "PASS": 31,
+    "FAIL": 7,
+    "AMBIGUOUS": 3,
+    "NOT IMPLEMENTED": 1,
+    "NOT RUN": 0
+  },
+  "requirements": {
+    "1": {
+      "section": "§4.5, §10 \"Comparison primitive\"",
+      "requirement": "The comparison primitive is a representation set that retains the alternative set (tokens, strings, log-probs, eff. horizon) it was built from, so non-factoring statistics can read raw sequences.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_representation_set_retains_source",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_non_factoring_statistic_reads_strings_through_measure",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "2": {
+      "section": "§4.1, §4.3, R2",
+      "requirement": "Every measure compares two alternative sets; the observed unit is a set of size one, and H = 1 recovers classic information value.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_h1_information_value_equals_one_minus_p",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_anchor_at_h1_is_singleton",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_edge_set_of_size_one",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_edge_identical_alternatives[mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_edge_identical_alternatives[energy]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_edge_set_of_size_one": {
+          "status": "'insufficient_samples'"
+        }
+      }
+    },
+    "3": {
+      "section": "§4.1, §4.2, §6.1",
+      "requirement": "For H > 1 the left operand is trunc(S_t, H) and the right is anchor(u_{t+1}, trunc(S_{t+1}, H−1)), H counted in the run's unit.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[0-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[0-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[0-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[1-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[1-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[1-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[2-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[2-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_operands_have_spec_structure[2-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_horizon_longer_than_remaining_text[2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_horizon_longer_than_remaining_text[4]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_horizon_longer_than_remaining_text[6]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-1]": {
+          "abs_err": "np.float64(0.03749999999999998)",
+          "z": "np.float64(1.4793821103999554)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-2]": {
+          "abs_err": "np.float64(0.0206289062499998)",
+          "z": "np.float64(1.5656943382426194)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-3]": {
+          "abs_err": "np.float64(0.011228491753473291)",
+          "z": "np.float64(1.611555339367662)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-1]": {
+          "abs_err": "np.float64(0.017708333333333326)",
+          "z": "np.float64(0.7443509357857053)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-2]": {
+          "abs_err": "np.float64(0.006448079427083586)",
+          "z": "np.float64(0.5118375495333689)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-3]": {
+          "abs_err": "np.float64(0.0015542838541653392)",
+          "z": "np.float64(0.16275487214194445)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-1]": {
+          "abs_err": "np.float64(0.0010416666666667185)",
+          "z": "np.float64(0.06826994148417714)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-2]": {
+          "abs_err": "np.float64(0.001078938802083207)",
+          "z": "np.float64(0.10041256225747804)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-3]": {
+          "abs_err": "np.float64(0.0009391840277765962)",
+          "z": "np.float64(0.17296525316033812)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-1]": {
+          "abs_err": "np.float64(0.03749999999999998)",
+          "z": "np.float64(1.4793821103999554)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-2]": {
+          "abs_err": "np.float64(0.02031164098668975)",
+          "z": "np.float64(1.60416671189449)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-3]": {
+          "abs_err": "np.float64(0.008363181785301044)",
+          "z": "np.float64(0.9258584599291202)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-1]": {
+          "abs_err": "np.float64(0.017708333333333326)",
+          "z": "np.float64(0.7443509357857053)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-2]": {
+          "abs_err": "np.float64(0.013714861834490777)",
+          "z": "np.float64(0.9410690537990299)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-3]": {
+          "abs_err": "np.float64(0.006849194878472076)",
+          "z": "np.float64(0.5852281568638064)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-1]": {
+          "abs_err": "np.float64(0.0010416666666667185)",
+          "z": "np.float64(0.06826994148417714)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-2]": {
+          "abs_err": "np.float64(0.0058151584201388)",
+          "z": "np.float64(0.35778109956399207)"
+        },
+        "test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-3]": {
+          "abs_err": "np.float64(0.015959127242476945)",
+          "z": "np.float64(1.0381453971713879)"
+        }
+      }
+    },
+    "4": {
+      "section": "§4.6, §9",
+      "requirement": "Energy distance is 2·d(A,B) − d(A,A) − d(B,B): zero for identical sets, non-negative, symmetric, and statistically indistinguishable from 0 for two sets from the same distribution.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_edge_identical_alternatives[mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_edge_identical_alternatives[energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_identity_nonneg_symmetry_formula",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_cosine_vectors_nonneg_symmetric",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[128]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[512]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[1024]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_against_point_mass_matches_closed_form[0]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_against_point_mass_matches_closed_form[2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_against_point_mass_matches_closed_form[4]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[128]": {
+          "n128:energy": "0.022705078125",
+          "n128:energy_se": "0.0189160559495019",
+          "n128:energy_ci_low": "0.0",
+          "n128:energy_over_se": "1.2003071985837446",
+          "n128:mean": "0.76397705078125",
+          "n128:mean_truth": "np.float64(0.7542)",
+          "n128:mean_ci_low": "0.7413543701171875"
+        },
+        "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[512]": {
+          "n512:energy": "0.00223541259765625",
+          "n512:energy_se": "0.004048229338063085",
+          "n512:energy_ci_low": "0.0",
+          "n512:energy_over_se": "0.5521951477990634",
+          "n512:mean": "0.7559661865234375",
+          "n512:mean_truth": "np.float64(0.7542)",
+          "n512:mean_ci_low": "0.7476804733276368"
+        },
+        "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[1024]": {
+          "n1024:energy": "0.001377105712890625",
+          "n1024:energy_se": "0.0020163543420669183",
+          "n1024:energy_ci_low": "0.0",
+          "n1024:energy_over_se": "0.6829681094043152",
+          "n1024:mean": "0.7521991729736328",
+          "n1024:mean_truth": "np.float64(0.7542)",
+          "n1024:mean_ci_low": "0.7434366703033447"
+        },
+        "test_a_core::test_energy_against_point_mass_matches_closed_form[0]": {
+          "z": "np.float64(0.5404122311272846)"
+        },
+        "test_a_core::test_energy_against_point_mass_matches_closed_form[2]": {
+          "z": "np.float64(1.0646578809815133)"
+        },
+        "test_a_core::test_energy_against_point_mass_matches_closed_form[4]": {
+          "z": "np.float64(0.5609111117489941)"
+        }
+      }
+    },
+    "5": {
+      "section": "§4.6, §9",
+      "requirement": "Mean pairwise distance remains available and stays non-zero (≈ 1 − Σp² under one-hot) when P = Q.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[128]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[512]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[1024]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[128]": {
+          "n128:energy": "0.022705078125",
+          "n128:energy_se": "0.0189160559495019",
+          "n128:energy_ci_low": "0.0",
+          "n128:energy_over_se": "1.2003071985837446",
+          "n128:mean": "0.76397705078125",
+          "n128:mean_truth": "np.float64(0.7542)",
+          "n128:mean_ci_low": "0.7413543701171875"
+        },
+        "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[512]": {
+          "n512:energy": "0.00223541259765625",
+          "n512:energy_se": "0.004048229338063085",
+          "n512:energy_ci_low": "0.0",
+          "n512:energy_over_se": "0.5521951477990634",
+          "n512:mean": "0.7559661865234375",
+          "n512:mean_truth": "np.float64(0.7542)",
+          "n512:mean_ci_low": "0.7476804733276368"
+        },
+        "test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[1024]": {
+          "n1024:energy": "0.001377105712890625",
+          "n1024:energy_se": "0.0020163543420669183",
+          "n1024:energy_ci_low": "0.0",
+          "n1024:energy_over_se": "0.6829681094043152",
+          "n1024:mean": "0.7521991729736328",
+          "n1024:mean_truth": "np.float64(0.7542)",
+          "n1024:mean_ci_low": "0.7434366703033447"
+        }
+      }
+    },
+    "6": {
+      "section": "R8, §4.5, §5",
+      "requirement": "The representational level is selectable and actually changes the representation used.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_layer_selection_changes_vectors_and_hash",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_toy_layer_is_one_hot",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_layer_selection_changes_vectors_and_hash": {
+          "max_abs_diff": "0.006925560534000397"
+        }
+      }
+    },
+    "7": {
+      "section": "R1",
+      "requirement": "Output granularity is a single unit or a multi-unit span.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_multi_unit_span_matches_exact[target0-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_multi_unit_span_matches_exact[target1-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_multi_unit_span_matches_exact[target2-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_span_longer_than_horizon_rejected",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_multi_unit_span_matches_exact[target0-2]": {
+          "z": "np.float64(0.14952692837164866)"
+        },
+        "test_a_core::test_multi_unit_span_matches_exact[target1-3]": {
+          "z": "np.float64(0.9177947070010526)"
+        },
+        "test_a_core::test_multi_unit_span_matches_exact[target2-3]": {
+          "z": "np.float64(0.8020272565440019)"
+        }
+      }
+    },
+    "8": {
+      "section": "§4.5, §4.1 (rewritten, see conflicts)",
+      "requirement": "Distances have one pointwise signature; (set, unit) and (set, set) comparisons are statistics, and they agree with the pointwise distance on singletons.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_b_distance::test_set_unit_and_unit_unit_agree_with_pointwise",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_distances_have_single_pointwise_signature[discrete]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_distances_have_single_pointwise_signature[ngram_overlap]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_distances_have_single_pointwise_signature[ngram_distance]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_distances_have_single_pointwise_signature[prefix_indicator]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_distances_have_single_pointwise_signature[cosine]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_distances_have_single_pointwise_signature[euclidean]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "9": {
+      "section": "§1.4, §7",
+      "requirement": "A new distance / statistic / encoder / warping is \"implement a protocol, declare types, register a name\" with no core edits.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_non_factoring_statistic_reads_strings_through_measure",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_registered_components_resolve_and_run",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_plugin_module_touches_only_public_namespace",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "9b": {
+      "section": "§4.5, §4.6, §4.7, §7 table",
+      "requirement": "A component that implements exactly the PDF's protocol (distance: `input_type`, `range`, `__call__(a,b)`; statistic: `range`, `__call__(A,B)`; encoder: `output_type`, `encode(set)`; warping: `domain`, `__call__(x)`, `gap`) can be registered and used.",
+      "status": "FAIL",
+      "tests": [
+        {
+          "name": "test_b_distance::test_spec_protocol_component_registers_and_runs[distance]",
+          "outcome": "failed",
+          "failure": "uncertain.core.specs.ConfigError: distance eval_spec_distance must declare a stable descriptor"
+        },
+        {
+          "name": "test_b_distance::test_spec_protocol_component_registers_and_runs[statistic]",
+          "outcome": "failed",
+          "failure": "uncertain.core.specs.ConfigError: statistic eval_spec_statistic must declare a stable descriptor"
+        },
+        {
+          "name": "test_b_distance::test_spec_protocol_component_registers_and_runs[encoder]",
+          "outcome": "failed",
+          "failure": "uncertain.core.specs.ConfigError: encoder eval_spec_encoder must declare a stable descriptor"
+        },
+        {
+          "name": "test_b_distance::test_spec_protocol_component_registers_and_runs[warping]",
+          "outcome": "failed",
+          "failure": "uncertain.core.specs.ConfigError: warping eval_spec_warping must declare a stable descriptor"
+        },
+        {
+          "name": "test_g_api::test_spec_custom_distance_injection",
+          "outcome": "failed",
+          "failure": "uncertain.core.specs.ConfigError: Unknown distance: <test_g_api.test_spec_custom_distance_injection.<locals>.MyDistance object at 0x000002694B432FC0>@1"
+        }
+      ],
+      "measured": {
+        "test_b_distance::test_spec_protocol_component_registers_and_runs[distance]": {
+          "error": "'ConfigError: distance eval_spec_distance must declare a stable descriptor'"
+        },
+        "test_b_distance::test_spec_protocol_component_registers_and_runs[statistic]": {
+          "error": "'ConfigError: statistic eval_spec_statistic must declare a stable descriptor'"
+        },
+        "test_b_distance::test_spec_protocol_component_registers_and_runs[encoder]": {
+          "error": "'ConfigError: encoder eval_spec_encoder must declare a stable descriptor'"
+        },
+        "test_b_distance::test_spec_protocol_component_registers_and_runs[warping]": {
+          "error": "'ConfigError: warping eval_spec_warping must declare a stable descriptor'"
+        }
+      }
+    },
+    "10": {
+      "section": "§4.2, R7",
+      "requirement": "Exactly one unit (token/word/sentence) per run, fixed at configuration; mixed units raise a clear error.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_c_units::test_one_unit_per_run",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_empty_or_whitespace_target[target0]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_empty_or_whitespace_target[target1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_empty_or_whitespace_target[target2]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_one_unit_per_run": {
+          "msg0": "\"unsupported sweep axes: ['unit']; one unit per run\"",
+          "msg1": "'all cells must use the same unit'",
+          "msg2": "'Unknown unit: morpheme'"
+        },
+        "test_c_units::test_edge_empty_or_whitespace_target[target0]": {
+          "message": "'observed measures require a nonempty target'"
+        },
+        "test_c_units::test_edge_empty_or_whitespace_target[target1]": {
+          "message": "'observed span must contain between 1 and H units'"
+        },
+        "test_c_units::test_edge_empty_or_whitespace_target[target2]": {
+          "message": "'observed span must contain between 1 and H units'"
+        }
+      }
+    },
+    "11": {
+      "section": "§4.2, §9",
+      "requirement": "For word/sentence units the sampler stops at H unit boundaries, EOS, or the token budget; samples are token-ragged but unit-aligned.",
+      "status": "FAIL",
+      "tests": [
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[word-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[word-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[sentence-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[sentence-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-pad]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-drop]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-compare_ragged]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-pad]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-drop]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-compare_ragged]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_empty_or_whitespace_target[target0]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_empty_or_whitespace_target[target1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_empty_or_whitespace_target[target2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_non_ascii_units[word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_non_ascii_units[sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_multibyte_char_split_across_tokens[word]",
+          "outcome": "failed",
+          "failure": "uncertain.alignment.AlignmentError: decoder revises prior characters; this tokenizer needs a custom aligner"
+        },
+        {
+          "name": "test_c_units::test_edge_multibyte_char_split_across_tokens[sentence]",
+          "outcome": "failed",
+          "failure": "uncertain.alignment.AlignmentError: decoder revises prior characters; this tokenizer needs a custom aligner"
+        },
+        {
+          "name": "test_c_units::test_edge_token_spanning_word_boundary",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[0-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[0-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[0-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[1-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[1-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[1-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[2-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[2-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[2-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[3-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[3-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[3-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[4-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[4-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[4-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[5-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[5-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[5-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[6-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[6-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[6-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[7-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[7-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[7-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[8-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[8-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[8-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[9-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[9-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[9-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[10-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[10-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[10-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[11-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[11-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[11-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[12-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[12-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[12-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[13-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[13-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[13-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[14-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[14-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[14-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[15-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[15-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[15-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[16-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[16-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[16-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[17-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[17-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[17-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[18-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[18-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[18-sentence]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[19-token]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[19-word]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_pipeline_runs_on_gpt2[19-sentence]",
+          "outcome": "failed",
+          "failure": "uncertain.alignment.AlignmentError: decoder revises prior characters; this tokenizer needs a custom aligner"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_unit_boundary_stopping[word-1]": {
+          "stop_reasons": "{'horizon': 180, 'eos': 20}"
+        },
+        "test_c_units::test_unit_boundary_stopping[word-3]": {
+          "stop_reasons": "{'eos': 92, 'horizon': 107, 'budget': 1}"
+        },
+        "test_c_units::test_unit_boundary_stopping[sentence-1]": {
+          "stop_reasons": "{'horizon': 172, 'eos': 22, 'budget': 6}"
+        },
+        "test_c_units::test_unit_boundary_stopping[sentence-2]": {
+          "stop_reasons": "{'eos': 150, 'horizon': 34, 'budget': 16}"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-pad]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-drop]": {
+          "value": "nan",
+          "status": "'all_samples_dropped'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-compare_ragged]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-pad]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-drop]": {
+          "value": "nan",
+          "status": "'all_samples_dropped'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-compare_ragged]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_empty_or_whitespace_target[target0]": {
+          "message": "'observed measures require a nonempty target'"
+        },
+        "test_c_units::test_edge_empty_or_whitespace_target[target1]": {
+          "message": "'observed span must contain between 1 and H units'"
+        },
+        "test_c_units::test_edge_empty_or_whitespace_target[target2]": {
+          "message": "'observed span must contain between 1 and H units'"
+        },
+        "test_c_units::test_edge_multibyte_char_split_across_tokens[word]": {
+          "error": "'decoder revises prior characters; this tokenizer needs a custom aligner'"
+        },
+        "test_c_units::test_edge_multibyte_char_split_across_tokens[sentence]": {
+          "error": "'decoder revises prior characters; this tokenizer needs a custom aligner'"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[0-token]": {
+          "value": "0.16576781515093392",
+          "se": "0.0256849881118482",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[0-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[0-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 0, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[1-token]": {
+          "value": "0.2095246071692529",
+          "se": "0.01703822812919145",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[1-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[1-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[2-token]": {
+          "value": "0.1572694169568477",
+          "se": "0.023732220642318055",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[2-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[2-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[3-token]": {
+          "value": "0.21468517411156274",
+          "se": "0.017478916650118467",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[3-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[3-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 0, 0]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[4-token]": {
+          "value": "0.12604220860254073",
+          "se": "0.039570335355438586",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[4-word]": {
+          "value": "0.75",
+          "se": "0.16366341767699427",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[4-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 0, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[5-token]": {
+          "value": "0.2819139387246878",
+          "se": "0.014905777294609068",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[5-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[5-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 0, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[6-token]": {
+          "value": "0.09092080876999739",
+          "se": "0.029000948316135394",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[6-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[6-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[7-token]": {
+          "value": "0.20490758099098705",
+          "se": "0.019798891413973854",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[7-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[7-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[8-token]": {
+          "value": "0.10955192922058726",
+          "se": "0.024203368228535582",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[8-word]": {
+          "value": "0.875",
+          "se": "0.125",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[8-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 0, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[9-token]": {
+          "value": "0.18622165946702152",
+          "se": "0.03328321279038491",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[9-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[9-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[10-token]": {
+          "value": "0.19312533392234296",
+          "se": "0.04619760778843451",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[10-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[10-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 0, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[11-token]": {
+          "value": "0.1275677173558219",
+          "se": "0.06454743084731077",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[11-word]": {
+          "value": "0.75",
+          "se": "0.16366341767699427",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[11-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 0, 0, 0]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[12-token]": {
+          "value": "0.25525976961642016",
+          "se": "0.01970572947958608",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[12-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[12-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 0, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[13-token]": {
+          "value": "0.13857642165961118",
+          "se": "0.05526129866547521",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[13-word]": {
+          "value": "0.875",
+          "se": "0.125",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[13-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 0, 1, 0]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[14-token]": {
+          "value": "0.14777098098911137",
+          "se": "0.03010869310546997",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[14-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[14-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[15-token]": {
+          "value": "0.2619924155809179",
+          "se": "0.018756809242229784",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[15-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[15-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 0, 1, 0]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[16-token]": {
+          "value": "0.06857038202422845",
+          "se": "0.011368048770266027",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[16-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[16-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 1, 0]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[17-token]": {
+          "value": "0.15726322883418078",
+          "se": "0.04025922512551089",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[17-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[17-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 0, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[18-token]": {
+          "value": "0.26051866271254415",
+          "se": "0.017942562050162154",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[18-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[18-sentence]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[0, 1, 0, 0]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[19-token]": {
+          "value": "0.23960883478953432",
+          "se": "0.02556509247464027",
+          "status": "'bounded_energy_ci_bootstrap_se'",
+          "effective_horizons": "[2, 2, 2, 2, 2, 2, 2, 2]"
+        },
+        "test_integration_gpt2::test_pipeline_runs_on_gpt2[19-word]": {
+          "value": "1.0",
+          "se": "0.0",
+          "status": "'ok'",
+          "effective_horizons": "[1, 1, 1, 1, 1, 1, 1, 1]"
+        }
+      }
+    },
+    "12": {
+      "section": "§4.2, §4.3",
+      "requirement": "Samples that stop early carry an effective horizon < H.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[word-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[word-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[sentence-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_unit_boundary_stopping[sentence-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_effective_horizon_reported_in_result",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-pad]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-drop]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-compare_ragged]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-pad]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-drop]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-compare_ragged]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_horizon_longer_than_remaining_text[2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_horizon_longer_than_remaining_text[4]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_edge_horizon_longer_than_remaining_text[6]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_unit_boundary_stopping[word-1]": {
+          "stop_reasons": "{'horizon': 180, 'eos': 20}"
+        },
+        "test_c_units::test_unit_boundary_stopping[word-3]": {
+          "stop_reasons": "{'eos': 92, 'horizon': 107, 'budget': 1}"
+        },
+        "test_c_units::test_unit_boundary_stopping[sentence-1]": {
+          "stop_reasons": "{'horizon': 172, 'eos': 22, 'budget': 6}"
+        },
+        "test_c_units::test_unit_boundary_stopping[sentence-2]": {
+          "stop_reasons": "{'eos': 150, 'horizon': 34, 'budget': 16}"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-pad]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-drop]": {
+          "value": "nan",
+          "status": "'all_samples_dropped'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[token-compare_ragged]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-pad]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-drop]": {
+          "value": "nan",
+          "status": "'all_samples_dropped'"
+        },
+        "test_c_units::test_edge_every_alternative_hits_eos_immediately[word-compare_ragged]": {
+          "value": "1.0",
+          "status": "'bootstrap_approximate'"
+        }
+      }
+    },
+    "13": {
+      "section": "§4.2, §4.8, §6.1",
+      "requirement": "The short-sample policy (pad/drop/compare_ragged) is a required `MeasureSpec` field and enters the run hash.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_c_units::test_short_sample_policy_required_and_hashed",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_short_sample_policies_differ_when_samples_are_short",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_every_spec_field_changes_hash",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_short_sample_policies_differ_when_samples_are_short": {
+          "pad": "(0.6131498336791994, 0.009660476611707502, 512)",
+          "drop": "(0.5399867060023311, 0.01340397066350121, 192)",
+          "compare_ragged": "(0.6147152582804363, 0.010599397517804834, 512)"
+        },
+        "test_f_repro::test_every_spec_field_changes_hash": {
+          "fields_checked": "19"
+        }
+      }
+    },
+    "14": {
+      "section": "§4.2, §5",
+      "requirement": "`truncate(H')` cuts at unit boundaries, and a horizon sweep reuses one set of samples.",
+      "status": "FAIL",
+      "tests": [
+        {
+          "name": "test_c_units::test_edge_token_spanning_word_boundary",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_truncate_equals_direct_sample",
+          "outcome": "failed",
+          "failure": "ValueError: effective horizon exceeds requested horizon\nFailing test case: test_truncate_equals_direct_sample(\n    unit='word',\n    hmax=2,\n    data=data(...),\n    seed=1,\n)\nDraw 1: 1"
+        },
+        {
+          "name": "test_c_units::test_truncate_equals_direct_sample_without_spanning_tokens",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_c_units::test_truncate_when_last_token_spans_units_minimal",
+          "outcome": "failed",
+          "failure": "AssertionError: assert ('abd', 'e') == ('abd',)\n  \n  Left contains one more item: 'e'\n  Use -v to get more diff"
+        },
+        {
+          "name": "test_c_units::test_horizon_sweep_reuses_one_sampling_pass",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_horizon_sweep_reuses_one_sampling_pass": {
+          "backend_calls_H4_only": "851",
+          "backend_calls_sweep_1_2_4": "851",
+          "extra_calls_after_H4": "0"
+        }
+      }
+    },
+    "15": {
+      "section": "§4.4, R5, §10 \"Set size\"",
+      "requirement": "Set size n is user-specified and required.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_d_sampling::test_set_size_is_required_and_honoured",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "16": {
+      "section": "§4.3, §4.4",
+      "requirement": "An alternative set can be extended without regenerating the old samples.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_d_sampling::test_extend_generates_only_new_samples[8-8]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_extend_generates_only_new_samples[16-5]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_extend_generates_only_new_samples[1-31]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_d_sampling::test_extend_generates_only_new_samples[8-8]": {
+          "backend_calls": "8",
+          "sample_requests": "[(8, 8)]"
+        },
+        "test_d_sampling::test_extend_generates_only_new_samples[16-5]": {
+          "backend_calls": "5",
+          "sample_requests": "[(5, 16)]"
+        },
+        "test_d_sampling::test_extend_generates_only_new_samples[1-31]": {
+          "backend_calls": "31",
+          "sample_requests": "[(31, 1)]"
+        }
+      }
+    },
+    "17": {
+      "section": "§4.4",
+      "requirement": "`top_k` is explicit and off (0) by default.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_d_sampling::test_top_k_explicit_and_off_by_default",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_tail_beyond_top_50_is_sampled[None-True]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_tail_beyond_top_50_is_sampled[50-False]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_d_sampling::test_tail_beyond_top_50_is_sampled[None-True]": {
+          "tail_mass": "0.06823064985403571",
+          "tail_freq": "0.06516666666666666"
+        },
+        "test_d_sampling::test_tail_beyond_top_50_is_sampled[50-False]": {
+          "tail_mass": "0.06823064985403571",
+          "tail_freq": "0.0"
+        }
+      }
+    },
+    "18": {
+      "section": "§4.3, §9 oracle 2, §10",
+      "requirement": "Axis reordering never uses reshape; sampled log-probs are aligned to their own sample and step.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_d_sampling::test_batched_logits_rows_stay_with_their_sample[3-7-5]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_batched_logits_rows_stay_with_their_sample[4-9-3]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_batched_logits_rows_stay_with_their_sample[2-11-6]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_sampler_logprobs_match_teacher_forced",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_study_sampler_batched_logprobs_match_unbatched_teacher_forced",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_arrays_are_sample_by_step[3-5]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_arrays_are_sample_by_step[5-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_arrays_are_sample_by_step[4-4]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_d_sampling::test_no_reshape_based_axis_reordering_in_src",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_gpt2_logprobs_match_teacher_forced",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_d_sampling::test_batched_logits_rows_stay_with_their_sample[3-7-5]": {
+          "max_abs_err": "0.0"
+        },
+        "test_d_sampling::test_batched_logits_rows_stay_with_their_sample[4-9-3]": {
+          "max_abs_err": "0.0"
+        },
+        "test_d_sampling::test_batched_logits_rows_stay_with_their_sample[2-11-6]": {
+          "max_abs_err": "0.0"
+        },
+        "test_d_sampling::test_sampler_logprobs_match_teacher_forced": {
+          "max_abs_err": "2.6877329695196295e-08"
+        },
+        "test_d_sampling::test_study_sampler_batched_logprobs_match_unbatched_teacher_forced": {
+          "max_abs_err": "1.648735681314406e-08"
+        },
+        "test_d_sampling::test_no_reshape_based_axis_reordering_in_src": {
+          "hits": "['utils\\\\__init__.py:41: return np.frombuffer(a.tobytes(), dtype=a.dtype).reshape(a.shape)']"
+        },
+        "test_integration_gpt2::test_gpt2_logprobs_match_teacher_forced": {
+          "max_abs_err": "4.562985180278645e-05"
+        }
+      }
+    },
+    "19": {
+      "section": "§6.2",
+      "requirement": "Persisting sampled alternatives is optional; a store with no path writes nothing and results are identical either way.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_d_sampling::test_persistence_off_by_default_and_results_identical",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_cross_process_byte_identical_and_persistence_independent",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_d_sampling::test_persistence_off_by_default_and_results_identical": {
+          "files": "['alternatives\\\\7db4760372e372612107fb38f5a640083a5e21193b79f6c3c70930a26450bd64.json', 'alternatives\\\\81cacc2bca94264b964f3944b9ad4608997aa8e0cae55220251d0678e27078aa.json', 'requests\\\\6144a753f26c60848ecc0c6596318618596e82fe206a01dcf7999bfdafe2c249\\\\32-2.json', 'requests\\\\b8ce55746cec932274d5839953242b20d348adc27d02f61647d00ca0f75bb939\\\\32-1.json']"
+        },
+        "test_f_repro::test_cross_process_byte_identical_and_persistence_independent": {
+          "artifact_files": "11"
+        }
+      }
+    },
+    "20": {
+      "section": "R5, §4.7, §4.8, §10 \"Uncertainty reporting\"",
+      "requirement": "Every score is returned with its standard error and the n that produced it.",
+      "status": "FAIL",
+      "tests": [
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[mean-identity-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[mean-identity-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[mean-neglog-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[mean-neglog-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[energy-identity-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[energy-identity-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[energy-neglog-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[energy-neglog-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[min-identity-1]",
+          "outcome": "failed",
+          "failure": "AssertionError: min/identity/H=1: se=None (uncertainty_unavailable_min)\nassert (False)\n +  where False = isinstance(None, float)\n +    where None = Result(value=0.0, raw_value=0.0, se=None, ci_low=None, ci_high=None, n_requested=128, n_a_used=128, n_b_used=1, spec_h... 115, 116, 117, 118, 119, 120, "
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[min-identity-2]",
+          "outcome": "failed",
+          "failure": "AssertionError: min/identity/H=2: se=None (uncertainty_unavailable_min)\nassert (False)\n +  where False = isinstance(None, float)\n +    where None = Result(value=0.0, raw_value=0.0, se=None, ci_low=None, ci_high=None, n_requested=128, n_a_used=128, n_b_used=128, spec...0, 111, 112, 113, 114, 115, 116"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[min-neglog-1]",
+          "outcome": "failed",
+          "failure": "AssertionError: min/neglog/H=1: se=None (uncertainty_unavailable_min)\nassert (False)\n +  where False = isinstance(None, float)\n +    where None = Result(value=inf, raw_value=0.0, se=None, ci_low=None, ci_high=None, n_requested=128, n_a_used=128, n_b_used=1, spec_h... 115, 116, 117, 118, 119, 120, 12"
+        },
+        {
+          "name": "test_e_estimates::test_every_score_has_se_and_n[min-neglog-2]",
+          "outcome": "failed",
+          "failure": "AssertionError: min/neglog/H=2: se=None (uncertainty_unavailable_min)\nassert (False)\n +  where False = isinstance(None, float)\n +    where None = Result(value=inf, raw_value=0.0, se=None, ci_low=None, ci_high=None, n_requested=128, n_a_used=128, n_b_used=128, spec...0, 111, 112, 113, 114, 115, 116, "
+        },
+        {
+          "name": "test_e_estimates::test_zero_hit_surprisal_reports_status_not_se",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_e_estimates::test_every_score_has_se_and_n[mean-identity-1]": {
+          "se": "0.038014990292760314",
+          "status": "'ok'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[mean-identity-2]": {
+          "se": "0.013399405888681916",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[mean-neglog-1]": {
+          "se": "0.05016411090178681",
+          "status": "'ok'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[mean-neglog-2]": {
+          "se": "0.014390132805464376",
+          "status": "'bootstrap_approximate'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[energy-identity-1]": {
+          "se": "0.09160505429744567",
+          "status": "'bounded_energy_ci_bootstrap_se'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[energy-identity-2]": {
+          "se": "0.032428457586319834",
+          "status": "'bounded_energy_ci_bootstrap_se'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[energy-neglog-1]": {
+          "se": "0.10597777217973096",
+          "status": "'bounded_energy_ci_bootstrap_se'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[energy-neglog-2]": {
+          "se": "0.11886081635218437",
+          "status": "'bounded_energy_ci_bootstrap_se'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[min-identity-1]": {
+          "se": "None",
+          "status": "'uncertainty_unavailable_min'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[min-identity-2]": {
+          "se": "None",
+          "status": "'uncertainty_unavailable_min'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[min-neglog-1]": {
+          "se": "None",
+          "status": "'uncertainty_unavailable_min'"
+        },
+        "test_e_estimates::test_every_score_has_se_and_n[min-neglog-2]": {
+          "se": "None",
+          "status": "'uncertainty_unavailable_min'"
+        },
+        "test_e_estimates::test_zero_hit_surprisal_reports_status_not_se": {
+          "value": "inf",
+          "se": "None",
+          "status": "'zero_hits'"
+        }
+      }
+    },
+    "21": {
+      "section": "R4, §9 oracle 1",
+      "requirement": "Closed-form fast paths agree with Monte Carlo.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_e_estimates::test_closed_form_vs_mc_surprisal_rank_correlation",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_closed_form_vs_mc_converges_and_se_scales",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair0-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair0-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair1-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair1-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair0-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair0-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair1-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair1-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair0-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair0-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair1-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair1-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_integration_gpt2::test_gpt2_closed_form_vs_mc_surprisal",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_e_estimates::test_closed_form_vs_mc_surprisal_rank_correlation": {
+          "spearman_rho": "0.9824621881515055"
+        },
+        "test_e_estimates::test_closed_form_vs_mc_converges_and_se_scales": {
+          "mean_abs_err_by_n": "{32: 0.03721467926013381, 128: 0.026532061688311664, 512: 0.011526290024159317, 2048: 0.004818577328342917}",
+          "mean_se_by_n": "{32: 0.044385759632446085, 128: 0.022648211347440873, 512: 0.01202814207129787, 2048: 0.005778622612284445}",
+          "se_loglog_slope": "-0.48684406453371326"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair0-mean]": {
+          "closed": "0.8253968253968254",
+          "mc": "0.83544921875",
+          "z": "1.2266435872983303"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair0-energy]": {
+          "closed": "0.7620111993513213",
+          "mc": "0.7812566757202148",
+          "z": "1.2783550273529012"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair1-mean]": {
+          "closed": "0.8253968253968254",
+          "mc": "0.83544921875",
+          "z": "1.2266435872983303"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[0-pair1-energy]": {
+          "closed": "0.7620111993513213",
+          "mc": "0.8105697631835938",
+          "z": "1.6829954464823897"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair0-mean]": {
+          "closed": "0.9194378853469762",
+          "mc": "0.9150390625",
+          "z": "0.7137825529995547"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair0-energy]": {
+          "closed": "0.950093319251623",
+          "mc": "0.939720630645752",
+          "z": "0.7499226763744745"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair1-mean]": {
+          "closed": "0.9194378853469762",
+          "mc": "0.9150390625",
+          "z": "0.7137825529995547"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[5-pair1-energy]": {
+          "closed": "0.9500933192516229",
+          "mc": "0.9581527709960938",
+          "z": "0.3135027480791702"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair0-mean]": {
+          "closed": "0.9781746031746031",
+          "mc": "0.970703125",
+          "z": "2.0045255239218727"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair0-energy]": {
+          "closed": "1.067566754906877",
+          "mc": "1.0523877143859863",
+          "z": "1.7718949988365076"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair1-mean]": {
+          "closed": "0.9781746031746031",
+          "mc": "0.970703125",
+          "z": "2.0045255239218727"
+        },
+        "test_e_estimates::test_exact_fast_path_agrees_with_mc[11-pair1-energy]": {
+          "closed": "1.0675667549068768",
+          "mc": "1.0548095703125",
+          "z": "0.8051395545932514"
+        },
+        "test_integration_gpt2::test_gpt2_closed_form_vs_mc_surprisal": {
+          "items": "20",
+          "spearman_rho": "0.994358851816419",
+          "mean_abs_diff_nats": "0.08473844863583693"
+        }
+      }
+    },
+    "21b": {
+      "section": "R5, §4.7",
+      "requirement": "The reported SE shrinks as 1/√n.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_e_estimates::test_closed_form_vs_mc_converges_and_se_scales",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_e_estimates::test_closed_form_vs_mc_converges_and_se_scales": {
+          "mean_abs_err_by_n": "{32: 0.03721467926013381, 128: 0.026532061688311664, 512: 0.011526290024159317, 2048: 0.004818577328342917}",
+          "mean_se_by_n": "{32: 0.044385759632446085, 128: 0.022648211347440873, 512: 0.01202814207129787, 2048: 0.005778622612284445}",
+          "se_loglog_slope": "-0.48684406453371326"
+        }
+      }
+    },
+    "22": {
+      "section": "§4.8, R11, §6.3, §9",
+      "requirement": "Same config + seed ⇒ identical outputs (also across processes and with persistence off); changing any `MeasureSpec` field changes the hash.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_f_repro::test_same_seed_same_result[1-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_same_seed_same_result[1-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_same_seed_same_result[3-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_same_seed_same_result[3-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_every_spec_field_changes_hash",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_cross_process_byte_identical_and_persistence_independent",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_f_repro::test_every_spec_field_changes_hash": {
+          "fields_checked": "19"
+        },
+        "test_f_repro::test_cross_process_byte_identical_and_persistence_independent": {
+          "artifact_files": "11"
+        }
+      }
+    },
+    "23": {
+      "section": "(not in PDF; nearest §6.3)",
+      "requirement": "Batched and unbatched execution agree.",
+      "status": "AMBIGUOUS",
+      "tests": [
+        {
+          "name": "test_d_sampling::test_study_sampler_batched_logprobs_match_unbatched_teacher_forced",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_pairwise_block_size_does_not_change_values[mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_pairwise_block_size_does_not_change_values[energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_study_sampler_batch_size_and_sample_identity",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_d_sampling::test_study_sampler_batched_logprobs_match_unbatched_teacher_forced": {
+          "max_abs_err": "1.648735681314406e-08"
+        },
+        "test_f_repro::test_pairwise_block_size_does_not_change_values[mean]": {
+          "values": "[0.92875, 0.92875, 0.92875]",
+          "ses": "[0.020705784178054184, 0.020705784178054184, 0.020705784178054184]"
+        },
+        "test_f_repro::test_pairwise_block_size_does_not_change_values[energy]": {
+          "values": "[0.235, 0.235, 0.235]",
+          "ses": "[0.05298877167109753, 0.05298877167109753, 0.05298877167109753]"
+        },
+        "test_f_repro::test_study_sampler_batch_size_and_sample_identity": {
+          "tokens_equal_across_batch_sizes": "[False, False, False, False]"
+        }
+      },
+      "computed_status": "PASS",
+      "note": "Batch invariance is not stated in the PDF (nearest: §6.3 bit-reproducibility). Sub-checks are reported as measured."
+    },
+    "24": {
+      "section": "§1.3, §4.6, §6.1, §6.2",
+      "requirement": "Sampling and derived blocks are cached across positions, horizons, and measures.",
+      "status": "FAIL",
+      "tests": [
+        {
+          "name": "test_c_units::test_horizon_sweep_reuses_one_sampling_pass",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_sweep_samples_each_context_once",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_sequential_compute_over_positions_reuses_samples",
+          "outcome": "failed",
+          "failure": "AssertionError: (384, 288)\nassert 384 <= 288\n +  where 384 = <toy_lm.ToyLM object at 0x000002694B4791F0>.calls\n +  and   288 = <toy_lm.ToyLM object at 0x000002694B4D2BA0>.calls"
+        },
+        {
+          "name": "test_f_repro::test_within_set_block_reused_across_comparisons",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_grid_sweep_costs_one_sampling_pass",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_horizon_sweep_reuses_one_sampling_pass": {
+          "backend_calls_H4_only": "851",
+          "backend_calls_sweep_1_2_4": "851",
+          "extra_calls_after_H4": "0"
+        },
+        "test_f_repro::test_sweep_samples_each_context_once": {
+          "sampling_passes": "5",
+          "distinct_contexts": "5",
+          "backend_calls": "288"
+        },
+        "test_f_repro::test_sequential_compute_over_positions_reuses_samples": {
+          "sequential_sampling_passes": "8",
+          "sequential_backend_calls": "384",
+          "sweep_backend_calls": "288"
+        },
+        "test_f_repro::test_within_set_block_reused_across_comparisons": {
+          "first_calls": "768",
+          "second_calls": "512"
+        },
+        "test_f_repro::test_grid_sweep_costs_one_sampling_pass": {
+          "backend_calls": "{'one_cell': 216, 'grid': 216}"
+        }
+      }
+    },
+    "25": {
+      "section": "§5, §1.4 \"Small surface\"",
+      "requirement": "Public API, docstrings and errors make the seven axes discoverable.",
+      "status": "FAIL",
+      "tests": [],
+      "measured": {},
+      "llm_scores": {
+        "unit": 3,
+        "horizon": 3,
+        "level": 2,
+        "distance": 3,
+        "aggregation": 3,
+        "set size": 5,
+        "short-sample policy": 4
+      },
+      "llm_mean": 3.29
+    },
+    "26": {
+      "section": "R3, §5",
+      "requirement": "Published special cases are configurations: surprisal, contextual probability, next-unit entropy, sequence entropy, information value, anticipatory variant.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_published_presets_match_analytic[surprisal-surprisal-kw0-1.6094379124341003]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_published_presets_match_analytic[contextual_probability-contextual_probability-kw1-0.2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_published_presets_match_analytic[next_unit_entropy-entropy-kw2-1.2798542258336674]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_published_presets_match_analytic[sequence_entropy_H2-entropy-kw3-2.5597084516673347]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_published_presets_match_analytic[information_value-information_value-kw4-0.8]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_core::test_published_presets_match_analytic[anticipatory_iv-information_value-kw5-0.7]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_a_core::test_published_presets_match_analytic[surprisal-surprisal-kw0-1.6094379124341003]": {
+          "value": "1.5772468071131205",
+          "truth": "1.6094379124341003",
+          "se": "0.04332091067730458",
+          "z": "0.7430846863024146"
+        },
+        "test_a_core::test_published_presets_match_analytic[contextual_probability-contextual_probability-kw1-0.2]": {
+          "value": "0.20654296875",
+          "truth": "np.float64(0.2)",
+          "se": "0.00894762950024406",
+          "z": "np.float64(0.731251640428509)"
+        },
+        "test_a_core::test_published_presets_match_analytic[next_unit_entropy-entropy-kw2-1.2798542258336674]": {
+          "value": "1.2997951352533432",
+          "truth": "1.2798542258336674",
+          "se": "0.009730801153856553",
+          "z": "2.0492566957626903"
+        },
+        "test_a_core::test_published_presets_match_analytic[sequence_entropy_H2-entropy-kw3-2.5597084516673347]": {
+          "value": "2.568708291762668",
+          "truth": "2.5597084516673347",
+          "se": "0.013708677285484605",
+          "z": "0.6565068173909463"
+        },
+        "test_a_core::test_published_presets_match_analytic[information_value-information_value-kw4-0.8]": {
+          "value": "0.79345703125",
+          "truth": "np.float64(0.8)",
+          "se": "0.00894762950024406",
+          "z": "np.float64(0.7312516404285152)"
+        },
+        "test_a_core::test_published_presets_match_analytic[anticipatory_iv-information_value-kw5-0.7]": {
+          "value": "0.6822265625",
+          "truth": "np.float64(0.7)",
+          "se": "0.011402226988166902",
+          "z": "np.float64(1.558768959646655)"
+        }
+      }
+    },
+    "27": {
+      "section": "R6, §4.7",
+      "requirement": "Sampling error, truncation error and the warping gap are reported separately; truncation error shrinks with H; the −log gap ≈ CV²/2n.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_e_estimates::test_truncation_bound_separate_and_shrinks_with_horizon",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_warping_gap_equals_cv2_over_2n[prefix_indicator-0]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_warping_gap_equals_cv2_over_2n[prefix_indicator-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_warping_gap_equals_cv2_over_2n[prefix_indicator-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_warping_gap_equals_cv2_over_2n[discrete-0]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_warping_gap_equals_cv2_over_2n[discrete-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_warping_gap_equals_cv2_over_2n[discrete-2]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_e_estimates::test_truncation_bound_separate_and_shrinks_with_horizon": {
+          "truncation_bound_by_H": "[0.71484375, 0.515625, 0.26171875, 0.05859375]"
+        },
+        "test_e_estimates::test_warping_gap_equals_cv2_over_2n[prefix_indicator-0]": {
+          "warping_bias": "0.0019111323459149545",
+          "cv2_over_2n": "np.float64(0.0019111323459149543)"
+        },
+        "test_e_estimates::test_warping_gap_equals_cv2_over_2n[prefix_indicator-1]": {
+          "warping_bias": "0.003780718336483932",
+          "cv2_over_2n": "np.float64(0.0037807183364839325)"
+        },
+        "test_e_estimates::test_warping_gap_equals_cv2_over_2n[prefix_indicator-2]": {
+          "warping_bias": "0.007286192068800763",
+          "cv2_over_2n": "np.float64(0.007286192068800765)"
+        },
+        "test_e_estimates::test_warping_gap_equals_cv2_over_2n[discrete-0]": {
+          "warping_bias": "0.0014632107023411368",
+          "cv2_over_2n": "np.float64(0.001463210702341137)"
+        },
+        "test_e_estimates::test_warping_gap_equals_cv2_over_2n[discrete-1]": {
+          "warping_bias": "0.0007396449704142011",
+          "cv2_over_2n": "np.float64(0.0007396449704142012)"
+        },
+        "test_e_estimates::test_warping_gap_equals_cv2_over_2n[discrete-2]": {
+          "warping_bias": "0.000383792971105872",
+          "cv2_over_2n": "np.float64(0.00038379297110587203)"
+        }
+      }
+    },
+    "28": {
+      "section": "§4.4, §9",
+      "requirement": "When `prefix_consistent` is false the library refuses to truncate and re-samples.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_c_units::test_prefix_inconsistent_sampler_resamples",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_c_units::test_prefix_inconsistent_sampler_resamples": {
+          "sampling_passes": "3"
+        }
+      }
+    },
+    "29": {
+      "section": "§4.5, §6.1 step 1",
+      "requirement": "Type and domain checks run before any sampling and raise `ConfigError` naming the offending pair.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_b_distance::test_config_errors_before_sampling[encoder/distance mismatch]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_config_errors_before_sampling[energy needs negative type]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_config_errors_before_sampling[unit unsupported by encoder]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_b_distance::test_config_errors_before_sampling[encoder/distance mismatch]": {
+          "message": "'encoder units incompatible with distance vector'"
+        },
+        "test_b_distance::test_config_errors_before_sampling[energy needs negative type]": {
+          "message": "'energy requires a negative-type dissimilarity'"
+        },
+        "test_b_distance::test_config_errors_before_sampling[unit unsupported by encoder]": {
+          "message": "'unit unsupported by encoder'"
+        }
+      }
+    },
+    "30": {
+      "section": "§4.3",
+      "requirement": "`AlternativeSet` carries (sample, step) tokens/log-probs/mask, unit spans, eff. horizon and provenance (model+revision, sampling config, seed, context, unit, boundary detector, H_max).",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_alternative_set_fields_and_provenance",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "31": {
+      "section": "§4.8",
+      "requirement": "`Result` carries value, SE and CI, n, diagnostics (truncation bound, warping gap) and spec_hash — never a bare float.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[mean-identity-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[mean-identity-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[mean-neglog-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[mean-neglog-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[energy-identity-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[energy-identity-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[energy-neglog-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[energy-neglog-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[min-identity-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[min-identity-2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[min-neglog-1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_e_estimates::test_result_carries_required_fields[min-neglog-2]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "32": {
+      "section": "§4.9",
+      "requirement": "A datum is optional; `StimulusTransform` (drop/truncate/replace/shuffle) yields a derived stimulus flagged in the output.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_f_repro::test_sweep_is_tidy_and_paired[False]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_sweep_is_tidy_and_paired[True]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_transforms_are_flagged[transform0]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_transforms_are_flagged[transform1]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_transforms_are_flagged[transform2]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_transforms_are_flagged[transform3]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_f_repro::test_sweep_is_tidy_and_paired[False]": {
+          "columns": "['run_id', 'stimulus_id', 'document_id', 'target_start', 'target_end', 'unit', 'context_hash', 'transform_id', 'original_id', 'datum', 'spec_hash', 'horizon', 'model_id', 'model_revision', 'representation', 'distance', 'statistic', 'warping', 'short_samples', 'probability', 'mode', 'value', 'raw_value', 'corrected_value', 'se', 'ci_low', 'ci_high', 'confidence', 'n_requested', 'n_a_used', 'n_b_used', 'method', 'status', 'artifact_ids', 'warping_bias', 'diagnostics']"
+        },
+        "test_f_repro::test_sweep_is_tidy_and_paired[True]": {
+          "columns": "['run_id', 'stimulus_id', 'document_id', 'target_start', 'target_end', 'unit', 'context_hash', 'transform_id', 'original_id', 'datum', 'spec_hash', 'horizon', 'model_id', 'model_revision', 'representation', 'distance', 'statistic', 'warping', 'short_samples', 'probability', 'mode', 'value', 'raw_value', 'corrected_value', 'se', 'ci_low', 'ci_high', 'confidence', 'n_requested', 'n_a_used', 'n_b_used', 'method', 'status', 'artifact_ids', 'warping_bias', 'diagnostics']"
+        }
+      }
+    },
+    "33": {
+      "section": "R10, §5, §9",
+      "requirement": "The sweep driver emits a tidy table, one row per (item, cell), paired across cells, with and without data.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_f_repro::test_sweep_is_tidy_and_paired[False]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_sweep_is_tidy_and_paired[True]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_f_repro::test_sweep_is_tidy_and_paired[False]": {
+          "columns": "['run_id', 'stimulus_id', 'document_id', 'target_start', 'target_end', 'unit', 'context_hash', 'transform_id', 'original_id', 'datum', 'spec_hash', 'horizon', 'model_id', 'model_revision', 'representation', 'distance', 'statistic', 'warping', 'short_samples', 'probability', 'mode', 'value', 'raw_value', 'corrected_value', 'se', 'ci_low', 'ci_high', 'confidence', 'n_requested', 'n_a_used', 'n_b_used', 'method', 'status', 'artifact_ids', 'warping_bias', 'diagnostics']"
+        },
+        "test_f_repro::test_sweep_is_tidy_and_paired[True]": {
+          "columns": "['run_id', 'stimulus_id', 'document_id', 'target_start', 'target_end', 'unit', 'context_hash', 'transform_id', 'original_id', 'datum', 'spec_hash', 'horizon', 'model_id', 'model_revision', 'representation', 'distance', 'statistic', 'warping', 'short_samples', 'probability', 'mode', 'value', 'raw_value', 'corrected_value', 'se', 'ci_low', 'ci_high', 'confidence', 'n_requested', 'n_a_used', 'n_b_used', 'method', 'status', 'artifact_ids', 'warping_bias', 'diagnostics']"
+        }
+      }
+    },
+    "34": {
+      "section": "§6.3",
+      "requirement": "Results are written as CSV/Parquet with a manifest (spec hashes, library version, model revision, git SHA, seeds, environment); specs are serialisable.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_f_repro::test_write_with_manifest[.csv]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_write_with_manifest[.parquet]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_write_with_manifest[.json]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_f_repro::test_write_with_manifest[.csv]": {
+          "manifest_keys": "['artifacts', 'engine', 'environment', 'git_sha', 'plan', 'run_id', 'schema_version', 'seeds', 'specifications']"
+        },
+        "test_f_repro::test_write_with_manifest[.parquet]": {
+          "manifest_keys": "['artifacts', 'engine', 'environment', 'git_sha', 'plan', 'run_id', 'schema_version', 'seeds', 'specifications']"
+        },
+        "test_f_repro::test_write_with_manifest[.json]": {
+          "manifest_keys": "['artifacts', 'engine', 'environment', 'git_sha', 'plan', 'run_id', 'schema_version', 'seeds', 'specifications']"
+        }
+      }
+    },
+    "35": {
+      "section": "§5",
+      "requirement": "The API examples in §5 run as written (model name swapped for a local one).",
+      "status": "FAIL",
+      "tests": [
+        {
+          "name": "test_g_api::test_spec_hfsampler_signature",
+          "outcome": "failed",
+          "failure": "TypeError: Sampler.__init__() got an unexpected keyword argument 'n'"
+        },
+        {
+          "name": "test_g_api::test_spec_measure_keyword_constructor",
+          "outcome": "failed",
+          "failure": "TypeError: Measure.__init__() got an unexpected keyword argument 'unit'"
+        },
+        {
+          "name": "test_g_api::test_spec_replace_to_surprisal",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_g_api::test_spec_custom_distance_injection",
+          "outcome": "failed",
+          "failure": "uncertain.core.specs.ConfigError: Unknown distance: <test_g_api.test_spec_custom_distance_injection.<locals>.MyDistance object at 0x000002694B432FC0>@1"
+        },
+        {
+          "name": "test_g_api::test_spec_sweep_returns_dataframe",
+          "outcome": "failed",
+          "failure": "AssertionError: assert False\n +  where False = isinstance(SweepResult(rows=[{'run_id': 'eefa3d3ed527d5ff209598b9ff3bbc4f7238efcf5bf73a625a3e932010a8e5c5', 'stimulus_id': 'item'..., 'items': 1, 'rows': 8, 'sample_requests': 2, 'anticipated_nested_work': False, 'cache_hits': 2, 'horizons': [2, 1]}}), "
+        },
+        {
+          "name": "test_g_api::test_spec_literal_grid_is_type_consistent",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_g_api::test_spec_sweep_returns_dataframe": {
+          "returned_type": "'SweepResult'"
+        },
+        "test_g_api::test_spec_literal_grid_is_type_consistent": {
+          "message_head": "['invalid sweep:', \"cell 2 {'horizon': 1, 'level': 'layer:0', 'distance': 'ngram_overlap', 'statistic': 'energy'}: encoder vector incompatible with distance units\"]"
+        }
+      }
+    },
+    "36": {
+      "section": "§9",
+      "requirement": "Distance axioms, permutation invariance of set statistics, anchor at H=1 is a singleton.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_a_core::test_anchor_at_h1_is_singleton",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_metric_axioms",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_cosine_axioms",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_statistics_are_permutation_invariant",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "37": {
+      "section": "§7",
+      "requirement": "Core ships prefix-indicator, n-gram overlap, cosine; mean, min, energy; POS / tree-edit / entailment ship outside core as plugins.",
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "test_b_distance::test_shipped_components_resolve[distance-prefix_indicator]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_shipped_components_resolve[distance-ngram_overlap]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_shipped_components_resolve[distance-cosine]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_shipped_components_resolve[statistic-mean]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_shipped_components_resolve[statistic-min]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_shipped_components_resolve[statistic-energy]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_plugin_examples_live_outside_core_and_import[pos]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_plugin_examples_live_outside_core_and_import[tree_edit]",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_plugin_examples_live_outside_core_and_import[entailment]",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {}
+    },
+    "38": {
+      "section": "§6.3",
+      "requirement": "Unit alignment has a configurable, hashable pooling policy (mean/first/last/sum).",
+      "status": "AMBIGUOUS",
+      "tests": [
+        {
+          "name": "test_a_core::test_pooling_policy_changes_vectors_and_hash",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {},
+      "computed_status": "PASS",
+      "note": "§6.3 pooling is 'tokenizer offsets -> unit spans'; the library's pooling option pools unit vectors into a span (token->unit is always mean). Tested: hashed + effective."
+    },
+    "39": {
+      "section": "§9",
+      "requirement": "Golden values are pinned for a fixed (model, context, seed).",
+      "status": "NOT IMPLEMENTED",
+      "tests": [
+        {
+          "name": "test_f_repro::test_golden_values_pinned",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_f_repro::test_golden_values_are_corrected_rerun_numbers",
+          "outcome": "failed",
+          "failure": "AssertionError: Pinned from the corrected implementation at 0.1.0a2 on 2026-09-21; these are NOT recovered study rerun numbers -- docs/validation-results.json records the original code and corrected fixtures as unavailable.\nassert 'NOT recover...erun numbers' not in 'Pinned from...unavailable.'\n  \n "
+        }
+      ],
+      "measured": {
+        "test_f_repro::test_golden_values_pinned": {
+          "gpt2_golden_source": "'Pinned from the corrected implementation at 0.1.0a2 on 2026-09-21; these are NOT recovered study rerun numbers -- docs/validation-results.json records the original code and corrected fixtures as unavailable.'",
+          "golden_test_tail": "['2 passed in 18.09s']"
+        }
+      },
+      "computed_status": "FAIL",
+      "note": "Golden values exist and pass, but are self-pinned from 0.1.0a2; §9 asks for the corrected re-run numbers, which the repo records as unavailable."
+    },
+    "40": {
+      "section": "§4.5",
+      "requirement": "Warping domain must contain the statistic range; \"f = −log with a statistic whose range includes 0 fails\".",
+      "status": "AMBIGUOUS",
+      "tests": [
+        {
+          "name": "test_b_distance::test_warping_domain_violation_rejected",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_b_distance::test_neglog_over_range_including_zero_is_accepted",
+          "outcome": "passed"
+        }
+      ],
+      "measured": {
+        "test_b_distance::test_neglog_over_range_including_zero_is_accepted": {
+          "accepted": "True"
+        }
+      },
+      "computed_status": "PASS",
+      "note": "§4.5's example (-log over a range containing 0 must fail) contradicts the §5 surprisal preset (-log over a [0,1] mean). Tested: domain violations are rejected."
+    }
+  },
+  "mutations": [
+    {
+      "name": "reshape_in_logits_path",
+      "about": "StudySampler: reorder (batch, vocab) log-probs by reshape instead of a named swap",
+      "file": "src/uncertain/emnlp2024.py",
+      "tests_run": 4,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_d_sampling::test_batched_logits_rows_stay_with_their_sample[2-11-6]",
+        "eval.tests.test_d_sampling::test_batched_logits_rows_stay_with_their_sample[3-7-5]",
+        "eval.tests.test_d_sampling::test_batched_logits_rows_stay_with_their_sample[4-9-3]",
+        "eval.tests.test_d_sampling::test_study_sampler_batched_logprobs_match_unbatched_teacher_forced"
+      ]
+    },
+    {
+      "name": "reshape_in_arrays",
+      "about": "AlternativeSet.arrays: (sample, step) view rebuilt by reshape of the transpose",
+      "file": "src/uncertain/core/values.py",
+      "tests_run": 4,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_a_core::test_alternative_set_fields_and_provenance",
+        "eval.tests.test_d_sampling::test_arrays_are_sample_by_step[3-5]",
+        "eval.tests.test_d_sampling::test_arrays_are_sample_by_step[4-4]",
+        "eval.tests.test_d_sampling::test_arrays_are_sample_by_step[5-2]"
+      ]
+    },
+    {
+      "name": "default_top_k_50",
+      "about": "SamplingSpec default top_k=50 (the generalized-surprisal bug)",
+      "file": "src/uncertain/core/specs.py",
+      "tests_run": 3,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_d_sampling::test_tail_beyond_top_50_is_sampled[None-True]",
+        "eval.tests.test_d_sampling::test_top_k_explicit_and_off_by_default"
+      ]
+    },
+    {
+      "name": "energy_without_within_terms",
+      "about": "Energy = 2 d(A,B) (drop d(A,A) and d(B,B))",
+      "file": "src/uncertain/statistics/__init__.py",
+      "tests_run": 9,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_a_core::test_energy_against_point_mass_matches_closed_form[0]",
+        "eval.tests.test_a_core::test_energy_against_point_mass_matches_closed_form[2]",
+        "eval.tests.test_a_core::test_energy_against_point_mass_matches_closed_form[4]",
+        "eval.tests.test_a_core::test_energy_identity_nonneg_symmetry_formula",
+        "eval.tests.test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[1024]",
+        "eval.tests.test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[128]",
+        "eval.tests.test_a_core::test_energy_vanishes_and_mean_does_not_when_p_equals_q[512]"
+      ]
+    },
+    {
+      "name": "extend_regenerates_everything",
+      "about": "Sampler.extend re-samples all n1+n2 draws (values identical by per-draw seeding)",
+      "file": "src/uncertain/samplers/__init__.py",
+      "tests_run": 3,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_d_sampling::test_extend_generates_only_new_samples[1-31]",
+        "eval.tests.test_d_sampling::test_extend_generates_only_new_samples[16-5]",
+        "eval.tests.test_d_sampling::test_extend_generates_only_new_samples[8-8]"
+      ]
+    },
+    {
+      "name": "truncate_by_tokens_not_units",
+      "about": "Sequence.truncate cuts at token H instead of the end of unit H",
+      "file": "src/uncertain/core/values.py",
+      "tests_run": 2,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_c_units::test_truncate_equals_direct_sample_without_spanning_tokens"
+      ]
+    },
+    {
+      "name": "short_samples_not_hashed",
+      "about": "MeasureSpec.spec_hash ignores the short-sample policy",
+      "file": "src/uncertain/core/specs.py",
+      "tests_run": 3,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_c_units::test_short_sample_policy_required_and_hashed",
+        "eval.tests.test_f_repro::test_every_spec_field_changes_hash"
+      ]
+    },
+    {
+      "name": "se_divides_by_n",
+      "about": "sample_mean SE = sd/n instead of sd/sqrt(n)",
+      "file": "src/uncertain/statistics/__init__.py",
+      "tests_run": 8,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_a_core::test_h1_information_value_equals_one_minus_p",
+        "eval.tests.test_a_core::test_published_presets_match_analytic[anticipatory_iv-information_value-kw5-0.7]",
+        "eval.tests.test_a_core::test_published_presets_match_analytic[information_value-information_value-kw4-0.8]",
+        "eval.tests.test_a_core::test_published_presets_match_analytic[next_unit_entropy-entropy-kw2-1.2798542258336674]",
+        "eval.tests.test_a_core::test_published_presets_match_analytic[sequence_entropy_H2-entropy-kw3-2.5597084516673347]",
+        "eval.tests.test_e_estimates::test_closed_form_vs_mc_converges_and_se_scales"
+      ]
+    },
+    {
+      "name": "continuation_from_wrong_context",
+      "about": "right operand continuation sampled from c_t instead of c_t + observed",
+      "file": "src/uncertain/measures/__init__.py",
+      "tests_run": 27,
+      "caught": true,
+      "killed_by": [
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-2]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-0-3]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-2]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-1-3]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-2]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[discrete-2-3]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-2]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-0-3]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-2]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-1-3]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-2]",
+        "eval.tests.test_a_core::test_horizon_mean_matches_exact_enumeration[ngram_distance-2-3]",
+        "eval.tests.test_a_core::test_operands_have_spec_structure[0-2]",
+        "eval.tests.test_a_core::test_operands_have_spec_structure[0-3]",
+        "eval.tests.test_a_core::test_operands_have_spec_structure[1-2]",
+        "eval.tests.test_a_core::test_operands_have_spec_structure[1-3]",
+        "eval.tests.test_a_core::test_operands_have_spec_structure[2-2]",
+        "eval.tests.test_a_core::test_operands_have_spec_structure[2-3]"
+      ]
+    }
+  ]
+}
