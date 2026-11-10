@@ -1,4 +1,12 @@
-"""Set statistics with whole-alternative resampling, never independent pair errors."""
+"""Set statistics with whole-alternative resampling, never independent pair errors.
+
+A statistic reduces two RepresentationSets (A, B) under a distance to a
+StatisticEstimate. Built-ins: `mean` (E d(a, b)), `energy` (2E d(a,b) - E d(a,a') -
+E d(b,b'), V or U form) and `min` (directed nearest-neighbour). Each declares
+`range_for(distance)` for the warping-domain gate and `truncation_bound` for §4.7.
+Bootstrap replicates reweight whole alternatives on each side with seeded
+multinomial weights, so cells sharing a stream share resamples.
+"""
 from statistics import NormalDist
 from dataclasses import replace
 import numpy as np
@@ -9,6 +17,7 @@ from uncertain.utils import canonical_json
 
 
 def normal_interval(value, se, confidence):
+    """Two-sided normal-approximation interval; (None, None) without an SE."""
     if se is None:
         return None, None
     z = NormalDist().inv_cdf((1+confidence)/2)
@@ -16,6 +25,7 @@ def normal_interval(value, se, confidence):
 
 
 def sample_mean(values, confidence):
+    """Mean with its iid standard error and normal interval."""
     values = np.asarray(values, dtype=float)
     value = float(values.mean())
     se = float(values.std(ddof=1)/np.sqrt(len(values))) if len(values) > 1 else None
@@ -37,7 +47,12 @@ def binomial(hits, n, confidence):
     return StatisticEstimate(float(p), None if se is None else float(se), low, high, status)
 
 
+def _span(distance):
+    return float(distance.range[1])-float(distance.range[0])
+
+
 def pairwise_blocks(a, b, distance, block_size=64):
+    """Yield (i, j, block) tiles of d(a, b), checked finite and inside distance.range."""
     for i in range(0, len(a), block_size):
         for j in range(0, len(b), block_size):
             x, y = a[i:i+block_size], b[j:j+block_size]
@@ -58,6 +73,7 @@ def pairwise(a, b, distance):
 
 
 def weights(source, replicates, seed):
+    """(replicates, n) bootstrap multiplicities; all ones for a deterministic operand."""
     n = len(source)
     if source.deterministic:
         return np.ones((replicates, n))
@@ -67,6 +83,7 @@ def weights(source, replicates, seed):
 
 
 def weighted_mean(a, b, distance, wa, wb, block_size):
+    """Mean of d over A x B, plus its value under each bootstrap weight pair."""
     total = 0.
     bootstrap = np.zeros(len(wa))
     for i,j,block in pairwise_blocks(a.reps, b.reps, distance, block_size):
@@ -101,7 +118,6 @@ def within_block(s, distance, w, block_size, seed, replicates):
 
 @register_statistic("mean")
 class Mean:
-    range_from_distance = True
     supports_uncertainty = True
 
     def __init__(self, block_size=64):
@@ -113,6 +129,18 @@ class Mean:
     def range_for(self, distance):
         """§4.5's gate calls this; a mean of in-range values stays in range."""
         return float(distance.range[0]), float(distance.range[1])
+
+    def estimates_probability(self, distance):
+        """A mean of a [0,1] similarity is a probability: exactly for an indicator such as
+        prefix_indicator, similarity-weighted for a soft one. Energy and min are not."""
+        return (type(self) is Mean and distance.kind == "similarity"
+                and 0 <= distance.range[0] and distance.range[1] <= 1)
+
+    def truncation_bound(self, open_a, open_b, distance):
+        """§4.7: the most the statistic can move if the draws still open at H (fractions
+        open_a, open_b; an EOS stop is complete) were continued. Only pairs touching an
+        open draw move, each by at most the distance's span."""
+        return _span(distance)*(1-(1-open_a)*(1-open_b))
 
     def estimate(self, a, b, distance, estimator, seeds):
         if (distance.descriptor.get("distance") == "prefix_indicator" and
@@ -137,6 +165,7 @@ class Mean:
 
 
 def bootstrap_result(value, boots, a, b, estimator):
+    """Bootstrap SE and percentile interval around a point value."""
     if any(len(s) < 2 and not s.deterministic for s in (a.source, b.source)):
         return StatisticEstimate(value, None, None, None, "insufficient_samples")
     se = float(np.std(boots, ddof=1))
@@ -149,7 +178,6 @@ def bootstrap_result(value, boots, a, b, estimator):
 
 @register_statistic("energy")
 class Energy(Mean):
-    range_from_distance = False
 
     def __init__(self, variant="v", block_size=64):
         super().__init__(block_size)
@@ -160,7 +188,16 @@ class Energy(Mean):
                            "block_size": block_size}
 
     def range_for(self, distance):
-        return 0., 2*float(distance.range[1])
+        # V >= 0 always. U removes the diagonal and is unbiased, so it dips below 0 when
+        # the sets agree: each within term is a mean over distinct pairs, at most D.
+        high = 2*float(distance.range[1])
+        return (-high if self.variant == "u" else 0.), high
+
+    def truncation_bound(self, open_a, open_b, distance):
+        # 2*cross - within_A - within_B. A within mean moves on at most 2*open of its
+        # pairs (union bound; also holds for U's off-diagonal mean).
+        cross = 1-(1-open_a)*(1-open_b)
+        return _span(distance)*(2*cross + min(1., 2*open_a) + min(1., 2*open_b))
 
     def estimate(self, a, b, distance, estimator, seeds):
         if not distance.negative_type or distance.kind != "dissimilarity":
@@ -192,7 +229,7 @@ class Energy(Mean):
             inverse_n = sum(1/len(x.source) for x in (a,b) if not x.source.deterministic)
             radius = np.sqrt(8*bound**2*inverse_n*np.log(2/(1-estimator.confidence)))
             bias_bound = bound*inverse_n if self.variant == "v" else 0.
-            return replace(result, ci_low=max(0., value-radius-bias_bound),
+            return replace(result, ci_low=max(self.range_for(distance)[0], value-radius-bias_bound),
                            ci_high=min(2*bound, value+radius),
                            status="bounded_energy_ci_bootstrap_se")
         # The ordinary bootstrap can fail at the equal-distribution degeneracy.
@@ -206,6 +243,10 @@ class DirectedMin(Mean):
         super().__init__(block_size)
         self.descriptor = {"statistic": "min", "version": "1", "direction": "B_queries_A",
                            "block_size": block_size}
+
+    def truncation_bound(self, open_a, open_b, distance):
+        # Each b's minimum ranges over all of A: one open draw in A can move every term.
+        return _span(distance)*(1. if open_a else open_b)
 
     def estimate(self, a, b, distance, estimator, seeds):
         matrix = pairwise(a, b, distance)
@@ -226,7 +267,6 @@ class Lifted:
     `reduction` must be range-preserving (mean, min, max, a quantile) -- `range_for` reports
     the distance's own range. A reduction that leaves it, such as a sum, needs its own class.
     """
-    range_from_distance = True
     supports_uncertainty = False
 
     def __init__(self, distance, reduction, name=None):
@@ -249,4 +289,5 @@ class Lifted:
 
 
 def lifted(distance, reduction, name=None):
+    """A statistic that applies `reduction` to the full pairwise matrix (§4.6)."""
     return Lifted(distance, reduction, name)

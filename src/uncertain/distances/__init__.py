@@ -1,3 +1,6 @@
+"""Built-in pointwise scores. Each declares `input_type` (what encoder it pairs with),
+`range`, `kind` (similarity or dissimilarity), `negative_type` (required by energy)
+and `symmetric`."""
 import numpy as np
 from uncertain.core import ConfigError
 from uncertain.registry import register_distance

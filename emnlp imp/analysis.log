@@ -1,0 +1,27 @@
+     model                        metric  pearson  spearman    mae  mean_original  mean_uncertain
+gpt2-small                          prob   1.0000    1.0000 0.0000         0.1285          0.1285
+gpt2-small                     surprisal   1.0000    1.0000 0.0000         6.3853          6.3853
+gpt2-small                 expected_prob   1.0000    1.0000 0.0000         0.1395          0.1395
+gpt2-small                       entropy   1.0000    1.0000 0.0000         4.2812          4.2812
+gpt2-small              decontextualised   0.9987    0.9986 0.0008         0.0504          0.0504
+gpt2-small     expected_decontextualised   0.9963    0.9957 0.0013         0.0512          0.0512
+gpt2-small expected_seq_decontextualised   0.9888    0.9836 0.0008         0.0479          0.0479
+gpt2-small              sequence_entropy   0.9893    0.9871 0.4913        29.4872         29.4278
+  neo-125m                          prob   1.0000    1.0000 0.0000         0.1240          0.1240
+  neo-125m                     surprisal   1.0000    1.0000 0.0000         6.5361          6.5361
+  neo-125m                 expected_prob   1.0000    1.0000 0.0000         0.1297          0.1297
+  neo-125m                       entropy   1.0000    1.0000 0.0000         4.3584          4.3584
+  neo-125m              decontextualised   0.9967    0.9952 0.0003         0.0183          0.0182
+  neo-125m     expected_decontextualised   0.9918    0.9880 0.0004         0.0184          0.0183
+  neo-125m expected_seq_decontextualised   0.9735    0.9550 0.0002         0.0131          0.0131
+  neo-125m              sequence_entropy   0.9886    0.9872 0.5171        30.3590         30.2835
+cv done: original gpt2-small
+cv done: original neo-125m
+cv done: uncertain gpt2-small
+cv done: uncertain neo-125m
+gpt2-small control: cells=104 significance agreement=98.08% r(deltaR2)=0.9999
+gpt2-small surprisal: cells=65 significance agreement=100.00% r(deltaR2)=0.9999
+gpt2-small surprisal_entropy: cells=78 significance agreement=97.44% r(deltaR2)=0.9999
+neo-125m control: cells=104 significance agreement=99.04% r(deltaR2)=1.0000
+neo-125m surprisal: cells=65 significance agreement=100.00% r(deltaR2)=0.9998
+neo-125m surprisal_entropy: cells=78 significance agreement=94.87% r(deltaR2)=0.9999

@@ -1,6 +1,6 @@
 # uncertain
 
-A working **research alpha** for configurable predictive uncertainty. Choose the
+A working **python library** for configurable predictive uncertainty. Choose the
 unit, horizon, representation, score/distance, set statistic, warping and sampler.
 The default estimator evaluates supported token/H=1 measures exactly and uses
 Monte Carlo for longer horizons or text units. Sampling defaults to temperature 1,
@@ -93,6 +93,24 @@ or `a.plot(...)` with the `plot` extra. See [docs/api.md](docs/api.md).
 `n` and `short_samples` are required everywhere, `Measure.from_config` included:
 `compare_ragged`, `pad` and `drop` are the available policies. No epsilon is inserted into a zero probability: sampled surprisal can
 be infinite and its status/interval explain why.
+
+## Package layout
+
+Each module's docstring describes its contract.
+
+| Module | Role |
+|---|---|
+| `core` | Immutable specs (`MeasureSpec`, `SamplingSpec`, ...), sample containers, `Result` |
+| `backends` | `ToyBackend` (exact finite model) and `HFBackend` (local Hugging Face) |
+| `samplers` | Reference ancestral sampler with indexed, prefix-consistent streams |
+| `store` | Content-addressed, checksummed alternatives cache and request index |
+| `alignment` | Token/word/sentence boundary detectors and token-unit alignment |
+| `encoders`, `distances`, `statistics`, `warpings` | The four configurable pipeline stages |
+| `measures` | `Measure`, the exact paths, presets and paired `contrast` |
+| `experiments` | `Sweep` planning, execution and CSV/JSON/Parquet output |
+| `registry` | Versioned extension registries and §7 plugin adapters |
+| `data` | `Stimulus`, context transforms, `positions`, corpus loading |
+| `emnlp2024` | Study-specific GPT-2 sampler and estimators |
 
 ## Implemented capabilities
 

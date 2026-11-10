@@ -1,14 +1,20 @@
 """Versioned extension points. Registration has no model loading side effects."""
+from dataclasses import replace
 from functools import partial
-from uncertain.core import ConfigError
-from uncertain.utils import canonical_json
+from hashlib import sha256
+import inspect
+import json
 from typing import Any, Callable
+import numpy as np
+from uncertain.core import ConfigError, RepresentationSet
+from uncertain.utils import canonical, canonical_json
 
 _REGISTRY: dict[str, dict[tuple[str, str], Callable[..., Any]]] = {
     kind: {} for kind in ("encoder", "distance", "statistic", "warping", "unit", "sampler")}
 
 
 def register(kind, name, *, version="1"):
+    """Decorator: register a factory under (name, version). Names never shadow silently."""
     def decorator(factory):
         key = (name, version)
         if key in _REGISTRY[kind]:
@@ -19,6 +25,8 @@ def register(kind, name, *, version="1"):
 
 
 def resolve(kind, name, config=None, *, version="1", **runtime):
+    """Instantiate a registered component as factory(**config, **runtime), adapted to the
+    library protocol and checked for a serializable descriptor."""
     try:
         factory = _REGISTRY[kind][(name, version)]
     except KeyError as exc:
@@ -69,9 +77,6 @@ class _SpecStatistic(_Plugin):
 
 def _resampled(reps, multiplicity):
     """The bootstrap draw `multiplicity` as a RepresentationSet (sample IDs renumbered)."""
-    from dataclasses import replace
-    from uncertain.core.values import RepresentationSet
-    import numpy as np
     idx: np.ndarray = np.repeat(np.arange(len(reps.reps)), multiplicity.astype(int))
     rows = tuple(replace(reps.source.sequences[i], sample_id=k) for k, i in enumerate(idx))
     return RepresentationSet(tuple(reps.reps[i] for i in idx), replace(reps.source, sequences=rows),
@@ -102,16 +107,34 @@ class _SpecWarping(_Plugin):
         return f(x), se, low, high, bias
 
 
-def adapt(kind, component, name, version="1"):
+def _injected_state(kind, component):
+    """Class and attributes of an injected object with no descriptor of its own, so two
+    instances that compute differently never share a spec hash (§10)."""
+    cls = type(component)
+    qualified = (f"{getattr(component, '__module__', cls.__module__)}."
+                 f"{getattr(component, '__qualname__', cls.__qualname__)}")
+    try:
+        # allow_nan: a declared range such as (0, inf) is a legitimate parameter.
+        params = json.dumps(canonical(getattr(component, "__dict__", {})), sort_keys=True,
+                            separators=(",", ":"), ensure_ascii=False)
+    except TypeError as exc:
+        raise ConfigError(f"injected {kind} {cls.__name__} holds parameters that cannot be "
+                          f"hashed ({exc}); give it a `descriptor` naming what it computes") from exc
+    return {"class": qualified, "params": sha256(params.encode("utf-8")).hexdigest()}
+
+
+def adapt(kind, component, name, version="1", *, injected=False):
     """Wrap a §7-shaped distance/statistic/encoder/warping in the library protocol.
-    Components that already implement it are returned unchanged."""
+    Components that already implement it are returned unchanged. An ``injected``
+    component without a descriptor gets one that covers its parameters."""
     if kind not in ("distance", "statistic", "encoder", "warping"):
         return component
     descriptor = {kind: name, "version": version, "protocol": "spec-7"}
+    if injected and not hasattr(component, "descriptor"):
+        descriptor.update(_injected_state(kind, component))
     if kind == "statistic" and not hasattr(component, "estimate"):
         return _SpecStatistic(component, descriptor=descriptor)
     if kind == "encoder":
-        import inspect
         if len(inspect.signature(component.encode).parameters) == 1:
             units = {n for n, _ in _REGISTRY["unit"]}
             return _SpecEncoder(component, descriptor=descriptor, supported_units=units)
@@ -127,28 +150,12 @@ def adapt(kind, component, name, version="1"):
     return _Plugin(component, **defaults)
 
 
-def register_encoder(name, **kw):
-    return register("encoder", name, **kw)
-
-
-def register_distance(name, **kw):
-    return register("distance", name, **kw)
-
-
-def register_statistic(name, **kw):
-    return register("statistic", name, **kw)
-
-
-def register_warping(name, **kw):
-    return register("warping", name, **kw)
-
-
-def register_unit(name, **kw):
-    return register("unit", name, **kw)
-
-
-def register_sampler(name, **kw):
-    return register("sampler", name, **kw)
+register_encoder = partial(register, "encoder")
+register_distance = partial(register, "distance")
+register_statistic = partial(register, "statistic")
+register_warping = partial(register, "warping")
+register_unit = partial(register, "unit")
+register_sampler = partial(register, "sampler")
 
 
 def unit_boundaries():

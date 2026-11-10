@@ -99,7 +99,10 @@ def test_effective_horizon_under_eos():
                           sampler=Sampler(backend)).compute(Stimulus((), (0,))).diagnostics
     assert list(diagnostics["effective_horizons"]) == [s.effective_horizon for s in a.sequences]
     assert diagnostics["eos_fraction"] > 0 and diagnostics["budget_fraction"] == 0
-    assert diagnostics["truncation_bound"] == pytest.approx(1 - diagnostics["eos_fraction"])
+    open_a, open_b = diagnostics["unterminated_fraction_a"], diagnostics["unterminated_fraction_b"]
+    assert open_a == pytest.approx(1 - diagnostics["eos_fraction"])
+    # mean over discrete: only pairs touching an open draw on either side can move.
+    assert diagnostics["truncation_bound"] == pytest.approx(1 - (1-open_a)*(1-open_b))
 
 
 def test_energy_vanishes_between_independent_draws_but_distance_does_not():

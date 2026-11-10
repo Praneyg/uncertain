@@ -1,3 +1,5 @@
+"""Sweeps: one base Measure over a grid of axis values, planned so each sample stream
+is drawn once at its largest horizon, then written as a tidy table plus manifest."""
 from dataclasses import dataclass
 from functools import cache
 from itertools import product
@@ -37,6 +39,7 @@ def json_safe(value):
 
 @dataclass
 class SweepResult:
+    """One row per (stimulus, cell); `manifest` records specs, environment and artifacts."""
     rows: list[dict]
     manifest: dict
 
@@ -82,6 +85,8 @@ class SweepResult:
 
 
 class Sweep:
+    """`Sweep(measure, horizon=[1, 2], warping=[...])` (product grid) or `cells=[{...}]`."""
+
     def __init__(self, base, *, cells=None, **axes):
         allowed = {"horizon", "representation", "level", "distance", "distance_config",
                    "statistic", "warping"}
@@ -129,6 +134,7 @@ class Sweep:
 
 @dataclass
 class SweepPlan:
+    """Validated cells x stimuli plus the deduplicated sample requests; `run()` executes."""
     measures: tuple
     stimuli: tuple
     requests: tuple

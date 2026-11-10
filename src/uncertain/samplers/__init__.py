@@ -1,3 +1,6 @@
+"""Reference ancestral sampler: one indexed RNG stream per draw, so any draw is reproducible
+alone, `extend` adds draws without changing earlier ones, and a horizon-H set is the
+exact prefix of a longer one (prefix consistency)."""
 from dataclasses import replace
 from functools import lru_cache
 import math
@@ -32,12 +35,14 @@ def unterminated(sequences, horizon):
     """Sequences that stopped short of H units (EOS or budget).
 
     The name predates the §4.7 fix and is kept because provenance enters the content
-    hash; the truncation bound counts non-EOS stops instead (Measure._diagnostics).
+    hash; the truncation bound counts non-EOS stops instead (Measure._open_fraction).
     """
     return sum(s.effective_horizon < horizon for s in sequences)
 
 
 class Sampler:
+    """Draws `spec.n` sequences of up to `horizon` units from any backend with
+    `probabilities(context)`. `calls` counts sampling passes (cache misses)."""
     prefix_consistent = True
 
     def __init__(self, backend):
@@ -62,6 +67,7 @@ class Sampler:
         return digest((self.stream_key(context, spec, unit), horizon, spec.n))
 
     def sample(self, context, horizon, spec: SamplingSpec, unit=None, *, start=0):
+        """Draw sample IDs start..start+n-1 as an AlternativeSet of `horizon` units."""
         unit = unit if unit is not None else UnitSpec()
         if horizon < 1:
             raise ConfigError("sample horizon must be positive; use AlternativeSet.empty for H=0")
@@ -144,6 +150,7 @@ class Sampler:
         return SamplingSpec(**d)
 
     def extend(self, alternatives, k):
+        """Append k new draws; existing draws are unchanged (same streams, new IDs)."""
         if not k > 0 or alternatives.deterministic:
             raise ValueError("extend requires k>0 and a sampled set")
         original = self._spec(alternatives)

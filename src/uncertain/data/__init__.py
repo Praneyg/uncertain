@@ -1,3 +1,4 @@
+"""Stimuli (context + observed target as token IDs), context transforms and loaders."""
 from dataclasses import dataclass, replace
 import json
 import numpy as np
@@ -8,6 +9,7 @@ from uncertain.utils import digest, seed_for
 
 @dataclass(frozen=True)
 class Stimulus:
+    """One item: `target` observed after `context`, with optional human `datum`."""
     context: tuple[int, ...] = ()
     target: tuple[int, ...] = ()
     stimulus_id: str = "item"
@@ -37,6 +39,7 @@ class Stimulus:
         return cls(prefix, whole[len(prefix):], **kwargs)
 
     def observed(self, backend, unit):
+        """The target as an observed Sequence of completed units."""
         if not self.target:
             raise ConfigError("observed measures require a nonempty target")
         units, spans, chars, text = align(self.target, backend, unit, final=True)
@@ -46,6 +49,7 @@ class Stimulus:
 
 @dataclass(frozen=True)
 class StimulusTransform:
+    """Context manipulation: drop, truncate to the last `count`, replace, or shuffle."""
     kind: str
     count: int | None = None
     replacement: tuple[int, ...] = ()

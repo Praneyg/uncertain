@@ -124,9 +124,32 @@ def test_truncation_bound_comes_from_unterminated_mass():
         assert d["truncation_bound"] == pytest.approx(.5**h, abs=.08)
         bounds.append(d["truncation_bound"])
     assert bounds[0] > bounds[1] > bounds[2]
-    # Anchored targets carry no unterminated count; the honest label survives.
-    assert d["target"]["truncation_bound"] is None
-    assert d["target"]["truncation_status"] == "no_general_bound"
+    # The target ends at EOS, so it is complete and adds nothing to the bound.
+    assert d["unterminated_fraction_b"] == 0.
+
+
+def test_truncation_bound_covers_both_operands_and_the_statistic():
+    # After "s a": always "c", then uniform x/y/z, then "z" forever, so M_4 == M_inf.
+    # The old per-operand bound (D times A's open fraction) gave 1.0 for energy against
+    # an error of ~1.33, and never counted the open target.
+    third = (0, 0, 0, 0, 1/3, 1/3, 1/3)
+    backend = ToyBackend(("s", "a", "b", "c", "x", "y", "z"),
+                         {(): (0,)*6+(1,), (0,): (0, 0, 1, 0, 0, 0, 0),
+                          (1,): (0,)*3+(1,)+(0,)*3, (2,): (0,)*3+(1,)+(0,)*3,
+                          (1, 3): third, (2, 3): third})
+    item = Stimulus((0,), (1,))
+    for statistic, distance, warping in (("mean", "discrete", "identity"),
+                                         ("energy", "discrete", "identity"),
+                                         ("min", "discrete", "identity"),
+                                         ("mean", "ngram_overlap", "neglog")):
+        short, long = (Measure.from_config(
+            backend, horizon=h, n=300, statistic=statistic, distance=distance,
+            estimator="mc", warping=warping, short_samples="compare_ragged").compute(item)
+            for h in (2, 4))
+        d = short.diagnostics
+        assert d["truncation_status"] == "bounded_by_unterminated_mass"
+        assert d["unterminated_fraction_b"] == 1.  # every continuation runs past H
+        assert abs(short.value - long.value) <= d["truncation_bound"], (statistic, warping)
 
 
 def test_truncation_bound_follows_store_truncation():

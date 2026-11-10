@@ -1,3 +1,5 @@
+"""Warpings f applied to the raw statistic. `apply(estimate)` returns
+(value, se, ci_low, ci_high, leading_bias) over a declared `domain`."""
 import math
 from uncertain.core import ConfigError
 from uncertain.registry import register_warping
@@ -22,6 +24,9 @@ def neglog(x):
 class NegLog:
     descriptor = {"warping": "neglog", "version": "1", "zero": "infinite", "base": "e"}
     domain = (0., math.inf)
+    # §4.5: a statistic that can reach 0 is refused unless it is a probability, where
+    # -log 0 = inf is the surprisal of an unseen event (R3's surprisal preset).
+    domain_open_low = True
 
     def apply(self, estimate):
         x = estimate.value

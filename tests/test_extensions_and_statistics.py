@@ -154,6 +154,44 @@ def test_within_set_cache_key_separates_block_size_and_seed(energy_operands):
     assert d.calls == 8*n  # a's seed changed, so only within(b,b) is reused
 
 
+def test_injected_parameters_enter_the_spec_hash(make_measure):
+    class Scaled:
+        input_type, range = "units", (0., 1.)
+        negative_type, kind = True, "dissimilarity"
+
+        def __init__(self, w):
+            self.w = w
+
+        def __call__(self, a, b):
+            return self.w*float(a != b)
+    m = make_measure(horizon=2, statistic="mean")
+    full, quarter = m.replace(distance=Scaled(1.)), m.replace(distance=Scaled(.25))
+    assert full.spec_hash != quarter.spec_hash
+    assert full.spec_hash == m.replace(distance=Scaled(1.)).spec_hash
+    unhashable = Scaled(1.)
+    unhashable.w = object()
+    with pytest.raises(ConfigError, match="descriptor"):
+        m.replace(distance=unhashable)
+
+
+def test_u_energy_declares_its_negative_range(make_measure):
+    assert Energy(variant="u").range_for(Discrete()) == (-2., 2.)
+    with pytest.raises(ConfigError, match="domain"):
+        make_measure(horizon=2, distance="discrete", warping="neglog",
+                     statistic=StatisticSpec("energy", {"variant": "u"}))
+
+
+def test_neglog_reaches_zero_only_for_probabilities(make_measure):
+    # §4.5: -log is undefined at 0. A probability (mean of a [0,1] similarity) may
+    # still hit 0, the infinite surprisal of an unseen event; nothing else may.
+    for distance in ("prefix_indicator", "ngram_overlap"):
+        make_measure(horizon=2, distance=distance, statistic="mean", warping="neglog")
+    for distance, statistic in (("discrete", "mean"), ("discrete", "energy"),
+                                ("discrete", "min"), ("prefix_indicator", "min")):
+        with pytest.raises(ConfigError, match="only a probability"):
+            make_measure(horizon=2, distance=distance, statistic=statistic, warping="neglog")
+
+
 def test_statistic_range_for_tracks_the_distance():
     assert Mean().range_for(Discrete()) == (0., 1.)
     assert DirectedMin().range_for(Cosine()) == (0., 2.)

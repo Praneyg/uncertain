@@ -7,12 +7,13 @@ class AlignmentError(ValueError):
 
 
 def word_boundaries(text, *, final=False):
-
+    """Whitespace-delimited words; the last is unconfirmed until text ends (`final`)."""
     return tuple((m.start(), m.end()) for m in re.finditer(r"\S+", text)
                  if final or m.end() < len(text))
 
 
 def sentence_boundaries(text, *, final=False):
+    """Sentences ending in [.!?]+ followed by whitespace; not abbreviation aware."""
     result = []
     start = 0
     for m in re.finditer(r"[.!?]+(?=\s|$)", text):
@@ -39,7 +40,6 @@ def boundaries(text, unit, *, final=False):
     if detect is None:
         raise AlignmentError(f"unit {unit.name!r} declares no text boundary detector")
     return detect(text, final=final)
-
 
 
 def align(tokens, backend, unit, *, final=False):

@@ -57,3 +57,10 @@
     these units remain unsupported until event likelihoods are established.
 16. Empirical entailment clustering exposes missing uncertainty explicitly; directed
     minima carry an approximate whole-alternative bootstrap SE. They are not advertised as satisfying the full scientific v1 gate.
+17. Deliberate departures from the proposal: no `einops` (no axis-permuting code
+    remains; revisit if an encoder reintroduces it); six distances rather than three
+    (`discrete` is load-bearing, removing the others would break callers);
+    `Mean`/`Energy`/`DirectedMin` are not rewritten onto `lifted()` (their bootstrap
+    and CI logic is not generic; `lifted()` is for new factorable statistics);
+    `Result.spec_hash != MeasureSpec.spec_hash`; no general truncation bound for
+    unbounded distances; flat `tests/` layout.

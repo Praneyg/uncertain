@@ -1,13 +1,21 @@
+"""`Measure`: one configured uncertainty measure, computed per stimulus.
+
+A measure compares alternatives A ~ p(.|context) with the observed target B (anchored
+to its own sampled continuation up to horizon H) through encoder -> distance ->
+statistic -> warping. Token/H=1 configurations with a finite statistic are evaluated
+exactly; everything else is Monte Carlo over stored, content-addressed samples.
+"""
 from dataclasses import replace
 import math
 import numpy as np
 from uncertain.core import (ConfigError, AlternativeSet, MeasureSpec, Result, StatisticEstimate,
-                            EstimatorSpec)
+                            EstimatorSpec, EncoderSpec, SamplingSpec, StatisticSpec)
 from uncertain.data import Stimulus
 from uncertain.store import AlternativeStore, RunMemo
 from uncertain.registry import resolve, adapt, _SpecWarping
-from uncertain.samplers import sampling_probabilities
-from uncertain.statistics import sample_mean
+from uncertain.samplers import Sampler, sampling_probabilities
+from uncertain.statistics import Energy, Mean, normal_interval, sample_mean, weights
+from uncertain.measures.exact import finite_expectation
 from uncertain._version import __version__
 from uncertain.utils import digest, seed_for
 from uncertain import distances
@@ -16,11 +24,17 @@ from uncertain import encoders as encoders, warpings as warpings  # register bui
 
 def _is_axis_value(value):
     """A name or spec selects a registered component; anything else is an injected object."""
-    from uncertain.core import StatisticSpec, EncoderSpec
     return isinstance(value, (str, StatisticSpec, EncoderSpec))
 
 
 class Measure:
+    """A validated measure bound to a sampler and an alternatives store.
+
+    Build one with `from_config` (named axes) or `Measure(spec, sampler=...)`; derive
+    variants with `replace`; evaluate with `compute(stimulus) -> Result`. Construction
+    resolves every component and validates the combination; it never samples.
+    """
+
     @classmethod
     def from_config(cls, backend=None, *, unit="token", horizon=1, representation="tokens",
                     distance="discrete", distance_config=None, statistic="energy",
@@ -31,12 +45,10 @@ class Measure:
 
         ``n`` and ``short_samples`` are required (§4.4, §4.2): how many alternatives a
         measure rests on and how short samples are treated are the experimenter's
-        choices, never defaults. Custom component names use the existing registries; representation and
-        statistic also accept their full specs. Supply a sampler instance to
-        select a different sampling algorithm. No sampling occurs at construction.
+        choices, never defaults. Custom component names use the existing registries;
+        representation and statistic also accept their full specs. Supply a sampler
+        instance (or a registered sampler name) to select a different sampling algorithm.
         """
-        from uncertain.core import SamplingSpec
-        from uncertain.samplers import Sampler
         if isinstance(sampler, str):
             if backend is None:
                 raise ConfigError("Naming a sampler also requires a backend")
@@ -79,7 +91,7 @@ class Measure:
                                        **{**getattr(sampler, "defaults", {}), **axes}).spec
         elif axes:
             spec = spec.replace(**axes)
-        injected = {kind: None if c is None else adapt(kind, c, type(c).__name__)
+        injected = {kind: None if c is None else adapt(kind, c, type(c).__name__, injected=True)
                     for kind, c in injected.items()}
         encoder, distance, statistic, warping = injected.values()
         self.spec, self.sampler = spec, sampler
@@ -91,25 +103,22 @@ class Measure:
                                          backend=sampler.backend)
         self.distance = distance or resolve("distance", spec.distance, spec.distance_config)
         stat_spec = spec.statistic
-        if isinstance(stat_spec, str):
-            raise ConfigError("statistic specification was not normalized")
+        assert isinstance(stat_spec, StatisticSpec)  # MeasureSpec normalizes strings
         self.statistic_spec = stat_spec
         self.statistic = statistic or resolve("statistic", stat_spec.name, stat_spec.config,
                                              version=stat_spec.version)
         self.warping = warping or resolve("warping", spec.warping)
         if isinstance(self.warping, _SpecWarping):
             self.warping.n = spec.sampling.n  # §7 gap(raw, n) needs the set size
-        for component in (self.encoder, self.distance, self.statistic, self.warping):
-            if not hasattr(component, "descriptor"):
-                raise ConfigError("injected components require stable descriptors")
-            digest(component.descriptor)
         self.validate()
+        # adapt()/resolve() guarantee a descriptor; digesting it rejects unserializable ones.
         self.spec_hash = digest({"spec": spec, "components": [c.descriptor for c in
                                 (self.encoder, self.distance, self.statistic, self.warping)],
                                  "backend": sampler.backend.descriptor, "sampler": sampler.descriptor,
                                  "engine": __version__})
 
     def validate(self):
+        """Reject any component combination that has no defined meaning (ConfigError)."""
         s = self.spec
         if getattr(self.sampler, "study_specific_distribution", False):
             raise ConfigError("Use estimate_study with StudySampler; generic Measure does not "
@@ -134,6 +143,12 @@ class Measure:
         if not (domain[0] <= low and high <= domain[1]):
             raise ConfigError(f"warping {s.warping} domain {tuple(domain)} does not contain "
                               f"statistic {self.statistic_spec.name} range {(low, high)}")
+        probability = getattr(self.statistic, "estimates_probability", None)
+        if (getattr(self.warping, "domain_open_low", False) and low <= domain[0]
+                and not (probability and probability(self.distance))):
+            raise ConfigError(f"warping {s.warping} is undefined at {domain[0]}, which statistic "
+                              f"{self.statistic_spec.name} over {s.distance} can reach; only a "
+                              "probability (a mean of a [0,1] similarity) may")
         if s.representation.name == "layer" and s.short_samples == "pad":
             raise ConfigError("layer encoder does not define a terminal padding embedding")
         if s.mode in {"entropy", "anticipatory"} and s.unit.name != "token":
@@ -149,7 +164,6 @@ class Measure:
     def exact_eligible(self):
         """An explicit exact request can also score a known multi-token prefix."""
         s = self.spec
-        from uncertain.statistics import Mean, Energy
         finite_statistic = type(self.statistic) in {Mean, Energy}
         return (callable(getattr(self.sampler.backend, "probabilities", None))
                 and s.unit.name == "token" and s.short_samples != "drop"
@@ -160,7 +174,7 @@ class Measure:
 
     @property
     def _exact_prefix(self):
-        from uncertain.statistics import Mean
+        """A known token prefix scored by teacher forcing: P(target | context)."""
         return (self.spec.distance == "prefix_indicator" and type(self.statistic) is Mean
                 and self.spec.representation.name == "tokens"
                 and not any(self._injected.values()))
@@ -173,6 +187,10 @@ class Measure:
             and self.spec.horizon == 1))
 
     def replace(self, **changes):
+        """A new Measure with spec fields changed; shares this one's sampler, store and memo.
+
+        A name or spec re-resolves a component; an object injects it (§5).
+        """
         if "level" in changes:
             changes["representation"] = changes.pop("level")
         injected = dict(self._injected)
@@ -192,7 +210,6 @@ class Measure:
     def _exact(self, stimulus):
         s = self.spec
         if s.mode == "observed" and not self._exact_prefix:
-            from uncertain.measures.exact import finite_expectation
             raw, diagnostics = finite_expectation(self, stimulus)
             result = self._result(StatisticEstimate(raw, 0., raw, raw), 0, 0, (),
                                   diagnostics, method="exact")
@@ -230,6 +247,10 @@ class Measure:
                        corrected_value=result.value if s.estimator.correct_bias else None)
 
     def requirements(self, stimulus):
+        """Validate the target and list the (context, horizon) sample requests it needs.
+
+        Empty when the result is exact. Sweep plans merge these across cells.
+        """
         if self.spec.mode == "anticipatory":
             return []  # requires hypothetical contexts; enumerated explicitly by compute
         if self.spec.mode == "observed":
@@ -284,6 +305,7 @@ class Measure:
         return self.memo.get_or_compute(key, lambda: self.encoder.encode(source, self.spec.short_samples))
 
     def compute(self, stimulus):
+        """Evaluate the measure on one Stimulus. Samples are drawn or reused via the store."""
         if not isinstance(stimulus, Stimulus):
             raise TypeError("compute expects a Stimulus")
         if self.spec.mode == "anticipatory":
@@ -293,12 +315,12 @@ class Measure:
             return self._exact(stimulus)
         a = self._get(stimulus.context, self.spec.horizon)
         artifacts = [self.store.save(a)]
-        diagnostics = self._diagnostics(a)
+        diagnostics = {**self._diagnostics(a), "truncation_bound": None,
+                       "truncation_status": "no_general_bound"}
         if self.spec.mode == "entropy":
             stream = "model_logprobs" if self.spec.probability == "model" else "sampling_logprobs"
             values = [-sum(getattr(row, stream)) for row in a.sequences]
             estimate = sample_mean(values, self.spec.estimator.confidence)
-            from uncertain.statistics import weights
             seed = seed_for("bootstrap", a.provenance.get("stream", a.content_hash))
             wa = weights(a, self.spec.estimator.bootstrap, seed)
             estimate = replace(estimate, bootstrap_values=tuple(wa @ values / len(values)))
@@ -308,11 +330,13 @@ class Measure:
         remaining = self.spec.horizon-len(observed.units)
         context = stimulus.context+stimulus.target
         terminal = stimulus.target[-1] == self.sampler.backend.eos_token_id
-        continuation = self._get(context, remaining) if remaining and not terminal else AlternativeSet.empty(context, self.spec.unit)
-        if terminal and remaining:
-            continuation = replace(continuation, horizon=remaining)
         if remaining and not terminal:
+            continuation = self._get(context, remaining)
             artifacts.append(self.store.save(continuation))
+        else:
+            continuation = AlternativeSet.empty(context, self.spec.unit)
+            if remaining:  # ended at EOS: the target is complete, nothing to continue
+                continuation = replace(continuation, horizon=remaining)
         b = AlternativeSet.anchor(observed, continuation, stimulus.context)
         diagnostics["target"] = self._diagnostics(b)
         if self.spec.short_samples == "drop":
@@ -332,7 +356,15 @@ class Measure:
         seeds = (seed_for("bootstrap", a.provenance.get("stream", a.content_hash)),
                  seed_for("bootstrap", continuation.provenance.get("stream", continuation.content_hash)))
         estimate = self.statistic.estimate(ra, rb, distance, self.spec.estimator, seeds)
-        diagnostics.update({"random_a": not a.deterministic, "random_b": not b.deterministic,
+        # The anchored target is open unless it ends at EOS: at H = k its own continuation
+        # past the observed units is the missing mass.
+        open_a = self._open_fraction(a, "unterminated" in a.provenance)
+        open_b = 0. if terminal else self._open_fraction(
+            b, b.deterministic or "unterminated" in continuation.provenance)
+        bound, status = self._truncation(estimate, distance, open_a, open_b)
+        diagnostics.update({"truncation_bound": bound, "truncation_status": status,
+                            "unterminated_fraction_a": open_a, "unterminated_fraction_b": open_b,
+                            "random_a": not a.deterministic, "random_b": not b.deterministic,
                             "resampling_seed_a": seeds[0], "resampling_seed_b": seeds[1],
                             "bootstrap_replicates": self.spec.estimator.bootstrap,
                             "sample_ids_a": [s.sample_id for s in a.sequences],
@@ -340,6 +372,7 @@ class Measure:
         return self._result(estimate, len(a), len(b), tuple(artifacts), diagnostics)
 
     def _result(self, estimate, n_a, n_b, artifacts, diagnostics, method="mc"):
+        """Warp a raw StatisticEstimate into the reported Result."""
         diagnostics = {**diagnostics, "estimator_requested": self.spec.estimator.method}
         if self.spec.estimator.method == "auto":
             diagnostics["estimator_selection"] = (
@@ -358,21 +391,43 @@ class Measure:
                       self.spec.estimator.confidence, artifacts, bias, corrected, diagnostics, resamples)
 
     def _diagnostics(self, source):
+        """Per-set stopping summary recorded on every MC result."""
         n = len(source)
-        # §4.7: a draw that ended at EOS is complete; only one cut off at H or by the
-        # token budget has mass beyond the horizon, and moves the statistic by at most
-        # D. Counted from the sequences, not provenance, which a truncated view
-        # inherits from the longer set. Sets without the provenance count (anchors,
-        # samplers that write their own) keep the honest no-bound label.
-        bound, status = None, "no_general_bound"
-        if "unterminated" in source.provenance and math.isfinite(self.distance.range[1]):
-            open_ = sum(s.stop_reason != "eos" for s in source.sequences)
-            bound, status = self.distance.range[1]*open_/n, "bounded_by_unterminated_mass"
         return {"effective_horizons": [len(s.units) for s in source.sequences],
                 "eos_fraction": sum(s.stop_reason == "eos" for s in source.sequences)/n,
                 "budget_fraction": sum(s.stop_reason == "budget" for s in source.sequences)/n,
-                "truncation_bound": bound, "truncation_status": status,
                 "estimand": "finite_horizon"}
+
+    @staticmethod
+    def _open_fraction(source, recorded):
+        """§4.7: share of draws cut off at H or by the token budget; only they have mass
+        past the horizon (an EOS stop is complete). Counted from the sequences, not
+        provenance, which a truncated view inherits from the longer set. None unless
+        the stops are the library sampler's own record (`recorded`)."""
+        if not recorded or not len(source):
+            return None
+        return sum(s.stop_reason != "eos" for s in source.sequences)/len(source)
+
+    def _truncation(self, estimate, distance, open_a, open_b):
+        """§4.7 bound on |M_H - M_inf|, in the units of the reported value: the
+        statistic's sensitivity to the open draws of both operands, pushed through f."""
+        if open_a is None or open_b is None:
+            return None, "no_general_bound"
+        if not (open_a or open_b):
+            return 0., "bounded_by_unterminated_mass"  # every draw ended at EOS
+        bound_for = getattr(self.statistic, "truncation_bound", None)
+        if bound_for is None or not all(map(math.isfinite, distance.range)):
+            return None, "no_general_bound"
+        low, high = self.statistic.range_for(distance)
+        raw = min(bound_for(open_a, open_b, distance), high-low)
+
+        def f(x):
+            return self.warping.apply(StatisticEstimate(x, None, None, None))[0]
+        x = estimate.value
+        fx = f(x)
+        ends = [f(min(max(x+d, low), high)) for d in (-raw, raw)]
+        # e == fx also covers inf == inf (a zero statistic under -log stays at inf).
+        return max(0. if e == fx else abs(e-fx) for e in ends), "bounded_by_unterminated_mass"
 
     def _anticipatory(self, stimulus):
         """Exact next-token marginal, independent inner MC per hypothetical target.
@@ -394,8 +449,7 @@ class Measure:
             n_a += r.n_a_used
             n_b += r.n_b_used
         value = float(sum(values))
-        se = math.sqrt(sum(x for x in ses if x is not None)) if all(x is not None for x in ses) else None
-        from uncertain.statistics import normal_interval
+        se = None if None in ses else math.sqrt(sum(x for x in ses if x is not None))
         low, high = normal_interval(value, se, self.spec.estimator.confidence)
         return Result(value, value, se, low, high, self.spec.sampling.n,
                       n_a, n_b, self.spec_hash, "anticipatory",
@@ -405,20 +459,26 @@ class Measure:
                                    "inner_streams": "independent", "definition": "E_U[f(s(A,B_U))]"})
 
 
+# Presets: MeasureSpec factories for the standard measures. Pass the result to Measure.
+
 def contextual_probability(sampling, *, short_samples, **kwargs):
+    """P(target | context): mean prefix indicator over sampled alternatives (H=1 default)."""
     return MeasureSpec(sampling=sampling, horizon=kwargs.pop("horizon", 1),
                        short_samples=short_samples, **kwargs)
 
 
 def surprisal(sampling, **kwargs):
+    """-log P(target | context), in nats."""
     return contextual_probability(sampling, warping="neglog", **kwargs)
 
 
 def entropy(sampling, **kwargs):
+    """Expected -log p of the sampled continuations (no target needed)."""
     return contextual_probability(sampling, mode="entropy", **kwargs)
 
 
 def information_value(sampling, *, distance="discrete", statistic="mean", **kwargs):
+    """Mean distance between alternatives and the observed target."""
     return contextual_probability(sampling, distance=distance, statistic=statistic, **kwargs)
 
 

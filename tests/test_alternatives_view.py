@@ -34,7 +34,8 @@ def test_plot():
 def test_sentence_summary_mc_and_exact():
     from uncertain import positions
     backend = ToyBackend(("a", "b", "<eos>"), {(): (.6, .3, .1)}, eos_token_id=2)
-    for horizon, kwargs in ((2, dict(statistic="mean")), (1, dict(warping="neglog"))):
+    surprisal = dict(distance="prefix_indicator", statistic="mean", warping="neglog")
+    for horizon, kwargs in ((2, dict(statistic="mean")), (1, surprisal)):
         m = Measure.from_config(backend, horizon=horizon, n=40, short_samples="compare_ragged", **kwargs)
         lines = m.sentence_summary(positions((0, 1, 0)), top=2).splitlines()
         assert len(lines) == 4 and "'a'" in lines[1]

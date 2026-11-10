@@ -1,9 +1,16 @@
+"""Built-in encoders: an AlternativeSet -> one representation per draw.
+
+`tokens` (unit tuples), `strings` (decoded text) and `layer` (pooled hidden states).
+The short-sample policy decides whether short draws are padded with the unit's
+terminal symbol (`pad`) or left ragged.
+"""
 import numpy as np
 from uncertain.core import RepresentationSet, ConfigError
 from uncertain.registry import register_encoder
 
 
 def unit_rows(source, short_samples):
+    """Each draw's units, padded to the horizon when short_samples == "pad"."""
     return tuple(s.units + ((source.unit.pad_symbol,) * (source.horizon-len(s.units))
                            if short_samples == "pad" else ()) for s in source.sequences)
 
@@ -25,7 +32,6 @@ class TokensEncoder:
 @register_encoder("strings")
 class StringsEncoder(TokensEncoder):
     output_type = "string"
-    descriptor = {"encoder": "strings", "version": "1"}
 
     def __init__(self, backend=None):
         self.backend = backend

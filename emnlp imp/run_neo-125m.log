@@ -1,0 +1,264 @@
+Loading weights:   0%|          | 0/160 [00:00<?, ?it/s]Loading weights: 100%|##########| 160/160 [00:00<00:00, 2249.88it/s]
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-125m
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 2, 4, 6, 8, 10}.attn.attention.bias | UNEXPECTED |  | 
+transformer.h.{0...11}.attn.attention.masked_bias     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[1/205] id=1 tokens=5 24.49s/token elapsed=2.0m
+Loading weights:   0%|          | 0/160 [00:00<?, ?it/s]Loading weights: 100%|##########| 160/160 [00:00<00:00, 3614.12it/s]
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-125m
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0...11}.attn.attention.masked_bias     | UNEXPECTED |  | 
+transformer.h.{0, 2, 4, 6, 8, 10}.attn.attention.bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[2/205] id=2 tokens=5 6.05s/token elapsed=0.5m
+[3/205] id=3 tokens=5 5.40s/token elapsed=0.9m
+[4/205] id=4 tokens=5 5.24s/token elapsed=1.3m
+[5/205] id=5 tokens=6 7.34s/token elapsed=2.6m
+Loading weights:   0%|          | 0/160 [00:00<?, ?it/s]Loading weights: 100%|##########| 160/160 [00:00<00:00, 3329.21it/s]
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-125m
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0...11}.attn.attention.masked_bias     | UNEXPECTED |  | 
+transformer.h.{0, 2, 4, 6, 8, 10}.attn.attention.bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[6/205] id=6 tokens=5 5.86s/token elapsed=0.5m
+[7/205] id=7 tokens=5 5.76s/token elapsed=1.0m
+[8/205] id=8 tokens=5 5.85s/token elapsed=1.5m
+[9/205] id=9 tokens=5 5.56s/token elapsed=1.9m
+[10/205] id=10 tokens=6 42.15s/token elapsed=18.3m
+[11/205] id=11 tokens=5 36.40s/token elapsed=18.8m
+[12/205] id=12 tokens=6 31.57s/token elapsed=19.5m
+[13/205] id=13 tokens=6 28.14s/token elapsed=20.2m
+[14/205] id=14 tokens=6 25.50s/token elapsed=20.8m
+[15/205] id=15 tokens=6 23.47s/token elapsed=21.5m
+[16/205] id=16 tokens=6 21.85s/token elapsed=22.2m
+[17/205] id=17 tokens=6 20.53s/token elapsed=22.9m
+[18/205] id=18 tokens=6 19.41s/token elapsed=23.6m
+[19/205] id=19 tokens=6 18.40s/token elapsed=24.2m
+[20/205] id=20 tokens=6 17.60s/token elapsed=24.9m
+[21/205] id=21 tokens=7 16.99s/token elapsed=26.1m
+[22/205] id=22 tokens=6 16.91s/token elapsed=27.6m
+[23/205] id=23 tokens=7 16.57s/token elapsed=29.0m
+[24/205] id=24 tokens=6 16.36s/token elapsed=30.3m
+[25/205] id=25 tokens=7 16.09s/token elapsed=31.6m
+[26/205] id=26 tokens=6 16.03s/token elapsed=33.1m
+[27/205] id=27 tokens=7 15.90s/token elapsed=34.7m
+[28/205] id=28 tokens=7 50.29s/token elapsed=115.7m
+forrtl: error (200): program aborting due to window-CLOSE event
+Image              PC                Routine            Line        Source             
+KERNELBASE.dll     00007FFFF60E63ED  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFFF782DDA7  Unknown               Unknown  Unknown
+ntdll.dll          00007FFFF8C5EE4C  Unknown               Unknown  Unknown
+^CLoading weights:   0%|          | 0/160 [00:00<?, ?it/s]Loading weights: 100%|##########| 160/160 [00:00<00:00, 3019.14it/s]
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-125m
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 2, 4, 6, 8, 10}.attn.attention.bias | UNEXPECTED |  | 
+transformer.h.{0...11}.attn.attention.masked_bias     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[29/205] id=29 tokens=6 7.58s/token elapsed=0.8m rss=1.31GB
+[30/205] id=30 tokens=6 9.94s/token elapsed=2.0m rss=1.51GB
+[31/205] id=31 tokens=7 10.96s/token elapsed=3.5m rss=0.83GB
+[32/205] id=32 tokens=6 11.80s/token elapsed=4.9m rss=0.87GB
+[33/205] id=33 tokens=7 12.74s/token elapsed=6.8m rss=1.07GB
+[34/205] id=34 tokens=7 14.47s/token elapsed=9.4m rss=1.07GB
+Loading weights:   0%|          | 0/160 [00:00<?, ?it/s]Loading weights: 100%|##########| 160/160 [00:00<00:00, 3598.52it/s]
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-125m
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 2, 4, 6, 8, 10}.attn.attention.bias | UNEXPECTED |  | 
+transformer.h.{0...11}.attn.attention.masked_bias     | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[35/205] id=35 tokens=7 3.78s/token elapsed=0.4m rss=0.77GB
+[36/205] id=36 tokens=7 5.19s/token elapsed=1.2m rss=0.68GB
+[37/205] id=37 tokens=8 6.05s/token elapsed=2.2m rss=1.33GB
+[38/205] id=38 tokens=7 6.85s/token elapsed=3.3m rss=1.00GB
+[39/205] id=39 tokens=8 7.72s/token elapsed=4.8m rss=1.75GB
+[40/205] id=40 tokens=7 8.40s/token elapsed=6.2m rss=1.64GB
+[41/205] id=41 tokens=7 8.85s/token elapsed=7.5m rss=1.72GB
+Loading weights:   0%|          | 0/160 [00:00<?, ?it/s]Loading weights: 100%|##########| 160/160 [00:00<00:00, 2469.41it/s]
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-125m
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0...11}.attn.attention.masked_bias     | UNEXPECTED |  | 
+transformer.h.{0, 2, 4, 6, 8, 10}.attn.attention.bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[42/205] id=42 tokens=7 1.71s/token elapsed=0.2m rss=0.90GB
+[43/205] id=43 tokens=7 1.69s/token elapsed=0.4m rss=0.91GB
+[44/205] id=44 tokens=7 1.64s/token elapsed=0.6m rss=0.90GB
+[45/205] id=45 tokens=7 1.60s/token elapsed=0.7m rss=0.90GB
+[46/205] id=46 tokens=7 1.58s/token elapsed=0.9m rss=0.90GB
+[47/205] id=47 tokens=7 1.56s/token elapsed=1.1m rss=0.90GB
+[48/205] id=48 tokens=7 1.55s/token elapsed=1.3m rss=0.90GB
+[49/205] id=49 tokens=7 1.54s/token elapsed=1.4m rss=0.90GB
+[50/205] id=50 tokens=7 1.55s/token elapsed=1.6m rss=0.90GB
+[51/205] id=51 tokens=9 1.58s/token elapsed=1.9m rss=0.98GB
+[52/205] id=52 tokens=7 1.58s/token elapsed=2.1m rss=0.97GB
+[53/205] id=53 tokens=7 1.58s/token elapsed=2.3m rss=0.97GB
+[54/205] id=54 tokens=7 1.58s/token elapsed=2.5m rss=0.97GB
+[55/205] id=55 tokens=7 1.58s/token elapsed=2.6m rss=0.97GB
+[56/205] id=56 tokens=7 1.58s/token elapsed=2.8m rss=0.97GB
+[57/205] id=57 tokens=8 1.58s/token elapsed=3.0m rss=0.98GB
+[58/205] id=58 tokens=8 1.58s/token elapsed=3.2m rss=0.98GB
+[59/205] id=59 tokens=8 1.59s/token elapsed=3.5m rss=0.98GB
+[60/205] id=60 tokens=8 1.59s/token elapsed=3.7m rss=0.98GB
+[61/205] id=61 tokens=8 1.59s/token elapsed=3.9m rss=0.98GB
+[62/205] id=62 tokens=8 1.59s/token elapsed=4.1m rss=0.98GB
+[63/205] id=63 tokens=8 1.59s/token elapsed=4.3m rss=0.98GB
+[64/205] id=64 tokens=8 1.59s/token elapsed=4.5m rss=0.98GB
+[65/205] id=65 tokens=8 1.60s/token elapsed=4.8m rss=0.98GB
+[66/205] id=66 tokens=8 1.60s/token elapsed=5.0m rss=0.98GB
+[67/205] id=67 tokens=8 1.60s/token elapsed=5.2m rss=0.98GB
+[68/205] id=68 tokens=9 1.60s/token elapsed=5.5m rss=0.98GB
+[69/205] id=69 tokens=8 1.61s/token elapsed=5.7m rss=0.98GB
+[70/205] id=70 tokens=9 1.61s/token elapsed=5.9m rss=0.96GB
+[71/205] id=71 tokens=8 1.61s/token elapsed=6.2m rss=0.95GB
+[72/205] id=72 tokens=9 1.62s/token elapsed=6.4m rss=0.96GB
+[73/205] id=73 tokens=10 1.63s/token elapsed=6.7m rss=1.90GB
+[74/205] id=74 tokens=8 1.63s/token elapsed=7.0m rss=1.89GB
+[75/205] id=75 tokens=8 1.63s/token elapsed=7.2m rss=1.89GB
+[76/205] id=76 tokens=9 1.64s/token elapsed=7.4m rss=1.90GB
+[77/205] id=77 tokens=8 1.64s/token elapsed=7.7m rss=1.89GB
+[78/205] id=78 tokens=8 1.64s/token elapsed=7.9m rss=1.89GB
+[79/205] id=79 tokens=8 1.64s/token elapsed=8.1m rss=1.89GB
+[80/205] id=80 tokens=8 1.65s/token elapsed=8.4m rss=1.89GB
+[81/205] id=81 tokens=8 1.65s/token elapsed=8.6m rss=1.89GB
+[82/205] id=82 tokens=8 1.65s/token elapsed=8.8m rss=1.89GB
+[83/205] id=83 tokens=11 1.66s/token elapsed=9.2m rss=2.95GB
+[84/205] id=84 tokens=11 1.67s/token elapsed=9.5m rss=2.95GB
+[85/205] id=85 tokens=10 1.67s/token elapsed=9.8m rss=2.95GB
+[86/205] id=86 tokens=11 1.68s/token elapsed=10.2m rss=2.95GB
+[87/205] id=87 tokens=10 1.68s/token elapsed=10.5m rss=2.95GB
+[88/205] id=88 tokens=9 1.68s/token elapsed=10.7m rss=2.95GB
+[89/205] id=89 tokens=9 1.69s/token elapsed=11.0m rss=2.95GB
+[90/205] id=90 tokens=9 1.69s/token elapsed=11.3m rss=2.95GB
+[91/205] id=91 tokens=9 1.69s/token elapsed=11.6m rss=2.95GB
+[92/205] id=92 tokens=9 1.69s/token elapsed=11.8m rss=2.95GB
+[93/205] id=93 tokens=9 1.70s/token elapsed=12.1m rss=2.95GB
+[94/205] id=94 tokens=9 1.70s/token elapsed=12.4m rss=2.95GB
+[95/205] id=95 tokens=10 1.70s/token elapsed=12.7m rss=2.95GB
+[96/205] id=96 tokens=9 1.70s/token elapsed=12.9m rss=2.95GB
+[97/205] id=97 tokens=9 1.70s/token elapsed=13.2m rss=2.95GB
+[98/205] id=98 tokens=11 1.71s/token elapsed=13.6m rss=2.95GB
+[99/205] id=99 tokens=10 1.71s/token elapsed=13.9m rss=2.95GB
+[100/205] id=100 tokens=9 1.71s/token elapsed=14.1m rss=2.95GB
+[101/205] id=101 tokens=9 1.72s/token elapsed=14.4m rss=2.95GB
+[102/205] id=102 tokens=10 1.72s/token elapsed=14.7m rss=2.95GB
+[103/205] id=103 tokens=10 1.72s/token elapsed=15.1m rss=2.95GB
+[104/205] id=104 tokens=10 1.73s/token elapsed=15.4m rss=2.95GB
+[105/205] id=105 tokens=10 1.73s/token elapsed=15.7m rss=2.95GB
+[106/205] id=106 tokens=10 1.73s/token elapsed=16.0m rss=2.95GB
+[107/205] id=107 tokens=9 1.73s/token elapsed=16.3m rss=2.95GB
+[108/205] id=108 tokens=9 1.74s/token elapsed=16.5m rss=2.95GB
+[109/205] id=109 tokens=10 1.74s/token elapsed=16.9m rss=2.95GB
+[110/205] id=110 tokens=10 1.74s/token elapsed=17.2m rss=2.95GB
+[111/205] id=111 tokens=10 1.74s/token elapsed=17.5m rss=2.95GB
+[112/205] id=112 tokens=10 1.75s/token elapsed=17.8m rss=2.95GB
+[113/205] id=113 tokens=10 1.75s/token elapsed=18.1m rss=2.95GB
+[114/205] id=114 tokens=10 1.75s/token elapsed=18.4m rss=2.95GB
+[115/205] id=115 tokens=12 1.76s/token elapsed=18.9m rss=4.11GB
+[116/205] id=116 tokens=10 1.76s/token elapsed=19.2m rss=4.11GB
+[117/205] id=117 tokens=11 1.76s/token elapsed=19.5m rss=4.10GB
+[118/205] id=118 tokens=9 1.76s/token elapsed=19.8m rss=4.10GB
+[119/205] id=119 tokens=12 1.77s/token elapsed=20.2m rss=4.10GB
+[120/205] id=120 tokens=10 1.77s/token elapsed=20.5m rss=4.10GB
+[121/205] id=121 tokens=11 1.77s/token elapsed=20.9m rss=4.11GB
+[122/205] id=122 tokens=10 1.77s/token elapsed=21.2m rss=4.10GB
+[123/205] id=123 tokens=11 1.78s/token elapsed=21.6m rss=4.10GB
+[124/205] id=124 tokens=11 1.78s/token elapsed=21.9m rss=4.10GB
+[125/205] id=125 tokens=10 1.78s/token elapsed=22.2m rss=4.10GB
+[126/205] id=126 tokens=10 1.78s/token elapsed=22.6m rss=4.10GB
+[127/205] id=127 tokens=10 1.79s/token elapsed=22.9m rss=4.10GB
+[128/205] id=128 tokens=10 1.79s/token elapsed=23.2m rss=4.11GB
+[129/205] id=129 tokens=13 1.79s/token elapsed=23.7m rss=5.26GB
+[130/205] id=130 tokens=11 1.80s/token elapsed=24.0m rss=5.24GB
+[131/205] id=131 tokens=11 1.80s/token elapsed=24.4m rss=5.24GB
+[132/205] id=132 tokens=11 1.80s/token elapsed=24.8m rss=5.24GB
+[133/205] id=133 tokens=11 1.80s/token elapsed=25.1m rss=5.24GB
+[134/205] id=134 tokens=11 1.81s/token elapsed=25.5m rss=5.24GB
+[135/205] id=135 tokens=11 1.81s/token elapsed=25.9m rss=5.24GB
+[136/205] id=136 tokens=12 1.81s/token elapsed=26.3m rss=5.24GB
+[137/205] id=137 tokens=12 1.82s/token elapsed=26.7m rss=5.24GB
+[138/205] id=138 tokens=11 1.82s/token elapsed=27.1m rss=5.13GB
+[139/205] id=139 tokens=11 1.82s/token elapsed=27.5m rss=4.95GB
+[140/205] id=140 tokens=11 1.83s/token elapsed=27.8m rss=4.95GB
+[141/205] id=141 tokens=11 1.83s/token elapsed=28.2m rss=4.95GB
+[142/205] id=142 tokens=11 1.83s/token elapsed=28.6m rss=4.95GB
+[143/205] id=143 tokens=12 1.83s/token elapsed=29.0m rss=4.93GB
+[144/205] id=144 tokens=12 1.84s/token elapsed=29.4m rss=4.93GB
+[145/205] id=145 tokens=11 1.84s/token elapsed=29.8m rss=4.93GB
+[146/205] id=146 tokens=12 1.84s/token elapsed=30.2m rss=4.93GB
+[147/205] id=147 tokens=11 1.85s/token elapsed=30.6m rss=4.93GB
+[148/205] id=148 tokens=11 1.85s/token elapsed=31.0m rss=4.93GB
+[149/205] id=149 tokens=12 1.85s/token elapsed=31.4m rss=4.91GB
+[150/205] id=150 tokens=12 1.85s/token elapsed=31.8m rss=4.91GB
+[151/205] id=151 tokens=12 1.85s/token elapsed=32.2m rss=4.91GB
+[152/205] id=152 tokens=12 1.86s/token elapsed=32.6m rss=4.91GB
+[153/205] id=153 tokens=13 1.86s/token elapsed=33.1m rss=4.91GB
+[154/205] id=154 tokens=12 1.86s/token elapsed=33.5m rss=4.82GB
+[155/205] id=155 tokens=12 1.86s/token elapsed=33.9m rss=4.28GB
+[156/205] id=156 tokens=12 1.87s/token elapsed=34.3m rss=4.28GB
+[157/205] id=157 tokens=12 1.87s/token elapsed=34.7m rss=4.28GB
+[158/205] id=158 tokens=12 1.87s/token elapsed=35.2m rss=4.22GB
+[159/205] id=159 tokens=14 1.88s/token elapsed=35.7m rss=3.52GB
+[160/205] id=160 tokens=12 1.88s/token elapsed=36.1m rss=3.52GB
+[161/205] id=161 tokens=12 1.88s/token elapsed=36.5m rss=3.52GB
+[162/205] id=162 tokens=12 1.88s/token elapsed=37.0m rss=3.52GB
+[163/205] id=163 tokens=12 1.89s/token elapsed=37.4m rss=3.52GB
+[164/205] id=164 tokens=13 1.89s/token elapsed=37.8m rss=3.52GB
+[165/205] id=165 tokens=12 1.89s/token elapsed=38.3m rss=3.52GB
+[166/205] id=166 tokens=12 1.89s/token elapsed=38.7m rss=3.48GB
+[167/205] id=167 tokens=13 1.90s/token elapsed=39.2m rss=3.21GB
+[168/205] id=168 tokens=12 1.90s/token elapsed=39.6m rss=3.21GB
+[169/205] id=169 tokens=12 1.90s/token elapsed=40.0m rss=3.21GB
+[170/205] id=170 tokens=12 1.90s/token elapsed=40.4m rss=3.21GB
+[171/205] id=171 tokens=12 1.90s/token elapsed=40.9m rss=3.21GB
+[172/205] id=172 tokens=12 1.91s/token elapsed=41.3m rss=3.21GB
+[173/205] id=173 tokens=12 1.91s/token elapsed=41.7m rss=3.21GB
+[174/205] id=174 tokens=12 1.91s/token elapsed=42.1m rss=3.21GB
+[175/205] id=175 tokens=12 1.91s/token elapsed=42.5m rss=3.21GB
+[176/205] id=176 tokens=12 1.91s/token elapsed=43.0m rss=3.21GB
+[177/205] id=177 tokens=14 1.92s/token elapsed=43.5m rss=3.20GB
+[178/205] id=178 tokens=14 1.92s/token elapsed=44.0m rss=3.17GB
+[179/205] id=179 tokens=13 1.92s/token elapsed=44.5m rss=2.90GB
+[180/205] id=180 tokens=13 1.92s/token elapsed=44.9m rss=2.90GB
+[181/205] id=181 tokens=13 1.93s/token elapsed=45.4m rss=2.90GB
+[182/205] id=182 tokens=14 1.93s/token elapsed=45.9m rss=2.90GB
+[183/205] id=183 tokens=13 1.93s/token elapsed=46.4m rss=2.90GB
+[184/205] id=184 tokens=14 1.93s/token elapsed=46.9m rss=2.90GB
+[185/205] id=185 tokens=14 1.94s/token elapsed=47.4m rss=2.90GB
+[186/205] id=186 tokens=13 1.94s/token elapsed=47.9m rss=2.90GB
+[187/205] id=187 tokens=13 1.94s/token elapsed=48.4m rss=2.90GB
+[188/205] id=188 tokens=13 1.94s/token elapsed=48.8m rss=2.88GB
+[189/205] id=189 tokens=13 1.94s/token elapsed=49.3m rss=2.79GB
+[190/205] id=190 tokens=13 1.95s/token elapsed=49.8m rss=2.79GB
+[191/205] id=191 tokens=13 1.95s/token elapsed=50.2m rss=2.79GB
+[192/205] id=192 tokens=13 1.95s/token elapsed=50.7m rss=2.79GB
+[193/205] id=193 tokens=13 1.95s/token elapsed=51.1m rss=2.79GB
+[194/205] id=194 tokens=14 1.95s/token elapsed=51.7m rss=2.79GB
+[195/205] id=195 tokens=14 1.95s/token elapsed=52.2m rss=2.79GB
+[196/205] id=196 tokens=15 1.96s/token elapsed=52.8m rss=1.16GB
+[197/205] id=197 tokens=14 1.96s/token elapsed=53.3m rss=1.24GB
+[198/205] id=198 tokens=14 1.97s/token elapsed=53.9m rss=1.24GB
+[199/205] id=199 tokens=14 1.97s/token elapsed=54.4m rss=1.24GB
+[200/205] id=200 tokens=14 1.97s/token elapsed=54.9m rss=0.95GB
+[201/205] id=201 tokens=15 1.97s/token elapsed=55.5m rss=0.95GB
+[202/205] id=202 tokens=15 1.98s/token elapsed=56.0m rss=0.95GB
+[203/205] id=203 tokens=15 1.98s/token elapsed=56.6m rss=0.95GB
+[204/205] id=204 tokens=15 1.98s/token elapsed=57.2m rss=0.95GB
+[205/205] id=205 tokens=15 1.98s/token elapsed=57.7m rss=0.95GB

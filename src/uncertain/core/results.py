@@ -1,3 +1,4 @@
+"""Outputs: StatisticEstimate (raw statistic) and Result (warped, with provenance)."""
 from dataclasses import dataclass, field
 from collections.abc import Mapping
 from uncertain.core.specs import freeze
@@ -5,6 +6,7 @@ from uncertain.core.specs import freeze
 
 @dataclass(frozen=True)
 class StatisticEstimate:
+    """A statistic's point value, SE, interval and bootstrap replicates, before warping."""
     value: float
     se: float | None
     ci_low: float | None
@@ -15,6 +17,9 @@ class StatisticEstimate:
 
 @dataclass(frozen=True)
 class Result:
+    """A computed measure. `value` is warped, `raw_value` is the statistic before
+    warping; `status` says how the SE/interval was obtained or why it is missing.
+    `artifact_ids` name the stored AlternativeSets (see Measure.alternatives)."""
     value: float
     raw_value: float
     se: float | None

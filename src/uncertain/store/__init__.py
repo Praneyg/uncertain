@@ -80,6 +80,11 @@ def deserialize(payload):
 
 
 class AlternativeStore:
+    """Content-addressed AlternativeSets, in memory or under `path` as checksummed JSON.
+
+    `get_or_sample` reuses any stored set on the same stream: an equal horizon as is,
+    a longer one truncated, a shorter one deepened. Nothing is ever overwritten.
+    """
     schema_version = 1
 
     def __init__(self, path=None):
@@ -173,7 +178,7 @@ class AlternativeStore:
 
 @dataclass
 class RunMemo:
-    """Bounded count of derived encodings, never persisted."""
+    """In-process LRU of derived values (encodings), never persisted."""
     max_entries: int = 32
 
     def __post_init__(self):

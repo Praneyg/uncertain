@@ -1,3 +1,5 @@
+"""Immutable sample containers: Sequence (one draw), AlternativeSet (n draws from one
+context) and RepresentationSet (their encodings)."""
 from dataclasses import dataclass, field, replace
 from collections.abc import Mapping
 import numpy as np
@@ -7,6 +9,8 @@ from uncertain.utils import digest, immutable_array
 
 @dataclass(frozen=True)
 class Sequence:
+    """One draw: tokens, per-step log p (model) and log q (sampling), and the completed
+    units with their token/character spans. `observed` marks tokens given, not sampled."""
     tokens: tuple[int, ...]
     model_logprobs: tuple[float | None, ...]
     sampling_logprobs: tuple[float | None, ...]
@@ -53,6 +57,7 @@ class Sequence:
         return len(self.units)
 
     def truncate(self, horizon):
+        """The first `horizon` units of this draw."""
         if horizon < 0:
             raise ValueError("negative horizon")
         if horizon > len(self.units):
@@ -73,6 +78,8 @@ class Sequence:
 
 @dataclass(frozen=True)
 class AlternativeSet:
+    """Draws conditioned on one context. `deterministic` marks a single fixed operand
+    (an observed target), which bootstrap resampling leaves unchanged."""
     sequences: tuple[Sequence, ...]
     context: tuple[int, ...]
     unit: UnitSpec
@@ -102,6 +109,7 @@ class AlternativeSet:
         return len(self.sequences)
 
     def truncate(self, horizon):
+        """Every draw cut to `horizon` units; equals sampling at that horizon directly."""
         if not 0 <= horizon <= self.horizon:
             raise ValueError("truncation horizon must be in [0, current horizon]")
         if horizon != self.horizon and self.provenance.get("prefix_consistent") is False:
@@ -119,6 +127,7 @@ class AlternativeSet:
 
     @classmethod
     def anchor(cls, observed: Sequence, continuation: "AlternativeSet", context):
+        """B: the observed target followed by each sampled continuation of it."""
         k, offset = len(observed.units), len(observed.tokens)
         if not k:
             raise ValueError("anchor requires at least one observed unit")

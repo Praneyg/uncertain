@@ -1,0 +1,216 @@
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 2441.35it/s]
+[1/205] id=1 tokens=5 21.48s/token elapsed=1.8m
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 3377.26it/s]
+[2/205] id=2 tokens=5 5.87s/token elapsed=0.5m
+[3/205] id=3 tokens=5 5.16s/token elapsed=0.9m
+[4/205] id=4 tokens=5 4.99s/token elapsed=1.2m
+[5/205] id=5 tokens=6 6.32s/token elapsed=2.2m
+[6/205] id=6 tokens=5 9.58s/token elapsed=4.2m
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 3277.30it/s]
+[7/205] id=7 tokens=5 5.58s/token elapsed=0.5m
+[8/205] id=8 tokens=5 5.25s/token elapsed=0.9m
+[9/205] id=9 tokens=5 5.14s/token elapsed=1.3m
+[10/205] id=10 tokens=6 5.13s/token elapsed=1.8m
+[11/205] id=11 tokens=5 5.27s/token elapsed=2.3m
+[12/205] id=12 tokens=6 35.05s/token elapsed=18.7m
+[13/205] id=13 tokens=6 30.50s/token elapsed=19.3m
+[14/205] id=14 tokens=6 27.18s/token elapsed=19.9m
+[15/205] id=15 tokens=6 24.75s/token elapsed=20.6m
+[16/205] id=16 tokens=6 22.84s/token elapsed=21.3m
+[17/205] id=17 tokens=6 21.31s/token elapsed=22.0m
+[18/205] id=18 tokens=6 20.05s/token elapsed=22.7m
+[19/205] id=19 tokens=6 18.92s/token elapsed=23.3m
+[20/205] id=20 tokens=6 17.99s/token elapsed=24.0m
+[21/205] id=21 tokens=7 17.10s/token elapsed=24.8m
+[22/205] id=22 tokens=6 16.56s/token elapsed=25.7m
+[23/205] id=23 tokens=7 16.42s/token elapsed=27.4m
+[24/205] id=24 tokens=6 16.08s/token elapsed=28.4m
+[25/205] id=25 tokens=7 15.88s/token elapsed=29.9m
+[26/205] id=26 tokens=6 15.72s/token elapsed=31.2m
+[27/205] id=27 tokens=7 15.59s/token elapsed=32.7m
+[28/205] id=28 tokens=7 15.44s/token elapsed=34.2m
+[29/205] id=29 tokens=6 15.40s/token elapsed=35.7m
+[30/205] id=30 tokens=6 48.01s/token elapsed=116.0m
+forrtl: error (200): program aborting due to window-CLOSE event
+Image              PC                Routine            Line        Source             
+KERNELBASE.dll     00007FFFF60E63ED  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFFF782DDA7  Unknown               Unknown  Unknown
+ntdll.dll          00007FFFF8C5EE4C  Unknown               Unknown  Unknown
+^CLoading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 2740.75it/s]
+[31/205] id=31 tokens=7 3.80s/token elapsed=0.4m rss=0.78GB
+[32/205] id=32 tokens=6 3.50s/token elapsed=0.8m rss=0.77GB
+[33/205] id=33 tokens=7 3.59s/token elapsed=1.2m rss=0.78GB
+[34/205] id=34 tokens=7 3.87s/token elapsed=1.7m rss=1.25GB
+[35/205] id=35 tokens=7 4.88s/token elapsed=2.8m rss=1.18GB
+[36/205] id=36 tokens=7 5.85s/token elapsed=4.0m rss=1.23GB
+[37/205] id=37 tokens=8 7.26s/token elapsed=5.9m rss=0.85GB
+[38/205] id=38 tokens=7 8.20s/token elapsed=7.7m rss=0.94GB
+[39/205] id=39 tokens=8 9.72s/token elapsed=10.4m rss=0.68GB
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 4534.68it/s]
+[40/205] id=40 tokens=7 4.10s/token elapsed=0.5m rss=1.43GB
+[41/205] id=41 tokens=7 5.01s/token elapsed=1.2m rss=1.30GB
+[42/205] id=42 tokens=7 5.30s/token elapsed=1.9m rss=1.49GB
+[43/205] id=43 tokens=7 5.61s/token elapsed=2.6m rss=1.51GB
+[44/205] id=44 tokens=7 5.98s/token elapsed=3.5m rss=1.48GB
+[45/205] id=45 tokens=7 6.53s/token elapsed=4.6m rss=1.42GB
+[46/205] id=46 tokens=7 7.02s/token elapsed=5.7m rss=2.26GB
+[47/205] id=47 tokens=7 7.38s/token elapsed=6.9m rss=2.21GB
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 3583.84it/s]
+[48/205] id=48 tokens=7 1.24s/token elapsed=0.1m rss=0.90GB
+[49/205] id=49 tokens=7 1.20s/token elapsed=0.3m rss=0.90GB
+[50/205] id=50 tokens=7 1.23s/token elapsed=0.4m rss=0.91GB
+[51/205] id=51 tokens=9 1.33s/token elapsed=0.7m rss=0.98GB
+[52/205] id=52 tokens=7 1.38s/token elapsed=0.9m rss=0.97GB
+[53/205] id=53 tokens=7 1.42s/token elapsed=1.0m rss=0.97GB
+[54/205] id=54 tokens=7 1.46s/token elapsed=1.2m rss=0.97GB
+[55/205] id=55 tokens=7 1.49s/token elapsed=1.4m rss=0.97GB
+[56/205] id=56 tokens=7 1.51s/token elapsed=1.6m rss=0.97GB
+[57/205] id=57 tokens=8 1.53s/token elapsed=1.9m rss=0.98GB
+[58/205] id=58 tokens=8 1.54s/token elapsed=2.1m rss=0.98GB
+[59/205] id=59 tokens=8 1.55s/token elapsed=2.3m rss=0.98GB
+[60/205] id=60 tokens=8 1.56s/token elapsed=2.5m rss=0.98GB
+[61/205] id=61 tokens=8 1.57s/token elapsed=2.7m rss=0.98GB
+[62/205] id=62 tokens=8 1.57s/token elapsed=3.0m rss=0.98GB
+[63/205] id=63 tokens=8 1.58s/token elapsed=3.2m rss=0.98GB
+[64/205] id=64 tokens=8 1.59s/token elapsed=3.4m rss=0.98GB
+[65/205] id=65 tokens=8 1.59s/token elapsed=3.6m rss=0.98GB
+[66/205] id=66 tokens=8 1.60s/token elapsed=3.9m rss=0.98GB
+[67/205] id=67 tokens=8 1.60s/token elapsed=4.1m rss=0.98GB
+[68/205] id=68 tokens=9 1.61s/token elapsed=4.3m rss=0.98GB
+[69/205] id=69 tokens=8 1.61s/token elapsed=4.6m rss=0.96GB
+[70/205] id=70 tokens=9 1.61s/token elapsed=4.8m rss=0.96GB
+[71/205] id=71 tokens=8 1.61s/token elapsed=5.0m rss=0.96GB
+[72/205] id=72 tokens=9 1.62s/token elapsed=5.3m rss=0.96GB
+[73/205] id=73 tokens=10 1.62s/token elapsed=5.6m rss=1.90GB
+[74/205] id=74 tokens=8 1.62s/token elapsed=5.8m rss=1.89GB
+[75/205] id=75 tokens=8 1.63s/token elapsed=6.0m rss=1.89GB
+[76/205] id=76 tokens=9 1.63s/token elapsed=6.3m rss=1.90GB
+[77/205] id=77 tokens=8 1.63s/token elapsed=6.5m rss=1.89GB
+[78/205] id=78 tokens=8 1.64s/token elapsed=6.7m rss=1.89GB
+[79/205] id=79 tokens=8 1.64s/token elapsed=7.0m rss=1.89GB
+[80/205] id=80 tokens=8 1.64s/token elapsed=7.2m rss=1.89GB
+[81/205] id=81 tokens=8 1.64s/token elapsed=7.4m rss=1.89GB
+[82/205] id=82 tokens=8 1.64s/token elapsed=7.6m rss=1.89GB
+[83/205] id=83 tokens=11 1.65s/token elapsed=8.0m rss=2.95GB
+[84/205] id=84 tokens=11 1.65s/token elapsed=8.3m rss=2.96GB
+[85/205] id=85 tokens=10 1.65s/token elapsed=8.6m rss=2.95GB
+[86/205] id=86 tokens=11 1.66s/token elapsed=8.9m rss=2.96GB
+[87/205] id=87 tokens=10 1.66s/token elapsed=9.2m rss=2.96GB
+[88/205] id=88 tokens=9 1.66s/token elapsed=9.4m rss=2.95GB
+[89/205] id=89 tokens=9 1.66s/token elapsed=9.7m rss=2.95GB
+[90/205] id=90 tokens=9 1.66s/token elapsed=10.0m rss=2.95GB
+[91/205] id=91 tokens=9 1.66s/token elapsed=10.2m rss=2.95GB
+[92/205] id=92 tokens=9 1.66s/token elapsed=10.5m rss=2.95GB
+[93/205] id=93 tokens=9 1.67s/token elapsed=10.7m rss=2.95GB
+[94/205] id=94 tokens=9 1.67s/token elapsed=11.0m rss=2.95GB
+[95/205] id=95 tokens=10 1.67s/token elapsed=11.3m rss=2.95GB
+[96/205] id=96 tokens=9 1.67s/token elapsed=11.5m rss=2.95GB
+[97/205] id=97 tokens=9 1.67s/token elapsed=11.8m rss=2.95GB
+[98/205] id=98 tokens=11 1.67s/token elapsed=12.1m rss=2.95GB
+[99/205] id=99 tokens=10 1.67s/token elapsed=12.4m rss=2.95GB
+[100/205] id=100 tokens=9 1.67s/token elapsed=12.6m rss=2.95GB
+[101/205] id=101 tokens=9 1.67s/token elapsed=12.9m rss=2.95GB
+[102/205] id=102 tokens=10 1.67s/token elapsed=13.2m rss=2.95GB
+[103/205] id=103 tokens=10 1.67s/token elapsed=13.5m rss=2.95GB
+[104/205] id=104 tokens=10 1.68s/token elapsed=13.7m rss=2.95GB
+[105/205] id=105 tokens=10 1.68s/token elapsed=14.0m rss=2.95GB
+[106/205] id=106 tokens=10 1.68s/token elapsed=14.3m rss=2.95GB
+[107/205] id=107 tokens=9 1.68s/token elapsed=14.6m rss=2.95GB
+[108/205] id=108 tokens=9 1.68s/token elapsed=14.8m rss=2.95GB
+[109/205] id=109 tokens=10 1.68s/token elapsed=15.1m rss=2.95GB
+[110/205] id=110 tokens=10 1.67s/token elapsed=15.3m rss=2.95GB
+[111/205] id=111 tokens=10 1.67s/token elapsed=15.6m rss=2.95GB
+[112/205] id=112 tokens=10 1.67s/token elapsed=15.9m rss=2.95GB
+[113/205] id=113 tokens=10 1.67s/token elapsed=16.2m rss=2.95GB
+[114/205] id=114 tokens=10 1.67s/token elapsed=16.4m rss=2.95GB
+[115/205] id=115 tokens=12 1.67s/token elapsed=16.8m rss=4.11GB
+[116/205] id=116 tokens=10 1.67s/token elapsed=17.1m rss=4.11GB
+[117/205] id=117 tokens=11 1.67s/token elapsed=17.4m rss=4.11GB
+[118/205] id=118 tokens=9 1.67s/token elapsed=17.6m rss=4.11GB
+[119/205] id=119 tokens=12 1.67s/token elapsed=18.0m rss=4.11GB
+[120/205] id=120 tokens=10 1.67s/token elapsed=18.2m rss=4.11GB
+[121/205] id=121 tokens=11 1.67s/token elapsed=18.5m rss=4.11GB
+[122/205] id=122 tokens=10 1.67s/token elapsed=18.8m rss=4.11GB
+[123/205] id=123 tokens=11 1.67s/token elapsed=19.1m rss=4.11GB
+[124/205] id=124 tokens=11 1.67s/token elapsed=19.4m rss=4.11GB
+[125/205] id=125 tokens=10 1.67s/token elapsed=19.7m rss=4.11GB
+[126/205] id=126 tokens=10 1.67s/token elapsed=20.0m rss=4.11GB
+[127/205] id=127 tokens=10 1.67s/token elapsed=20.2m rss=4.10GB
+[128/205] id=128 tokens=10 1.67s/token elapsed=20.5m rss=4.10GB
+[129/205] id=129 tokens=13 1.67s/token elapsed=20.9m rss=5.35GB
+[130/205] id=130 tokens=11 1.67s/token elapsed=21.2m rss=5.35GB
+[131/205] id=131 tokens=11 1.67s/token elapsed=21.5m rss=5.35GB
+[132/205] id=132 tokens=11 1.67s/token elapsed=21.8m rss=5.35GB
+[133/205] id=133 tokens=11 1.67s/token elapsed=22.2m rss=5.35GB
+[134/205] id=134 tokens=11 1.67s/token elapsed=22.5m rss=5.35GB
+[135/205] id=135 tokens=11 1.67s/token elapsed=22.8m rss=5.36GB
+[136/205] id=136 tokens=12 1.67s/token elapsed=23.1m rss=5.36GB
+[137/205] id=137 tokens=12 1.68s/token elapsed=23.5m rss=5.35GB
+[138/205] id=138 tokens=11 1.68s/token elapsed=23.8m rss=5.35GB
+[139/205] id=139 tokens=11 1.68s/token elapsed=24.1m rss=5.35GB
+[140/205] id=140 tokens=11 1.68s/token elapsed=24.4m rss=5.35GB
+[141/205] id=141 tokens=11 1.68s/token elapsed=24.7m rss=5.35GB
+[142/205] id=142 tokens=11 1.68s/token elapsed=25.0m rss=5.35GB
+[143/205] id=143 tokens=12 1.68s/token elapsed=25.3m rss=5.35GB
+[144/205] id=144 tokens=12 1.68s/token elapsed=25.7m rss=5.35GB
+[145/205] id=145 tokens=11 1.68s/token elapsed=26.0m rss=5.35GB
+[146/205] id=146 tokens=12 1.68s/token elapsed=26.3m rss=5.35GB
+[147/205] id=147 tokens=11 1.68s/token elapsed=26.6m rss=5.35GB
+[148/205] id=148 tokens=11 1.68s/token elapsed=26.9m rss=5.35GB
+[149/205] id=149 tokens=12 1.68s/token elapsed=27.3m rss=5.35GB
+[150/205] id=150 tokens=12 1.68s/token elapsed=27.6m rss=5.35GB
+[151/205] id=151 tokens=12 1.68s/token elapsed=28.0m rss=5.35GB
+[152/205] id=152 tokens=12 1.68s/token elapsed=28.3m rss=5.35GB
+[153/205] id=153 tokens=13 1.68s/token elapsed=28.7m rss=5.35GB
+[154/205] id=154 tokens=12 1.68s/token elapsed=29.1m rss=5.35GB
+[155/205] id=155 tokens=12 1.68s/token elapsed=29.4m rss=5.35GB
+[156/205] id=156 tokens=12 1.68s/token elapsed=29.8m rss=5.06GB
+[157/205] id=157 tokens=12 1.68s/token elapsed=30.1m rss=5.06GB
+[158/205] id=158 tokens=12 1.68s/token elapsed=30.4m rss=5.06GB
+[159/205] id=159 tokens=14 1.69s/token elapsed=30.9m rss=5.49GB
+[160/205] id=160 tokens=12 1.69s/token elapsed=31.2m rss=5.49GB
+[161/205] id=161 tokens=12 1.69s/token elapsed=31.6m rss=5.46GB
+[162/205] id=162 tokens=12 1.69s/token elapsed=31.9m rss=5.46GB
+[163/205] id=163 tokens=12 1.69s/token elapsed=32.3m rss=5.46GB
+[164/205] id=164 tokens=13 1.69s/token elapsed=32.7m rss=5.46GB
+[165/205] id=165 tokens=12 1.69s/token elapsed=33.0m rss=5.46GB
+[166/205] id=166 tokens=12 1.69s/token elapsed=33.4m rss=3.02GB
+[167/205] id=167 tokens=13 1.69s/token elapsed=33.7m rss=1.90GB
+[168/205] id=168 tokens=12 1.69s/token elapsed=34.1m rss=1.90GB
+[169/205] id=169 tokens=12 1.69s/token elapsed=34.4m rss=1.90GB
+[170/205] id=170 tokens=12 1.69s/token elapsed=34.8m rss=1.89GB
+[171/205] id=171 tokens=12 1.69s/token elapsed=35.1m rss=1.89GB
+[172/205] id=172 tokens=12 1.69s/token elapsed=35.5m rss=1.89GB
+[173/205] id=173 tokens=12 1.69s/token elapsed=35.8m rss=1.89GB
+[174/205] id=174 tokens=12 1.69s/token elapsed=36.2m rss=1.89GB
+[175/205] id=175 tokens=12 1.69s/token elapsed=36.5m rss=1.89GB
+[176/205] id=176 tokens=12 1.69s/token elapsed=36.9m rss=1.82GB
+[177/205] id=177 tokens=14 1.70s/token elapsed=37.3m rss=1.76GB
+[178/205] id=178 tokens=14 1.70s/token elapsed=37.7m rss=1.76GB
+[179/205] id=179 tokens=13 1.70s/token elapsed=38.1m rss=1.76GB
+[180/205] id=180 tokens=13 1.70s/token elapsed=38.5m rss=1.76GB
+[181/205] id=181 tokens=13 1.70s/token elapsed=38.9m rss=1.76GB
+[182/205] id=182 tokens=14 1.70s/token elapsed=39.3m rss=1.76GB
+[183/205] id=183 tokens=13 1.70s/token elapsed=39.7m rss=1.76GB
+[184/205] id=184 tokens=14 1.70s/token elapsed=40.1m rss=1.76GB
+[185/205] id=185 tokens=14 1.70s/token elapsed=40.5m rss=1.76GB
+[186/205] id=186 tokens=13 1.71s/token elapsed=40.9m rss=1.76GB
+[187/205] id=187 tokens=13 1.71s/token elapsed=41.3m rss=1.76GB
+[188/205] id=188 tokens=13 1.71s/token elapsed=41.7m rss=1.76GB
+[189/205] id=189 tokens=13 1.71s/token elapsed=42.1m rss=1.71GB
+[190/205] id=190 tokens=13 1.71s/token elapsed=42.5m rss=0.44GB
+[191/205] id=191 tokens=13 1.71s/token elapsed=42.8m rss=0.42GB
+[192/205] id=192 tokens=13 1.71s/token elapsed=43.2m rss=0.42GB
+[193/205] id=193 tokens=13 1.71s/token elapsed=43.6m rss=0.42GB
+[194/205] id=194 tokens=14 1.71s/token elapsed=44.0m rss=0.42GB
+[195/205] id=195 tokens=14 1.71s/token elapsed=44.5m rss=0.38GB
+[196/205] id=196 tokens=15 1.71s/token elapsed=45.0m rss=1.44GB
+[197/205] id=197 tokens=14 1.72s/token elapsed=45.4m rss=1.36GB
+[198/205] id=198 tokens=14 1.72s/token elapsed=45.8m rss=1.33GB
+[199/205] id=199 tokens=14 1.72s/token elapsed=46.2m rss=1.33GB
+[200/205] id=200 tokens=14 1.72s/token elapsed=46.7m rss=1.33GB
+[201/205] id=201 tokens=15 1.72s/token elapsed=47.1m rss=1.33GB
+[202/205] id=202 tokens=15 1.72s/token elapsed=47.6m rss=1.27GB
+[203/205] id=203 tokens=15 1.72s/token elapsed=48.1m rss=0.44GB
+[204/205] id=204 tokens=15 1.72s/token elapsed=48.5m rss=0.44GB
+[205/205] id=205 tokens=15 1.72s/token elapsed=49.0m rss=0.44GB

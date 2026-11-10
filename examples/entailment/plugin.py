@@ -12,7 +12,6 @@ from uncertain import StatisticEstimate
 
 class EntailmentEntropy:
     supports_uncertainty = True
-    range_from_distance = False
 
     def __init__(self, entails, *, model_id):
         self.entails = entails

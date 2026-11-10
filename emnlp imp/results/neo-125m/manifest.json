@@ -1,0 +1,48 @@
+{
+  "model": "EleutherAI/gpt-neo-125m",
+  "revision": "21def0189f5705e2521767faed922f1f15e7d7db",
+  "n": 512,
+  "horizon": 5,
+  "seed": 0,
+  "temperature": 1.0,
+  "top_k": 0,
+  "first_step_eos": "not suppressed (raw p)",
+  "sampler": {
+    "sampler": "batched-kv-ancestral",
+    "version": "1",
+    "prefix_consistent": true,
+    "numpy": "1.26.4",
+    "batch_size": 512
+  },
+  "backend": {
+    "backend": "hf-reference:v1",
+    "model": "ModelSpec(model_id='EleutherAI/gpt-neo-125m', revision='21def0189f5705e2521767faed922f1f15e7d7db')",
+    "tokenizer": null,
+    "device": "cuda",
+    "precision": "float32",
+    "bos": 50256,
+    "eos": 50256,
+    "batching": "one-sequence",
+    "torch": "2.7.1+cu118",
+    "transformers": "5.14.1"
+  },
+  "encoder": {
+    "encoder": "layer0_local",
+    "version": "1",
+    "pooling": "mean non-EOS",
+    "position_origin": 0,
+    "backend": {
+      "backend": "hf-reference:v1",
+      "model": "ModelSpec(model_id='EleutherAI/gpt-neo-125m', revision='21def0189f5705e2521767faed922f1f15e7d7db')",
+      "tokenizer": null,
+      "device": "cuda",
+      "precision": "float32",
+      "bos": 50256,
+      "eos": 50256,
+      "batching": "one-sequence",
+      "torch": "2.7.1+cu118",
+      "transformers": "5.14.1"
+    }
+  },
+  "runtime_s_this_invocation": 3464.8251287937164
+}

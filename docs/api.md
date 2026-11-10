@@ -78,7 +78,10 @@ has a finite SE. Non-factoring statistics may read full representations and sour
 samples; they need not build a matrix. Warpings implement `apply(estimate)` and
 return `(value, se, ci_low, ci_high, leading_bias)` with a declared `domain`.
 Statistics declare `range_for(distance) -> (low, high)`; `Measure.validate` rejects
-any pair whose statistic range escapes the warping domain, naming both. Units
+any pair whose statistic range escapes the warping domain, naming both. `neglog`
+is undefined at 0, so it also rejects any statistic that can reach 0 unless it is a
+probability (`estimates_probability(distance)`: a mean of a [0,1] similarity, such
+as `prefix_indicator`); there, a zero estimate is the infinite surprisal. Units
 declare the `boundary` detector they require; a unit whose detector is not one of
 `token:v1`, `whitespace:v1`, or `punctuation:v1` also needs an encoder that lists
 it in `supported_units`, and a boundary detector in `uncertain.alignment`.
